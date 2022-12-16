@@ -68,7 +68,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm Install
+        run: pnpm install
 
       - name: Build with Next.js
         run: pnpm run --filter landing-page build
