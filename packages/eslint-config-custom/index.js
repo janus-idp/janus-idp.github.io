@@ -17,7 +17,7 @@
 module.exports = {
   plugins: ['eslint-comments', 'promise', 'unicorn', 'license-header'],
   extends: [
-    'next',
+    'plugin:@next/next/recommended',
     'turbo',
     'airbnb',
     'airbnb/hooks',
@@ -37,6 +37,7 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
       rules: {
+        'unicorn/prevent-abbreviations': 'off',
         // React is already in-scope for all files compiled with Next.js
         'react/react-in-jsx-scope': 'off',
         // SSR does not support useLayoutEffect
@@ -103,11 +104,13 @@ module.exports = {
     },
     {
       files: ['*.ts', '*.tsx'],
-      plugins: ['@typescript-eslint'],
+      plugins: ['@typescript-eslint', 'typescript-enum'],
       extends: [
         'airbnb-typescript',
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        // enums are bad https://www.youtube.com/watch?v=jjMbPt_H3RQ
+        'plugin:typescript-enum/recommended',
       ],
       parser: '@typescript-eslint/parser',
       parserOptions: {

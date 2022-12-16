@@ -18,13 +18,15 @@ const withTM = require('next-transpile-modules')(['ui']);
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
-  unstable_flexsearch: true,
-  unstable_staticImage: true,
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
+  pageExtensions: ['js', 'jsx', 'tsx', 'md', 'mdx'],
 };
 
 const plugins = [withTM, withNextra];

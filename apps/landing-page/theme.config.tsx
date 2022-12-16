@@ -16,6 +16,7 @@
 
 import { useState, useEffect } from 'react';
 import { useConfig } from 'nextra-theme-docs';
+import { Footer, GitHubLogo, HeaderLogo, SlackLogo } from 'ui';
 
 /**
  * @type {import('nextra-theme-docs').DocsThemeConfig}
@@ -24,7 +25,7 @@ const theme = {
   sidebar: {
     defaultMenuCollapseLevel: Number.POSITIVE_INFINITY,
   },
-  docsRepositoryBase: 'https://github.com/vercel/turbo/blob/main/docs',
+  docsRepositoryBase: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/landing-page',
   useNextSeoProps: function SEO(): {
     description: string;
     defaultTitle: string;
@@ -32,7 +33,7 @@ const theme = {
   } {
     const { frontMatter } = useConfig();
 
-    const section = 'janus-idp';
+    const section = 'Janus';
 
     const defaultTitle = String(frontMatter.overrideTitle) || section;
 
@@ -73,7 +74,8 @@ const theme = {
   feedback: {
     link: 'Question? Give us feedback →',
   },
-  logoLink: false,
+  logo: HeaderLogo,
+  logoLink: '/',
   editLink: {
     text: 'Edit this page on GitHub',
   },
@@ -82,6 +84,17 @@ const theme = {
   },
   nextThemes: {
     defaultTheme: 'dark',
+  },
+  project: {
+    link: 'https://github.com/orgs/janus-idp/repositories',
+    icon: GitHubLogo,
+  },
+  chat: {
+    link: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1lap9hwgi-3tm9VW8DkinqGcdRkGowlg',
+    icon: SlackLogo,
+  },
+  footer: {
+    component: Footer,
   },
 };
 

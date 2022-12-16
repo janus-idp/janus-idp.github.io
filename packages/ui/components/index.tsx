@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
-export {};
+export * from './footer/footer';
+export * from './github-logo/github-logo';
+export * from './header-logo/header-logo';
+export * from './slack-logo/slack-logo';

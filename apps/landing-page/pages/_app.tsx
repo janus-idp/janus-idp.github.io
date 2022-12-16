@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-import '../styles/globals.css';
+import '../styles/tailwind.css';
 import type { AppProps } from 'next/app';
+import { SSRProvider } from '@react-aria/ssr';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  return <Component {...pageProps} />;
+  return (
+    <SSRProvider>
+      <Component {...pageProps} />
+    </SSRProvider>
+  );
 }
 
 export default MyApp;

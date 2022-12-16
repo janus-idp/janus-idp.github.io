@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-const tailwindConfig = require('ui/tailwind.config');
+const merge = require('deepmerge');
+const uiTailwindConfig = require('ui/tailwind.config');
+
+// Do not copy the content from ui/tailwind.config.js
+uiTailwindConfig.content = [];
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  ...tailwindConfig,
+const tailwindConfig = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx,md,mdx}',
     './components/**/*.{js,ts,jsx,tsx}',
     '../../packages/ui/**/*.{js,ts,jsx,tsx}',
+    './nextra-theme-docs/**/*.{js,ts,jsx,tsx}',
+    './theme.config.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {},
   },
   plugins: [],
 };
+
+module.exports = merge(tailwindConfig, uiTailwindConfig);

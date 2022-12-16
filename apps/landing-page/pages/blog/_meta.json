@@ -1,0 +1,13 @@
+{
+  "*": {
+    "//": "Hide all the links from the sidebar or navbar, and disable ToC and Sidebar for these pages.",
+    "display": "hidden",
+    "theme": {
+      "toc": false,
+      "sidebar": false,
+      "pagination": false,
+      "typesetting": "article"
+    }
+  },
+  "blog-post-example": "Blog post example"
+}
