@@ -18,12 +18,12 @@ export const JANUS_IDP_TEAM = {
   sabre1041: {
     name: 'Andrew Block',
     twitterUsername: 'sabre1041',
-    picture: '/images/people/jaredpalmer.jpeg',
+    picture: '/images/people/sabre1041.jpg',
   },
   tumido_: {
     name: 'Tom Coufal',
     twitterUsername: 'tumido_',
-    picture: '/images/people/gaspargarcia.jpeg',
+    picture: '/images/people/tumido_.jpg',
   },
 } satisfies Record<string, AuthorDetails>;
 
