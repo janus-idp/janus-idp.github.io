@@ -23,11 +23,9 @@ uiTailwindConfig.content = [];
 /** @type {import('tailwindcss').Config} */
 const tailwindConfig = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,md,mdx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    '../../packages/ui/**/*.{js,ts,jsx,tsx}',
-    './nextra-theme-docs/**/*.{js,ts,jsx,tsx}',
-    './theme.config.{js,ts,jsx,tsx}',
+    './{pages,components}/**/*.{js,ts,jsx,tsx,md,mdx}',
+    '../../packages/ui/components/**/*.{js,ts,jsx,tsx}',
+    './theme.config.tsx',
   ],
   theme: {
     extend: {},

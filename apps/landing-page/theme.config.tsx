@@ -15,15 +15,12 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useConfig } from 'nextra-theme-docs';
-import { Footer, GitHubLogo, HeaderLogo, SlackLogo } from 'ui';
+import { useConfig, type DocsThemeConfig } from 'nextra-theme-docs';
+import { Footer, GithubLogo, HeaderLogo, SlackLogo } from 'ui/components';
 
-/**
- * @type {import('nextra-theme-docs').DocsThemeConfig}
- */
-const theme = {
+const theme: DocsThemeConfig = {
   sidebar: {
-    defaultMenuCollapseLevel: Number.POSITIVE_INFINITY,
+    defaultMenuCollapseLevel: Number.MAX_VALUE,
   },
   docsRepositoryBase: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/landing-page',
   useNextSeoProps: function SEO(): {
@@ -65,14 +62,11 @@ const theme = {
 
     return <>Last updated on {dateString}</>;
   },
-  unstable_flexsearch: true,
-  unstable_staticImage: true,
   toc: {
     float: true,
   },
-  font: false,
   feedback: {
-    link: 'Question? Give us feedback →',
+    content: <>Question? Give us feedback →</>,
   },
   logo: HeaderLogo,
   logoLink: '/',
@@ -87,7 +81,7 @@ const theme = {
   },
   project: {
     link: 'https://github.com/orgs/janus-idp/repositories',
-    icon: GitHubLogo,
+    icon: GithubLogo,
   },
   chat: {
     link: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1lap9hwgi-3tm9VW8DkinqGcdRkGowlg',

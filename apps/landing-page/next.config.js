@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-const withTM = require('next-transpile-modules')(['ui']);
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
@@ -22,13 +21,14 @@ const withNextra = require('nextra')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['ui'],
   reactStrictMode: true,
   images: {
     unoptimized: true,
   },
-  pageExtensions: ['js', 'jsx', 'tsx', 'md', 'mdx'],
+  pageExtensions: ['tsx', 'mdx'],
 };
 
-const plugins = [withTM, withNextra];
+const plugins = [withNextra];
 
 module.exports = plugins.reduce((config, plugin) => plugin(config), nextConfig);

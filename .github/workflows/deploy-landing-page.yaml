@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Deploy landing-page to Pages
+name: Deploy the Landing Page to Pages
 
 on:
   # Runs on pushes targeting the default branch
