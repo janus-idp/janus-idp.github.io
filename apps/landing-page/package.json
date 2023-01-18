@@ -12,10 +12,11 @@
   "dependencies": {
     "@react-aria/ssr": "^3.4.0",
     "next": "^13.1.2",
-    "nextra": "^2.2.3",
-    "nextra-theme-docs": "^2.2.3",
+    "nextra": "^2.2.4",
+    "nextra-theme-docs": "^2.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sharp": "^0.31.3",
     "ui": "workspace:*"
   },
   "devDependencies": {

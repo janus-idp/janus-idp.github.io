@@ -9,6 +9,7 @@
       "typesetting": "article"
     }
   },
+  "enabling-keycloak-authentication-in-backstage": "Enabling Keycloak Authentication in Backstage",
   "getting-started-with-the-backstage-helm-chart-part-1": "Getting Started with the Backstage Helm Chart (Part 1)",
   "newly-released-backstage-plugins-from-the-janus-idp-community": "Newly Released Backstage plugins from the Janus IDP community"
 }

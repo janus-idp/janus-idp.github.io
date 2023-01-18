@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-import '../styles/tailwind.css';
-import type { AppProps } from 'next/app';
-import { SSRProvider } from '@react-aria/ssr';
-import { AnalyticsProvider } from 'ui/hooks';
+// Match everything after the first occurrence of "-"
+const regex = /-([\S\s]*)$/;
 
-const analyticsConfig = {
-  writeKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY ?? '',
-  client: 'landing-page',
-};
+/**
+ * Returns a region
+ *
+ * @returns the 2 letter country name
+ */
+export function getUserCountry(language?: string): string {
+  const region = language?.match(regex)?.[1] ?? '';
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  return (
-    <SSRProvider>
-      <AnalyticsProvider {...analyticsConfig}>
-        <Component {...pageProps} />
-      </AnalyticsProvider>
-    </SSRProvider>
-  );
+  return region;
 }
 
-export default MyApp;
+export default getUserCountry;

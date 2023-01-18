@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export function HeaderLogo(): JSX.Element {
+export function JanusLogo(): JSX.Element {
   return (
     <svg className="h-8 w-auto fill-none" viewBox="0 0 1061 340" xmlns="http://www.w3.org/2000/svg">
       <g>

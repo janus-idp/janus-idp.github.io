@@ -14,24 +14,4 @@
  * limitations under the License.
  */
 
-import '../styles/tailwind.css';
-import type { AppProps } from 'next/app';
-import { SSRProvider } from '@react-aria/ssr';
-import { AnalyticsProvider } from 'ui/hooks';
-
-const analyticsConfig = {
-  writeKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY ?? '',
-  client: 'landing-page',
-};
-
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  return (
-    <SSRProvider>
-      <AnalyticsProvider {...analyticsConfig}>
-        <Component {...pageProps} />
-      </AnalyticsProvider>
-    </SSRProvider>
-  );
-}
-
-export default MyApp;
+export * from './get-user-country/get-user-country';

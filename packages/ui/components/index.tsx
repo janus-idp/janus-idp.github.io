@@ -17,5 +17,5 @@
 export * from './authors/authors';
 export * from './footer/footer';
 export * from './github-logo/github-logo';
-export * from './header-logo/header-logo';
+export * from './janus-logo/janus-logo';
 export * from './slack-logo/slack-logo';
