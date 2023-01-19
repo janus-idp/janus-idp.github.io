@@ -27,8 +27,6 @@ concurrency:
 jobs:
   # Build job
   build:
-    env:
-      NEXT_PUBLIC_ANALYTICS_WRITE_KEY: semVJB1hXAeudvf1VExo0gdJcJQheGBZ
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
