@@ -96,7 +96,7 @@ const theme: DocsThemeConfig = {
     icon: GithubLogo,
   },
   chat: {
-    link: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1lap9hwgi-3tm9VW8DkinqGcdRkGowlg',
+    link: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1nii16o6e-SGscZ4YtAktL6rRtZZBUfA',
     icon: SlackLogo,
   },
   footer: {

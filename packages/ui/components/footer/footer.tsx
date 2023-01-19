@@ -31,7 +31,7 @@ function FooterLink(props: React.PropsWithChildren<FooterLinkProps>): JSX.Elemen
     'text-sm text-[#666666] dark:text-[#888888] no-underline betterhover:hover:text-gray-700 betterhover:hover:dark:text-white transition';
   if (href.startsWith('http')) {
     return (
-      <a href={href} className={classes}>
+      <a href={href} className={classes} target='_blank' rel='noreferrer'>
         {children}
       </a>
     );
@@ -57,8 +57,8 @@ const navigation = {
       href: 'https://github.com/orgs/janus-idp/repositories',
     },
     {
-      name: 'Discord',
-      href: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1lap9hwgi-3tm9VW8DkinqGcdRkGowlg',
+      name: 'Slack',
+      href: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1nii16o6e-SGscZ4YtAktL6rRtZZBUfA',
     },
   ],
 };
