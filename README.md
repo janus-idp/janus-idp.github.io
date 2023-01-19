@@ -1,10 +1,6 @@
-# Turborepo starter
+# janus-idp.github.io
 
-This is an official pnpm starter turborepo.
-
-## Commands
-
-- `pnpm check-dependency-version-consistency . --fix`: fixes the dependency mismatch between workspaces
+This is an monorepo that automatically deploys to [janus-idp.io](janus-idp.io).
 
 ## What's inside?
 
@@ -12,62 +8,67 @@ This turborepo uses [pnpm](https://pnpm.io) as a package manager. It includes th
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- [`landing-page`](https://github.com/janus-idp/janus-idp.github.io/tree/main/apps/landing-page): The [Next.js](https://nextjs.org/) app for [janus-idp.io](janus-idp.io)
+- [`ui`](https://github.com/janus-idp/janus-idp.github.io/tree/main/packages/ui): a stub React component library shared any applications in `/apps`
+- [`eslint-config-custom`](https://github.com/janus-idp/janus-idp.github.io/tree/main/packages/eslint-config-custom): `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- [`tsconfig`](https://github.com/janus-idp/janus-idp.github.io/tree/main/packages/tsconfig): `tsconfig.json`s used throughout the monorepo
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Install dependencies
 
-### Utilities
+To install the dependencies, run the following command:
 
-This turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```console
-cd my-turborepo
-pnpm run build
+```bash
+pnpm install
 ```
 
 ### Develop
 
 To develop all apps and packages, run the following command:
 
-```console
-cd my-turborepo
+```bash
 pnpm run dev
 ```
 
-### Remote Caching
+### Lint
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+To lint all apps and packages, run the following command:
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```console
-cd my-turborepo
-pnpm dlx turbo login
+```bash
+pnpm run lint
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Build
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+To build all apps and packages, run the following command:
 
-```console
-pnpm dlx turbo link
+```bash
+pnpm run build
+```
+
+### Fix dependency mismatches
+
+To fix the dependency mismatches between workspaces, run the following command:
+
+```bash
+pnpm check-dependency-version-consistency . --fix
+```
+
+### Delete `node_modules` folders
+
+To delete all the `node_modules` folders in the workspace, run the following command:
+
+```bash
+npx npkill
 ```
 
 ## Useful Links
 
-Learn more about the power of Turborepo:
+Learn more about pnpm:
+
+- [Installation](https://pnpm.io/installation)
+- [Filtering packages](https://pnpm.io/filtering)
+
+Learn more about Turborepo:
 
 - [Pipelines](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
 - [Caching](https://turbo.build/repo/docs/core-concepts/caching)

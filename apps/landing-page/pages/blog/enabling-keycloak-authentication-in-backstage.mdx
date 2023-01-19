@@ -2,7 +2,6 @@
 title: Enabling Keycloak Authentication in Backstage
 date: 2023/01/17
 description: Enabling Keycloak Authentication in Backstage
-tag: plugins, keycloak
 ---
 
 import { Authors } from 'ui/components';
@@ -258,14 +257,14 @@ Alternatively, instead of updating the contents of the `values-backstage-keycloa
 
 Before the chart can be installed, add the Backstage chart repository as well as the dependant Bitnami repository using the following commands:
 
-```console
+```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add backstage https://backstage.github.io/charts
 ```
 
 Install the Backstage Helm chart to the Kubernetes cluster in a new namespace called backstage by executing the following command referencing the customized Values file:
 
-```console
+```bash
 helm install -n backstage --create-namespace backstage backstage/backstage -f values-backstage-keycloak.yaml
 ```
 

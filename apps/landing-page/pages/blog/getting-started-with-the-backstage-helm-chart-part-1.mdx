@@ -19,7 +19,7 @@ Helm is a versatile tool and has been integrated into a number of popular soluti
 
 Once Helm has been installed, add the backstage Helm chart repository and its dependent repository using the following commands:
 
-```console
+```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add backstage https://backstage.github.io/charts
 ```
@@ -36,7 +36,7 @@ Several options are available for accessing a Kubernetes cluster, ranging from a
 
 Once Minikube has been installed and configured, start an instance by executing the following command:
 
-```console
+```bash
 minikube start
 ```
 
@@ -74,19 +74,19 @@ Environment variables with the prefix APP_CONFIG are eligible to be interpreted 
 
 Deploy Backstage to minikube by executing the following command including specifying the Values file created previously.
 
-```console
+```bash
 helm install -n backstage --create-namespace backstage backstage/backstage -f values-minikube-default.yaml
 ```
 
 The preceding command deploys Backstage in a new namespace called backstage. Confirm the Backstage pod is running by executing the following command:
 
-```console
+```bash
 kubectl get pods -n backstage
 ```
 
 Now, forward a local port to gain access to the Backstage service from the local machine:
 
-```console
+```bash
 kubectl port-forward -n backstage svc/backstage
 ```
 
