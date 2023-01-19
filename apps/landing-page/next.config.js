@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Red Hat, Inc.
+ * Copyright 2023 Janus Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-const withTM = require('next-transpile-modules')(['ui']);
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
+  staticImage: true,
+  latex: true,
+  flexsearch: {
+    codeblocks: false,
+  },
+  defaultShowCopyCode: true,
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['ui'],
   reactStrictMode: true,
   images: {
     unoptimized: true,
   },
-  pageExtensions: ['js', 'jsx', 'tsx', 'md', 'mdx'],
+  pageExtensions: ['tsx', 'mdx'],
 };
 
-const plugins = [withTM, withNextra];
+const plugins = [withNextra];
 
 module.exports = plugins.reduce((config, plugin) => plugin(config), nextConfig);

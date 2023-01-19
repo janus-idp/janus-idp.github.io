@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-const merge = require('deepmerge');
-const uiTailwindConfig = require('ui/tailwind.config');
+// Match everything after the first occurrence of "-"
+const regex = /-([\S\s]*)$/;
 
-// Do not copy the content from ui/tailwind.config.js
-uiTailwindConfig.content = [];
+/**
+ * Returns a region
+ *
+ * @returns the 2 letter country name
+ */
+export function getUserCountry(language?: string): string {
+  const region = language?.match(regex)?.[1] ?? '';
 
-/** @type {import('tailwindcss').Config} */
-const tailwindConfig = {
-  content: [
-    './{pages,components}/**/*.{js,ts,jsx,tsx,md,mdx}',
-    '../../packages/ui/components/**/*.{js,ts,jsx,tsx}',
-    './theme.config.tsx',
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
+  return region;
+}
 
-module.exports = merge(tailwindConfig, uiTailwindConfig);
+export default getUserCountry;

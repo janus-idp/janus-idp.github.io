@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Red Hat, Inc.
+ * Copyright 2023 Janus Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
+export * from './authors/authors';
 export * from './footer/footer';
 export * from './github-logo/github-logo';
-export * from './header-logo/header-logo';
+export * from './janus-logo/janus-logo';
 export * from './slack-logo/slack-logo';

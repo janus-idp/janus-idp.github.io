@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Red Hat, Inc.
+ * Copyright 2023 Janus Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ import Link from 'next/link';
 import type { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import { ThemeSwitch } from 'nextra-theme-docs';
-import { HeaderLogo } from '../header-logo/header-logo';
+import { JanusLogo } from '../janus-logo/janus-logo';
 
 interface FooterLinkProps {
   href: string;
@@ -105,7 +105,7 @@ export function FooterContent(): JSX.Element {
               title="janus-idp.io homepage"
               href="/"
             >
-              <HeaderLogo />
+              <JanusLogo />
             </a>
             <p className="mt-4 text-xs text-gray-500 dark:text-[#888888]">
               &copy; {new Date().getFullYear()} Janus Authors. All rights reserved. <br />

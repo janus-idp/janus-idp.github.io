@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Red Hat, Inc.
+ * Copyright 2023 Janus Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,19 @@
 import '../styles/tailwind.css';
 import type { AppProps } from 'next/app';
 import { SSRProvider } from '@react-aria/ssr';
+import { AnalyticsProvider } from 'ui/hooks';
+
+const analyticsConfig = {
+  writeKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY ?? '',
+  client: 'landing-page',
+};
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <SSRProvider>
-      <Component {...pageProps} />
+      <AnalyticsProvider {...analyticsConfig}>
+        <Component {...pageProps} />
+      </AnalyticsProvider>
     </SSRProvider>
   );
 }

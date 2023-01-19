@@ -14,23 +14,4 @@
  * limitations under the License.
  */
 
-const merge = require('deepmerge');
-const uiTailwindConfig = require('ui/tailwind.config');
-
-// Do not copy the content from ui/tailwind.config.js
-uiTailwindConfig.content = [];
-
-/** @type {import('tailwindcss').Config} */
-const tailwindConfig = {
-  content: [
-    './{pages,components}/**/*.{js,ts,jsx,tsx,md,mdx}',
-    '../../packages/ui/components/**/*.{js,ts,jsx,tsx}',
-    './theme.config.tsx',
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-
-module.exports = merge(tailwindConfig, uiTailwindConfig);
+export * from './use-analytics/use-analytics';

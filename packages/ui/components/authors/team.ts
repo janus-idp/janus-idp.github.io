@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-const merge = require('deepmerge');
-const uiTailwindConfig = require('ui/tailwind.config');
-
-// Do not copy the content from ui/tailwind.config.js
-uiTailwindConfig.content = [];
-
-/** @type {import('tailwindcss').Config} */
-const tailwindConfig = {
-  content: [
-    './{pages,components}/**/*.{js,ts,jsx,tsx,md,mdx}',
-    '../../packages/ui/components/**/*.{js,ts,jsx,tsx}',
-    './theme.config.tsx',
-  ],
-  theme: {
-    extend: {},
+export const JANUS_IDP_TEAM = {
+  sabre1041: {
+    name: 'Andrew Block',
+    twitterUsername: 'sabre1041',
+    picture: '/images/people/sabre1041.jpg',
   },
-  plugins: [],
-};
+  tumido_: {
+    name: 'Tom Coufal',
+    twitterUsername: 'tumido_',
+    picture: '/images/people/tumido_.jpg',
+  },
+} satisfies Record<string, AuthorDetails>;
 
-module.exports = merge(tailwindConfig, uiTailwindConfig);
+export type Author = keyof typeof JANUS_IDP_TEAM;
+export interface AuthorDetails {
+  name: string;
+  twitterUsername?: string;
+  picture: string;
+}

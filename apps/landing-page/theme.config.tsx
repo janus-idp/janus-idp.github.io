@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Red Hat, Inc.
+ * Copyright 2023 Janus Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,12 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useConfig } from 'nextra-theme-docs';
-import { Footer, GitHubLogo, HeaderLogo, SlackLogo } from 'ui';
+import { useConfig, type DocsThemeConfig } from 'nextra-theme-docs';
+import { Footer, GithubLogo, JanusLogo, SlackLogo } from 'ui/components';
 
-/**
- * @type {import('nextra-theme-docs').DocsThemeConfig}
- */
-const theme = {
+const theme: DocsThemeConfig = {
   sidebar: {
-    defaultMenuCollapseLevel: Number.POSITIVE_INFINITY,
+    defaultMenuCollapseLevel: Number.MAX_VALUE,
   },
   docsRepositoryBase: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/landing-page',
   useNextSeoProps: function SEO(): {
@@ -65,17 +62,26 @@ const theme = {
 
     return <>Last updated on {dateString}</>;
   },
-  unstable_flexsearch: true,
-  unstable_staticImage: true,
   toc: {
     float: true,
   },
-  font: false,
   feedback: {
-    link: 'Question? Give us feedback →',
+    content: <>Question? Give us feedback →</>,
   },
-  logo: HeaderLogo,
+  logo: JanusLogo,
   logoLink: '/',
+  head: function Head() {
+    return (
+      <>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/images/favicon/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png" />
+        <link rel="manifest" href="/images/favicon/site.webmanifest" />
+      </>
+    );
+  },
   editLink: {
     text: 'Edit this page on GitHub',
   },
@@ -87,7 +93,7 @@ const theme = {
   },
   project: {
     link: 'https://github.com/orgs/janus-idp/repositories',
-    icon: GitHubLogo,
+    icon: GithubLogo,
   },
   chat: {
     link: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1lap9hwgi-3tm9VW8DkinqGcdRkGowlg',

@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Red Hat, Inc.
+ * Copyright 2023 Janus Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export function GitHubLogo(): JSX.Element {
+export function GithubLogo(): JSX.Element {
   return (
     <svg className="h-5 w-auto fill-none" viewBox="0 0 480 385" xmlns="http://www.w3.org/2000/svg">
       <path
