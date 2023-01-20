@@ -28,10 +28,10 @@ function FooterLink(props: React.PropsWithChildren<FooterLinkProps>): JSX.Elemen
   const { href, children } = props;
 
   const classes =
-    'text-sm text-[#666666] dark:text-[#888888] no-underline betterhover:hover:text-gray-700 betterhover:hover:dark:text-white transition';
+    'text-sm text-[#666666] dark:text-[#888888] no-underline hover:text-gray-700 hover:dark:text-white transition';
   if (href.startsWith('http')) {
     return (
-      <a href={href} className={classes} target='_blank' rel='noreferrer'>
+      <a href={href} className={classes} target="_blank" rel="noreferrer">
         {children}
       </a>
     );
