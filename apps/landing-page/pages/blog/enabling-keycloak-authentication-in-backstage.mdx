@@ -37,7 +37,7 @@ Similar to the other authentication providers that are included with Backstage, 
 
 First, update the Backstage frontend by enabling the `ProxiedSignInPage` by making the following changes in the `packages/app/src/App.tsx` file:
 
-```ts filename="packages/app/src/App.tsx" {1,5-7}
+```tsx filename="packages/app/src/App.tsx" {1,5-7}
 import { ProxiedSignInPage } from '@backstage/core-components';
 
 const app = createApp({
@@ -161,7 +161,7 @@ The next step is to obtain the Client Secret so that it can be used later on as 
 
 ## Deploying Backstage using the Backstage Helm Chart
 
-Given that the required prerequisites have been completed and there is a container image of Backstage available and Keycloak has been configured as an Identity Provider, the final step is to deploy Backstage. As previously mentioned, Backstage can be deployed in a variety of ways, but in this case, a deployment to a Kubernetes cluster will be used and the easiest method for deploying Backstage to Kubernetes is to use the Backstage Helm chart as it not only streamlines the deployment process, but provides the capabilities to define the required configurations to enable OAuth authentication with Keycloak. A full writeup on the [Backstage Helm chart](https://github.com/backstage/charts/tree/main/charts/backstage) including the various configurations that it enables can be found [here](https://janus-idp.io/blog/getting-started-with-helm-chart-part1).
+Given that the required prerequisites have been completed and there is a container image of Backstage available and Keycloak has been configured as an Identity Provider, the final step is to deploy Backstage. As previously mentioned, Backstage can be deployed in a variety of ways, but in this case, a deployment to a Kubernetes cluster will be used and the easiest method for deploying Backstage to Kubernetes is to use the Backstage Helm chart as it not only streamlines the deployment process, but provides the capabilities to define the required configurations to enable OAuth authentication with Keycloak. A full writeup on the [Backstage Helm chart](https://github.com/backstage/charts/tree/main/charts/backstage) including the various configurations that it enables can be found [here](./getting-started-with-the-backstage-helm-chart-part-1).
 
 The OAuth2 proxy that bridges the integration between Backstage and Keycloak is deployed as a sidecar container alongside Backstage. Sidecar containers can be enabled by specifying the `backstage.extraContainer` Helm Value. The entire definition of the OAuth proxy container as well as the ability to templatize the required configurations is also supported.
 
