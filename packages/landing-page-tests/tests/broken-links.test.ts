@@ -80,6 +80,7 @@ function getUrls(directory_path: string): string[] {
   for (const item of directory) {
     if (item.isFile() && !item.name.startsWith('_')) {
       const absoluteFilePath = path.join(directory_path, item.name);
+      console.log(absoluteFilePath);
       // get the relative file path under the pages directory
       const relativeFilePath = absoluteFilePath.split('apps\\landing-page\\pages')[1];
       const url = relativeFilePath
