@@ -6,6 +6,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "test:e2e": {
+      "dependsOn": ["^build"]
+    },
+    "test:unit": {
+      "cache": false
+    },
     "lint": {
       "outputs": []
     },

@@ -155,7 +155,7 @@ On the Capability Config page, ensure the Client authentication checkbox is enab
 
 Only one configuration needs to be specified on the Settings tab, the Valid redirect URI's. This value represents the endpoint that is exposed by the OAuth2 proxy that will be sitting in front of the Backstage instance, so there is a requirement that the hostname that will be used for Backstage be known.
 
-The OAuth callback url that needs to be configured in the Keycloak Valid Redirect URI's field takes the form `<BACKSTAGE_URL>/oauth2/callback`. So for example, if Backstage is to be accessed at https://backstage.example.com, the value that should be entered into the field would be [https://backstage.example.com/oauth2/callback](https://backstage.example.com/oauth2/callback). Once the value has been entered, click **Save**.
+The OAuth callback url that needs to be configured in the Keycloak Valid Redirect URI's field takes the form `<BACKSTAGE_URL>/oauth2/callback`. So for example, if Backstage is to be accessed at `https://backstage.example.com`, the value that should be entered into the field would be `https://backstage.example.com/oauth2/callback`. Once the value has been entered, click **Save**.
 
 The next step is to obtain the Client Secret so that it can be used later on as part of the OAuth2-proxy configuration. Navigate to the **Credentials** page and copy the value present in the _Client Secret_ textbox.
 

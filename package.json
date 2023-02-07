@@ -4,8 +4,12 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "ci": "turbo run build test:all lint",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "test:unit": "turbo run test:unit --parallel",
+    "test:e2e": "turbo run test:e2e --parallel",
+    "test:all": "turbo run test:e2e test:unit",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install"
@@ -17,7 +21,7 @@
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "tsconfig": "workspace:*",
-    "turbo": "^1.7.0"
+    "turbo": "^1.7.3"
   },
   "engines": {
     "node": ">=14.0.0"

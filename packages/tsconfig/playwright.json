@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Playwright",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "lib": ["esnext", "dom"],
+    "module": "ESNext",
+    "target": "es6"
+  }
+}

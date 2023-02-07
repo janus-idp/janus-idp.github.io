@@ -1,0 +1,18 @@
+{
+  "name": "landing-page-tests",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "cd ../../apps/landing-page && npm run start",
+    "test": "playwright test",
+    "test:e2e": "start-server-and-test --expect 200 http://127.0.0.1:3000"
+  },
+  "dependencies": {
+    "landing-page": "workspace:*",
+    "start-server-and-test": "^1.15.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.30.0",
+    "@types/node": "^18.11.14"
+  }
+}
