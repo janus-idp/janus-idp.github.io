@@ -10,13 +10,14 @@
       "dependsOn": ["^build"]
     },
     "test:unit": {
-      "cache": false
+      "outputs": []
     },
     "lint": {
       "outputs": []
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     }
   }
 }
