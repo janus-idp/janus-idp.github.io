@@ -24,7 +24,7 @@ import path from 'node:path';
 test.describe.configure({ mode: 'parallel' });
 
 // get all the urls from the pages directory
-const urls = getUrls(path.join(__dirname, '../../../apps/landing-page/pages'));
+const urls = getUrls(path.join(__dirname, '..', '..', '..', 'apps', 'landing-page', 'pages'));
 
 // remove the index page from the urls since we reroute it to /blog
 const indexPageIndex = urls.indexOf('');
@@ -80,9 +80,10 @@ function getUrls(directory_path: string): string[] {
   for (const item of directory) {
     if (item.isFile() && !item.name.startsWith('_')) {
       const absoluteFilePath = path.join(directory_path, item.name);
-      console.log(absoluteFilePath);
       // get the relative file path under the pages directory
-      const relativeFilePath = absoluteFilePath.split('apps\\landing-page\\pages')[1];
+      const relativeFilePath = absoluteFilePath.split(
+        path.join('apps', 'landing-page', 'pages'),
+      )[1];
       const url = relativeFilePath
         // replace replace \\ with /
         .replace(/\\/g, '/')
