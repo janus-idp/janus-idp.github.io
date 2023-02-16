@@ -87,7 +87,7 @@ kubectl get pods -n backstage
 Now, forward a local port to gain access to the Backstage service from the local machine:
 
 ```bash
-kubectl port-forward -n backstage svc/backstage
+kubectl port-forward -n backstage svc/backstage 7007:7007
 ```
 
 Open a web browser and navigate to [http://localhost:7007](http://localhost:7007) to view the deployed instance of Backstage.
