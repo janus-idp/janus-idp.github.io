@@ -65,7 +65,7 @@ Fortunately, OpenShift can automatically “upconvert” Kubernetes native Ingre
 
 To work around this challenge, the generated Route that is created from an Ingress resource can be configured with a TLS termination type of `reencrypt`. TLS communication is terminated at the Ingress router and reencrypted for transport to the underlying pod. Since OpenShift assets trust the certificate that is used by the service-ca controller, trust is established for the final leg of communication enabling a fully trusted path from client to server.
 
-Similar to the enablement of the Service Account as a OAuth Client and the Service Service Certificate feature, an annotation can be placed on an Ingress resource with the key `route.openshift.io/termination` with the value of `reencrypt` to set up the Route to expose the Backstage instance. 
+Similar to the enablement of the Service Account as a OAuth Client and the Service Service Certificate feature, an annotation can be placed on an `Ingress` resource with the key `route.openshift.io/termination` with the value of `reencrypt` to set up the `Route` to expose the Backstage instance. 
 
 The following Helm values can be specified to configure the Ingress resource:
 
