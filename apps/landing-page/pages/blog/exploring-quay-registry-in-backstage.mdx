@@ -10,16 +10,16 @@ import { Authors } from 'ui/components';
 
 <Authors authors={['tumido_']} />
 
-The Janus IDP family of Backstage plugins is expanding! Please welcome our new member - a frontend plugin that enriches application view in Backstage with insights from Quay registry.
+The Janus IDP family of Backstage plugins is expanding! Please welcome our new member - a frontend plugin that enriches application view in Backstage with insights from the Quay registry.
 
-Backstage charts and models the software ecosystem as Catalog entities. Users compose small individual service components into a bigger picture. And in order to truly understand and fully describe the individual building blocks, Backstage users construct views to capture different aspects about these components. From technical documentation, through dependencies and relation to deployment state, CI and CD. And part of this picture is understanding what is actually being deployed into live environments. A view of the available and deployed container images. This new Quay plugin for Backstage brings that view.
+Backstage charts and models the software ecosystem as Catalog entities. Users compose small individual service components into a bigger picture. And in order to truly understand and fully describe the individual building blocks, Backstage users construct views to capture different aspects of these components. From technical documentation, through dependencies and relation to deployment state, CI and CD. And part of this picture is understanding what is actually being deployed into live environments: a view of the available and deployed container images. This new Quay plugin for Backstage brings that view.
 
-Quay is a OCI-compatible registry that allows users to build, store and distribute container images and other OCI artifacts. It is available as a hosted service on quay.io as well as a self hosted environment deployable to any OpenShift cluster through a Quay operator. 
+Quay is an OCI-compatible registry that allows users to build, store and distribute container images and other OCI artifacts. It is available as a hosted service on quay.io as well as a self-hosted environment deployable to any OpenShift cluster through a Quay operator. 
 
 
 ## Installation and setup
 
-With this plugin, viewing available container images in a particular repository is easy with this plugin. The following guide will elaborate in detail individual steps and all currently supported settings and options.
+With this plugin, viewing available container images in a particular repository is easy. The following guide will elaborate in detail on individual steps and all currently supported settings and options.
 
 First, it is necessary to install the plugin. Please add it to the frontend of your Backstage instance:
 
@@ -29,7 +29,7 @@ yarn workspace app add @janus-idp/backstage-plugin-quay
 
 ### Connecting to Quay registry via Proxy
 
-Plugin leverages the Backstage native proxy capabilities to query Quay API, therefore it needs to be configured in `app-config.yaml`. In order to connect the Backstage instance to the public hosted Quay.io environment, following configuration can be used:
+Plugin leverages the Backstage native proxy capabilities to query Quay API; therefore, it needs to be configured in `app-config.yaml`. In order to connect the Backstage instance to the public hosted Quay.io environment, the following configuration can be used:
 
 ```yaml filename="app-config.yaml"
 proxy:
@@ -40,7 +40,7 @@ proxy:
       X-Requested-With: 'XMLHttpRequest'
 ```
 
-When accessing private Quay repositories, it is necessary to extend this configuration with `Authorization` header and Quay API token. This token can be obtained by creating a Quay Application using [steps outlined in this documentation](https://docs.quay.io/api/#applications-and-tokens). Once a token is obtained, the header can be set by extending the `app-config.yaml` setup above with additional header:
+When accessing private Quay repositories, it is necessary to extend this configuration with `Authorization` header and Quay API token. This token can be obtained by creating a Quay Application using the [steps outlined in this documentation](https://docs.quay.io/api/#applications-and-tokens). Once a token is obtained, the header can be set by extending the `app-config.yaml` setup above with an additional header:
 
 ```yaml {7} filename="app-config.yaml"
 proxy:
@@ -54,7 +54,7 @@ proxy:
 
 Be aware that the `QUAY_TOKEN` is an environment variable that has to be available to the Backstage instance at runtime.
 
-Another popular demand may be to use this plugin to access a private registry, a self-hosted Quay deployment. This can be achieved by a simple change of the `target` property in the settings above. In addition to that, if the self hosted Quay registry is also deployed with a self-signed certificate that is not in the certificate chain of trust for the Backstage instance, the `secure` option has to be unset.
+Another popular demand may be to use this plugin to access a private registry, a self-hosted Quay deployment. This can be achieved by simply changing the `target` property in the settings above. In addition to that, if the self-hosted Quay registry is also deployed with a self-signed certificate that is not in the certificate chain of trust for the Backstage instance, the `secure` option has to be unset.
 
 ```yaml {3,8} filename="app-config.yaml"
 proxy:
@@ -78,7 +78,7 @@ quay:
 
 ### Enabling Quay plugin widget in UI
 
-Now that  the plugin is configured to access the desired Quay registry, enable the UI by enabling an additional view in the frontend application.(`packages/app/src/components/catalog/EntityPage.tsx` file in the bootstrap application)
+Now that the plugin is configured to access the desired Quay registry, enable the UI by enabling an additional view in the frontend application.(`packages/app/src/components/catalog/EntityPage.tsx` file in the bootstrap application)
 
 ```tsx filename="packages/app/src/components/catalog/EntityPage.tsx"
 import { QuayPage, isQuayAvailable } from '@fmenesesg/backstage-plugin-quay';
@@ -103,7 +103,7 @@ metadata:
     'quay.io/repository-slug': '<ORGANIZATION>/<REPOSITORY>'
 ```
 
-For example if we annotate a `Component` with `'quay.io/repository-slug': 'janus-idp/redhat-backstage-build'`, we are presented with following page:
+For example, if we annotate a `Component` with `'quay.io/repository-slug': 'janus-idp/redhat-backstage-build'`, we are presented with the following page:
 
 
 ![Backstage view for janus-idp/redhat-backstage-build Quay repository](/images/blog/exploring-quay-registry-in-backstage/widget.png)
@@ -111,6 +111,6 @@ For example if we annotate a `Component` with `'quay.io/repository-slug': 'janus
 
 ## Next steps
 
-Although this plugin doesn’t have the vast features available in the Quay UI, it brings much needed value to Backstage users.  In the future we plan to iterate on this plugin and provide users with more insights into unique Quay functions like vulnerability scanning and detailed manifest views.
+Although this plugin doesn’t have the vast features available in the Quay UI, it brings much-needed value to Backstage users.  In the future, we plan to iterate on this plugin and provide users with more insights into unique Quay functions like vulnerability scanning and detailed manifest views.
 
 To contribute to this plugin, report issues, seek guidance or provide feedback, please see our github repository [https://github.com/janus-idp/backstage-plugins/tree/main/plugins/quay](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/quay) and/or reach out to us on Janus IDP Slack.
