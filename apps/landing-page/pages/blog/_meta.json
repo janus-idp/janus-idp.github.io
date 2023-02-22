@@ -9,6 +9,7 @@
       "typesetting": "article"
     }
   },
+  "exploring-quay-registry-in-backstage": "Exploring Quay registry in Backstage",
   "using-openshift-authentication-to-secure-access-to-backstage": "Using OpenShift Authentication to Secure Access to Backstage",
   "deploying-backstage-onto-openshift-using-helm": "Deploying Backstage onto OpenShift Using the Backstage Helm Chart",
   "ingesting-keycloak-organizational-data-into-the-backstage-catalog": "Ingesting Keycloak Organizational Data into the Backstage Catalog",
