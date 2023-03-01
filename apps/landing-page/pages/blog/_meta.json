@@ -9,6 +9,7 @@
       "typesetting": "article"
     }
   },
+  "exposing-your-3scale-apis": "Exposing your 3scale APIs through the Backstage catalog",
   "exploring-quay-registry-in-backstage": "Exploring Quay registry in Backstage",
   "using-openshift-authentication-to-secure-access-to-backstage": "Using OpenShift Authentication to Secure Access to Backstage",
   "deploying-backstage-onto-openshift-using-helm": "Deploying Backstage onto OpenShift Using the Backstage Helm Chart",
