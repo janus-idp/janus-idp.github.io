@@ -81,7 +81,7 @@ quay:
 Now that the plugin is configured to access the desired Quay registry, enable the UI by enabling an additional view in the frontend application.(`packages/app/src/components/catalog/EntityPage.tsx` file in the bootstrap application)
 
 ```tsx filename="packages/app/src/components/catalog/EntityPage.tsx"
-import { QuayPage, isQuayAvailable } from '@fmenesesg/backstage-plugin-quay';
+import { QuayPage, isQuayAvailable } from '@janus-idp/backstage-plugin-quay';
 
 const serviceEntityPage = (
   <EntityPageLayout>
