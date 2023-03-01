@@ -9,6 +9,7 @@
       "typesetting": "article"
     }
   },
+  "janus-backstage-images-available-on-quay": "Janus Backstage Images Now Available on quay.io",
   "exposing-your-3scale-apis": "Exposing your 3scale APIs through the Backstage catalog",
   "exploring-quay-registry-in-backstage": "Exploring Quay registry in Backstage",
   "using-openshift-authentication-to-secure-access-to-backstage": "Using OpenShift Authentication to Secure Access to Backstage",
