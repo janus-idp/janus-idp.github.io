@@ -15,6 +15,11 @@
  */
 
 export const JANUS_IDP_TEAM = {
+  _div_gupta: {
+    name: 'Divyanshi Gupta',
+    twitterUsername: '_div_gupta',
+    picture: '/images/people/_div_gupta.jpg',
+  },
   frmenesesg: {
     name: 'Francisco Meneses',
     twitterUsername: 'frmenesesg',
