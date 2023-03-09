@@ -53,7 +53,7 @@ const navigation = {
   general: [
     {
       name: 'Blog',
-      href: '/'
+      href: '/blog'
     },
     {
       name: 'YouTube',
