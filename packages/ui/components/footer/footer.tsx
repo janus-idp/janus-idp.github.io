@@ -58,7 +58,7 @@ const navigation = {
     {
       name: 'YouTube',
       href: 'https://www.youtube.com/@januscommunity'
-    },    
+    },
   ],
   support: [
     {
