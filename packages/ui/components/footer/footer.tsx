@@ -50,7 +50,16 @@ function FooterHeader(props: PropsWithChildren): JSX.Element {
 }
 
 const navigation = {
-  general: [{ name: 'Blog', href: '/' }],
+  general: [
+    {
+      name: 'Blog',
+      href: '/blog'
+    },
+    {
+      name: 'YouTube',
+      href: 'https://www.youtube.com/@januscommunity'
+    },
+  ],
   support: [
     {
       name: 'GitHub',
