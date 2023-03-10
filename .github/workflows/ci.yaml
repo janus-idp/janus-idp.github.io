@@ -64,8 +64,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --prefer-offline --frozen-lockfile
 
-      - name: Install playwright browser
-        run: pnpx playwright install
+      - name: Install playwright browsers
+        run: pnpx playwright install --with-deps
 
       - name: Run CI
         run: pnpm run ci
