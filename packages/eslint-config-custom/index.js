@@ -143,8 +143,8 @@ module.exports = {
         '@typescript-eslint/prefer-function-type': 'error',
         // Requires classes to make member access explicit
         '@typescript-eslint/explicit-member-accessibility': 'error',
-        // Requires the use of interface over type when possible
-        '@typescript-eslint/consistent-type-definitions': 'error',
+        // Requires the use of type over interface when possible
+        '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
         // Requires consistent type casting
         '@typescript-eslint/consistent-type-assertions': 'error',
         // Requires the T[] type syntax for an array

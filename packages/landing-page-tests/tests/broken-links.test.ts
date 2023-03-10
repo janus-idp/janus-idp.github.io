@@ -16,13 +16,12 @@
 
 /* eslint-disable no-await-in-loop */
 
-import { test, expect } from '@playwright/test';
+import { test, expect, type Locator, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
 // Run tests in parallel
 test.describe.configure({ mode: 'parallel' });
-
 // get all the urls from the pages directory
 const urls = getUrls(path.join(__dirname, '..', '..', '..', 'apps', 'landing-page', 'pages'));
 
@@ -36,36 +35,54 @@ for (const url of urls) {
     // The default timeout isn't long enough
     test.slow();
 
-    await page.goto(`http://localhost:3000${url}`);
+    await page.goto(url);
 
-    const anchors = page.locator('a');
-    const brokenAnchors: { text: string; href: string }[] = [];
+    const anchorElements = page.locator('a');
+    const anchorCount = await anchorElements.count();
+    const anchors: (AnchorProperties | null)[] = [];
+    const brokenAnchors: (AnchorProperties | null)[] = [];
 
-    for (let i = 0; i < (await anchors.count()); i += 1) {
-      const anchor = anchors.nth(i);
-      const text = (await anchor.textContent()) || '';
-      const href = await anchor.getAttribute('href');
+    // We need to grab all of the anchors before we start navigating to them
+    // otherwise we will break anchor elements dom reference
+    for (let i = 0; i < anchorCount; i += 1) {
+      const anchorElement = anchorElements.nth(i);
 
-      if (!href) {
-        brokenAnchors.push({ text, href: '' });
+      anchors.push(await extractAnchorProperties(anchorElement));
+    }
+
+    // test each anchor
+    for (const anchor of anchors) {
+      if (
+        [
+          'https://join.slack.com/',
+          'https://github.com/orgs/janus-idp/repositories',
+          'https://open-cluster-management.io/',
+        ].includes(anchor?.href || '')
+      ) {
+        // Slack join links are always broken
+        // eslint-disable-next-line no-continue
+        continue;
       }
 
-      // if the href is relative, prepend the url
-      if (href && !href.startsWith('http')) {
-        try {
-          await page.goto(`http://localhost:3000${url}`);
-        } catch {
-          brokenAnchors.push({ text, href });
-        }
+      if (anchor?.href.charAt(0) === '#' || anchor?.href === '/') {
+        // Anchors that link to other anchors on the same page are always broken
+        // eslint-disable-next-line no-continue
+        continue;
       }
 
-      // if the href is absolute, navigate to it
-      if (href && href.startsWith('http')) {
-        try {
-          await page.goto(href);
-        } catch {
-          brokenAnchors.push({ text, href });
-        }
+      if (/join\.slack\.com/.test(anchor?.href || '')) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      if (!anchor) {
+        brokenAnchors.push(anchor);
+      }
+
+      const isBroken = await testAnchor(anchor as AnchorProperties, page);
+
+      if (isBroken) {
+        brokenAnchors.push(anchor);
       }
     }
 
@@ -99,4 +116,41 @@ function getUrls(directory_path: string): string[] {
   }
 
   return newUrls;
+}
+
+type AnchorProperties = {
+  text: string;
+  href: string;
+};
+
+async function extractAnchorProperties(anchor: Locator): Promise<AnchorProperties | null> {
+  let text = await anchor.textContent();
+  let href = await anchor.getAttribute('href');
+
+  // No information about the anchor
+  if (!text && !href) {
+    return null;
+  }
+
+  text ||= '';
+  href ||= '';
+
+  return { text, href };
+}
+
+async function testAnchor(anchorProperties: AnchorProperties, page: Page): Promise<boolean> {
+  const { href } = anchorProperties;
+
+  // All anchors should have an href
+  if (href === '') {
+    return true;
+  }
+
+  try {
+    await page.goto(href, { timeout: 0 });
+  } catch {
+    return true;
+  }
+
+  return false;
 }

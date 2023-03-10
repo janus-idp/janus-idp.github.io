@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "cd ../../apps/landing-page && npm run start",
-    "test": "playwright test",
+    "test": "playwright test --config=playwright.config.ts",
     "test:e2e": "start-server-and-test --expect 200 http://127.0.0.1:3000"
   },
   "dependencies": {
