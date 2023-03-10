@@ -20,75 +20,69 @@ import { test, expect, type Locator, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
-// Run tests in parallel
-test.describe.configure({ mode: 'parallel' });
 // get all the urls from the pages directory
-const urls = getUrls(path.join(__dirname, '..', '..', '..', 'apps', 'landing-page', 'pages'));
+const localUrls = getUrls(path.join(__dirname, '..', '..', '..', 'apps', 'landing-page', 'pages'));
 
 // remove the index page from the urls since we reroute it to /blog
-const indexPageIndex = urls.indexOf('');
-urls.splice(indexPageIndex, 1);
+const indexPageIndex = localUrls.indexOf('');
+localUrls.splice(indexPageIndex, 1);
 
-// test each url separately for parallelism
-for (const url of urls) {
-  test(`broken links on page ${url}`, async ({ page }) => {
-    // The default timeout isn't long enough
-    test.slow();
+const linksToIgnore = new Set(['https://open-cluster-management.io/']);
 
+// The test cannot be parallelized because we are navigating to external websites and they think we are DDOSing them
+test('broken links on pages', async ({ page }) => {
+  test.setTimeout(150_000);
+
+  const anchors = new Map<string, string[]>();
+
+  for (const url of localUrls) {
     await page.goto(url);
 
     const anchorElements = page.locator('a');
     const anchorCount = await anchorElements.count();
-    const anchors: (AnchorProperties | null)[] = [];
-    const brokenAnchors: (AnchorProperties | null)[] = [];
 
     // We need to grab all of the anchors before we start navigating to them
     // otherwise we will break anchor elements dom reference
     for (let i = 0; i < anchorCount; i += 1) {
       const anchorElement = anchorElements.nth(i);
 
-      anchors.push(await extractAnchorProperties(anchorElement));
-    }
+      const href = await extractAnchorProperties(anchorElement);
 
-    // test each anchor
-    for (const anchor of anchors) {
-      if (
-        [
-          'https://join.slack.com/',
-          'https://github.com/orgs/janus-idp/repositories',
-          'https://open-cluster-management.io/',
-        ].includes(anchor?.href || '')
-      ) {
-        // Slack join links are always broken
+      // ignore anchors that are not links
+      if (!(href.charAt(0) === '/' || href.startsWith('http'))) {
         // eslint-disable-next-line no-continue
         continue;
       }
 
-      if (anchor?.href.charAt(0) === '#' || anchor?.href === '/') {
-        // Anchors that link to other anchors on the same page are always broken
-        // eslint-disable-next-line no-continue
-        continue;
-      }
+      if (anchors.has(href)) {
+        const pages = anchors.get(href);
 
-      if (/join\.slack\.com/.test(anchor?.href || '')) {
-        // eslint-disable-next-line no-continue
-        continue;
-      }
-
-      if (!anchor) {
-        brokenAnchors.push(anchor);
-      }
-
-      const isBroken = await testAnchor(anchor as AnchorProperties, page);
-
-      if (isBroken) {
-        brokenAnchors.push(anchor);
+        // pages will already be defined since we are checking if it has the href
+        (pages as string[]).push(url);
+      } else {
+        anchors.set(href, [url]);
       }
     }
+  }
 
-    expect(brokenAnchors).toEqual([]);
-  });
-}
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  for (const [_href, _urls] of anchors) {
+    // typescript cannot correctly infer that _href is a string and _pages is a string[]
+    const href = _href as string;
+    const urls = _urls as string[];
+
+    if (linksToIgnore.has(href)) {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    const isBroken = await testAnchor(href, urls, page);
+
+    if (isBroken) {
+      expect([href], `broken on ${urls.join(', ')}`).toStrictEqual([]);
+    }
+  }
+});
 
 function getUrls(directory_path: string): string[] {
   const newUrls: string[] = [];
@@ -118,36 +112,20 @@ function getUrls(directory_path: string): string[] {
   return newUrls;
 }
 
-type AnchorProperties = {
-  text: string;
-  href: string;
-};
+async function extractAnchorProperties(anchor: Locator): Promise<string> {
+  const href = (await anchor.getAttribute('href')) || 'undefined href';
 
-async function extractAnchorProperties(anchor: Locator): Promise<AnchorProperties | null> {
-  let text = await anchor.textContent();
-  let href = await anchor.getAttribute('href');
-
-  // No information about the anchor
-  if (!text && !href) {
-    return null;
-  }
-
-  text ||= '';
-  href ||= '';
-
-  return { text, href };
+  return href;
 }
 
-async function testAnchor(anchorProperties: AnchorProperties, page: Page): Promise<boolean> {
-  const { href } = anchorProperties;
-
+async function testAnchor(href: string, urls: string[], page: Page): Promise<boolean> {
   // All anchors should have an href
   if (href === '') {
     return true;
   }
 
   try {
-    await page.goto(href, { timeout: 0 });
+    await page.goto(href);
   } catch {
     return true;
   }
