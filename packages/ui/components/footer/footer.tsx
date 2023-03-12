@@ -67,7 +67,7 @@ const navigation = {
     },
     {
       name: 'Slack',
-      href: 'https://janus-idp.slack.com/archives/C04EDTPJRK5',
+      href: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1pxtehxom-fCFtF9rRe3vFqUiFFeAkmg',
     },
   ],
 };
