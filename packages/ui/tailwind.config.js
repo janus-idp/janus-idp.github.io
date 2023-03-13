@@ -34,6 +34,7 @@ module.exports = {
       },
       colors: {
         'janus-blue': 'rgb(0, 149, 150, <alpha-value>)',
+        'nextra-blue': 'rgb(0, 138, 230, <alpha-value>)',
       },
     },
   },

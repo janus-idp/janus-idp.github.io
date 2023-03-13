@@ -16,5 +16,10 @@
     "theme": {
       "typesetting": "article"
     }
+  },
+  "showcase_link": {
+    "title": "Showcase",
+    "href": "https://showcase.janus-idp.io/",
+    "newWindow": true
   }
 }

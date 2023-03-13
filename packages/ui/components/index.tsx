@@ -15,7 +15,8 @@
  */
 
 export * from './authors/authors';
+export * from './contribute/contribute-plugin';
 export * from './footer/footer';
-export * from './github-logo/github-logo';
 export * from './janus-logo/janus-logo';
-export * from './slack-logo/slack-logo';
+export * from './social/social';
+export * from './social/social-links';

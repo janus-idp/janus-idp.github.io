@@ -26,6 +26,7 @@
     "encoding": "^0.1.13",
     "next": "^13.1.2",
     "nextra-theme-docs": "2.2.4",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0"
   }
 }

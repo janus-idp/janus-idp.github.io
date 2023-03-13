@@ -67,6 +67,7 @@ pnpm run -F landing-page export
     - [Markdown](https://nextra.site/docs/guide/markdown)
     - [Syntax Highlighting](https://nextra.site/docs/guide/syntax-highlighting)
     - [Built-in components](https://nextra.site/docs/docs-theme/built-ins)
+    - [Custom components](https://github.com/janus-idp/janus-idp.github.io/blob/main/apps/landing-page/CUSTOM_COMPONENTS.md)
 
 4. If your blog post contains images, create a folder in [/public/images](https://github.com/janus-idp/janus-idp.github.io/tree/main/apps/landing-page/public/images) with the same name as the blog post filename. Any images the blog post uses can be stored here.
 
