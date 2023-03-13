@@ -19,6 +19,7 @@ import type { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import { ThemeSwitch } from 'nextra-theme-docs';
 import { JanusLogo } from '../janus-logo/janus-logo';
+import { SOCIAL_LINKS } from '../social/social-links';
 
 interface FooterLinkProps {
   href: string;
@@ -53,23 +54,11 @@ const navigation = {
   general: [
     {
       name: 'Blog',
-      href: '/blog'
+      href: '/blog',
     },
-    {
-      name: 'YouTube',
-      href: 'https://www.youtube.com/@januscommunity'
-    },
+    SOCIAL_LINKS.youtube,
   ],
-  support: [
-    {
-      name: 'GitHub',
-      href: 'https://github.com/orgs/janus-idp/repositories',
-    },
-    {
-      name: 'Slack',
-      href: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1pxtehxom-fCFtF9rRe3vFqUiFFeAkmg',
-    },
-  ],
+  support: [SOCIAL_LINKS.github, SOCIAL_LINKS.slack],
 };
 
 export function FooterContent(): JSX.Element {

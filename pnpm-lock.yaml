@@ -140,6 +140,7 @@ importers:
       postcss: ^8.4.20
       react: ^18.2.0
       react-dom: ^18.2.0
+      react-icons: ^4.8.0
       tailwindcss: ^3.2.4
       tsconfig: workspace:*
       typescript: ^4.9.4
@@ -151,6 +152,7 @@ importers:
       next: 13.1.6_biqbaboplfbrettd7655fr4n2y
       nextra-theme-docs: 2.2.4_3vryta7zmbcsw4rrqf4axjqggm
       react-dom: 18.2.0_react@18.2.0
+      react-icons: 4.8.0_react@18.2.0
     devDependencies:
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.9
@@ -5900,6 +5902,14 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-icons/4.8.0_react@18.2.0:
+    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:
