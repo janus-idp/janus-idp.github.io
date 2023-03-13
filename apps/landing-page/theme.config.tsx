@@ -16,7 +16,7 @@
 
 import { useState, useEffect } from 'react';
 import { useConfig, type DocsThemeConfig } from 'nextra-theme-docs';
-import { Footer, GithubLogo, JanusLogo, SlackLogo } from 'ui/components';
+import { Footer, JanusLogo, SocialLogo } from 'ui/components';
 
 const theme: DocsThemeConfig = {
   sidebar: {
@@ -69,7 +69,8 @@ const theme: DocsThemeConfig = {
     content: <>Question? Give us feedback →</>,
   },
   logo: JanusLogo,
-  logoLink: '/',
+  // Update logo link once we have a main page
+  logoLink: '/blog',
   head: function Head() {
     return (
       <>
@@ -91,13 +92,14 @@ const theme: DocsThemeConfig = {
   nextThemes: {
     defaultTheme: 'dark',
   },
-  project: {
-    link: 'https://github.com/orgs/janus-idp/repositories',
-    icon: GithubLogo,
-  },
-  chat: {
-    link: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1nii16o6e-SGscZ4YtAktL6rRtZZBUfA',
-    icon: SlackLogo,
+  navbar: {
+    extraContent: (
+      <>
+        <SocialLogo social="github" />
+        <SocialLogo social="youtube" />
+        <SocialLogo social="slack" />
+      </>
+    ),
   },
   footer: {
     component: Footer,

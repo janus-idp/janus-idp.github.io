@@ -2,10 +2,9 @@
 title: Exposing your 3scale APIs through the Backstage catalog
 date: 2023/02/28
 description: Exposing your 3scale APIs through the Backstage catalog
-
 ---
 
-import { Authors } from 'ui/components';
+import { Authors, ContributePlugin } from 'ui/components';
 
 # Exposing your 3scale APIs through the Backstage catalog
 
@@ -14,7 +13,6 @@ import { Authors } from 'ui/components';
 Backstage has many features that come out of the box; one of which is the API catalog. The API catalog is responsible for displaying [API entities](https://backstage.io/docs/features/software-catalog/system-model#api), which are defined in YAML format and can be stored on a git repository and used as a source to register API entities in the catalog.
 
 But, what happens when you already have an API Manager like [3scale](https://www.redhat.com/en/technologies/jboss-middleware/3scale) that handles your API definitions? To better integrate 3scale and Backstage, the Janus community developed a [3scale backend plugin](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/3scale-backend) that imports APIs from 3scale into the Backstage catalog as API entities.
-
 
 ## Installation
 
@@ -72,4 +70,4 @@ Now your API entities will be available in the Backstage catalog.
 
 ## Next steps
 
-To contribute to this plugin, report issues, or provide feedback, visit our [GitHub repository](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/3scale-backend) or contact us on the [Janus IDP Slack](https://join.slack.com/t/janus-idp/shared_invite/zt-1pxtehxom-fCFtF9rRe3vFqUiFFeAkmg).  Learn more about other Backstage plugins in the Janus community [here](https://github.com/janus-idp/backstage-plugins).
+<ContributePlugin repoHref="https://github.com/janus-idp/backstage-plugins/tree/main/plugins/3scale-backend" />
