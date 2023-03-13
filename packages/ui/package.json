@@ -24,7 +24,7 @@
     "@segment/analytics-next": "^1.49.2",
     "clsx": "^1.2.1",
     "encoding": "^0.1.13",
-    "next": "^13.1.2",
+    "next": "^13.1.6",
     "nextra-theme-docs": "2.2.4",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0"

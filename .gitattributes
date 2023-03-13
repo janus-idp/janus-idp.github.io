@@ -65,6 +65,7 @@ Procfile eol=lf
 
 # Documentation
 *.md eol=lf
+*.mdx eol=lf
 LICENSE eol=lf
 AUTHORS eol=lf
 
