@@ -16,7 +16,7 @@
 
 import { useState, useEffect } from 'react';
 import { useConfig, type DocsThemeConfig } from 'nextra-theme-docs';
-import { Footer, JanusLogo, Social } from 'ui/components';
+import { Footer, JanusLogo, SocialLogo } from 'ui/components';
 
 const theme: DocsThemeConfig = {
   sidebar: {
@@ -95,9 +95,9 @@ const theme: DocsThemeConfig = {
   navbar: {
     extraContent: (
       <>
-        <Social social="github" />
-        <Social social="youtube" />
-        <Social social="slack" />
+        <SocialLogo social="github" />
+        <SocialLogo social="youtube" />
+        <SocialLogo social="slack" />
       </>
     ),
   },

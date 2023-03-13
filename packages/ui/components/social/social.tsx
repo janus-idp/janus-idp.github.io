@@ -21,7 +21,7 @@ interface SocialProps {
   social: SocialLinkKind;
 }
 
-export function Social(props: SocialProps): JSX.Element {
+export function SocialLogo(props: SocialProps): JSX.Element {
   const { social } = props;
 
   const { Icon, name, href } = SOCIAL_LINKS[social];
