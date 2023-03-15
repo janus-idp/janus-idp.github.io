@@ -66,11 +66,7 @@ test('broken links on pages', async ({ page }) => {
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  for (const [_href, _urls] of anchors) {
-    // typescript cannot correctly infer that _href is a string and _pages is a string[]
-    const href = _href as string;
-    const urls = _urls as string[];
-
+  for (const [href, urls] of anchors) {
     if (linksToIgnore.has(href)) {
       // eslint-disable-next-line no-continue
       continue;

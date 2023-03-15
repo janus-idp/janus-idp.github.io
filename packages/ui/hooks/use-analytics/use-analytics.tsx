@@ -27,14 +27,14 @@ import { AnalyticsBrowser, type ID } from '@segment/analytics-next';
 import { useIsSSR } from '@react-aria/ssr';
 import { getUserCountry } from '../../utils';
 
-export interface AnalyticsProviderProps {
+export type AnalyticsProviderProps = {
   writeKey: string;
   client: string;
-}
+};
 
-export interface UseAnalytics {
+export type UseAnalytics = {
   dispatch: (eventName: string, properties: Record<string, unknown>) => Promise<void>;
-}
+};
 
 const AnalyticsContext = createContext<UseAnalytics | undefined>(undefined);
 

@@ -17,9 +17,9 @@
 import Link from 'next/link';
 import { SocialLink } from '../social/social';
 
-interface ContributePluginProps {
+type ContributePluginProps = {
   repoHref?: string;
-}
+};
 
 export function ContributePlugin(props: ContributePluginProps): JSX.Element {
   const { repoHref } = props;

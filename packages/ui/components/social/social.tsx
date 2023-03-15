@@ -17,9 +17,9 @@
 import Link from 'next/link';
 import { type SocialLinkKind, SOCIAL_LINKS } from './social-links';
 
-interface SocialProps {
+type SocialProps = {
   social: SocialLinkKind;
-}
+};
 
 export function SocialLogo(props: SocialProps): JSX.Element {
   const { social } = props;
@@ -39,10 +39,10 @@ export function SocialLogo(props: SocialProps): JSX.Element {
   );
 }
 
-interface SocialLinkProps {
+type SocialLinkProps = {
   social: SocialLinkKind;
   text?: string;
-}
+};
 
 export function SocialLink(props: SocialLinkProps): JSX.Element {
   const { social, text } = props;

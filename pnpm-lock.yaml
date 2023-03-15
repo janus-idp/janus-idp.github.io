@@ -112,6 +112,7 @@ importers:
     specifiers:
       '@playwright/test': ^1.31.2
       '@types/node': ^18.11.14
+      eslint: ^8.29.0
       landing-page: workspace:*
       start-server-and-test: ^1.15.3
     dependencies:
@@ -120,6 +121,7 @@ importers:
     devDependencies:
       '@playwright/test': 1.31.2
       '@types/node': 18.11.14
+      eslint: 8.29.0
 
   packages/tsconfig:
     specifiers: {}
@@ -228,7 +230,7 @@ packages:
       debug: 4.3.4
       espree: 9.4.1
       globals: 13.19.0
-      ignore: 5.2.1
+      ignore: 5.2.4
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       minimatch: 3.1.2
@@ -3426,7 +3428,7 @@ packages:
       glob-parent: 6.0.2
       globals: 13.19.0
       grapheme-splitter: 1.0.4
-      ignore: 5.2.1
+      ignore: 5.2.4
       import-fresh: 3.3.0
       imurmurhash: 0.1.4
       is-glob: 4.0.3
@@ -4018,6 +4020,7 @@ packages:
   /ignore/5.2.1:
     resolution: {integrity: sha512-d2qQLzTJ9WxQftPAuEQpSPmKqzxePjzVbpAVv62AQ64NTL+wR4JkrVqR/LqFsFEUsHDAiId52mJteHDFuDkElA==}
     engines: {node: '>= 4'}
+    dev: false
 
   /ignore/5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}

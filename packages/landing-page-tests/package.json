@@ -5,7 +5,8 @@
   "scripts": {
     "start": "cd ../../apps/landing-page && npm run start",
     "test": "playwright test --config=playwright.config.ts",
-    "test:e2e": "start-server-and-test --expect 200 http://127.0.0.1:3000"
+    "test:e2e": "start-server-and-test --expect 200 http://127.0.0.1:3000",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "landing-page": "workspace:*",
@@ -13,6 +14,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.31.2",
-    "@types/node": "^18.11.14"
+    "@types/node": "^18.11.14",
+    "eslint": "^8.29.0"
   }
 }
