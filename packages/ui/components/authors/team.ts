@@ -38,8 +38,8 @@ export const JANUS_IDP_TEAM = {
 } satisfies Record<string, AuthorDetails>;
 
 export type Author = keyof typeof JANUS_IDP_TEAM;
-export interface AuthorDetails {
+export type AuthorDetails = {
   name: string;
   twitterUsername?: string;
   picture: string;
-}
+};

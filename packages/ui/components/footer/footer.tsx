@@ -21,9 +21,9 @@ import { ThemeSwitch } from 'nextra-theme-docs';
 import { JanusLogo } from '../janus-logo/janus-logo';
 import { SOCIAL_LINKS } from '../social/social-links';
 
-interface FooterLinkProps {
+type FooterLinkProps = {
   href: string;
-}
+};
 
 function FooterLink(props: React.PropsWithChildren<FooterLinkProps>): JSX.Element {
   const { href, children } = props;
@@ -116,9 +116,9 @@ export function FooterContent(): JSX.Element {
   );
 }
 
-interface FooterProps {
+type FooterProps = {
   menu?: boolean;
-}
+};
 
 export function Footer(props: FooterProps): JSX.Element {
   const { menu } = props;

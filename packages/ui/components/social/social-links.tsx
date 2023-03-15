@@ -52,8 +52,8 @@ export const SOCIAL_LINKS = {
 } satisfies Record<string, SocialLinkDetails>;
 
 export type SocialLinkKind = keyof typeof SOCIAL_LINKS;
-export interface SocialLinkDetails {
+export type SocialLinkDetails = {
   Icon: IconType;
   name: string;
   href: string;
-}
+};

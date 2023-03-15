@@ -7,7 +7,7 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@react-aria/ssr": "^3.4.0",

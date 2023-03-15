@@ -183,9 +183,12 @@ module.exports = {
       },
     },
     {
-      files: ['.mdx'],
+      files: ['.md', '.mdx'],
       extends: ['plugin:mdx/recommended'],
-      rules: {
+      parserOptions: {
+        extensions: ['.md', '.mdx'],
+      },
+      settings: {
         'mdx/code-blocks': 'error',
       },
     },
