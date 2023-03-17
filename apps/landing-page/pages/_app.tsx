@@ -18,6 +18,7 @@ import '../styles/tailwind.css';
 import type { AppProps } from 'next/app';
 import { SSRProvider } from '@react-aria/ssr';
 import { AnalyticsProvider } from 'ui/hooks';
+import CookieConsent from 'react-cookie-consent';
 
 const analyticsConfig = {
   writeKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY ?? '',
@@ -29,6 +30,15 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     <SSRProvider>
       <AnalyticsProvider {...analyticsConfig}>
         <Component {...pageProps} />
+        {/* Important modifiers need to be used to override the default styling */}
+        <CookieConsent
+          contentClasses="!text-opacity-80 !text-[#E2E8F0]"
+          containerClasses="!bg-[#232323]"
+          buttonClasses="!bg-janus-blue !rounded-md !opacity-80 !hover:opacity-100 !text-black"
+          buttonText="I accept"
+        >
+          This website uses cookies to collect anonymized telemetry data.
+        </CookieConsent>
       </AnalyticsProvider>
     </SSRProvider>
   );

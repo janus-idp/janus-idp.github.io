@@ -15,6 +15,7 @@
     "nextra": "^2.2.4",
     "nextra-theme-docs": "^2.2.4",
     "react": "^18.2.0",
+    "react-cookie-consent": "^8.0.1",
     "react-dom": "^18.2.0",
     "sharp": "^0.31.3",
     "ui": "workspace:*"
