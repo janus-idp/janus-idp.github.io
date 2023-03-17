@@ -87,7 +87,7 @@ const theme: DocsThemeConfig = {
     text: 'Edit this page on GitHub',
   },
   search: {
-    placeholder: 'Search documentation…',
+    placeholder: 'Search…',
   },
   nextThemes: {
     defaultTheme: 'dark',
