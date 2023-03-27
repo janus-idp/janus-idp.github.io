@@ -14,6 +14,19 @@
  * limitations under the License.
  */
 
-// Functions that use `fs` or `path` cannot be re-exported from here
+import { generateRssFeed } from 'ui/utils/generate-rss-feed';
+import { type GetStaticProps } from 'next';
 
-export * from './get-user-country/get-user-country';
+function RSSPage(): JSX.Element {
+  return <meta httpEquiv="refresh" content="0; url=/rss.xml" />;
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  await generateRssFeed();
+
+  return {
+    props: {},
+  };
+};
+
+export default RSSPage;

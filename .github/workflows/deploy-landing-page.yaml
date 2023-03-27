@@ -38,6 +38,8 @@ jobs:
   build:
     env:
       NEXT_PUBLIC_ANALYTICS_WRITE_KEY: semVJB1hXAeudvf1VExo0gdJcJQheGBZ
+      SITE_URL: https://janus-idp.io
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
