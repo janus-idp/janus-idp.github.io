@@ -34,29 +34,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build job
   build:
+    name: Build
+    runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_ANALYTICS_WRITE_KEY: semVJB1hXAeudvf1VExo0gdJcJQheGBZ
       SITE_URL: https://janus-idp.io
 
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'pnpm'
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 8
-          run_install: true
+          version: 8.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --prefer-offline --frozen-lockfile
 
       - name: Build
         run: pnpm run --filter landing-page export
