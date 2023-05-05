@@ -11,7 +11,7 @@ import { Callout } from 'nextra-theme-docs';
 
 <Authors authors={['sabre1041']} />
 
-Red Hat [recently announced](https://developers.redhat.com/articles/2022/10/24/red-hat-joins-backstageio-community) its intention of joining the Backstage community to help shepherd the adoption of Internal Development Platforms more broadly. While there are many aspects that one needs to consider when establishing an IDP, where and how the platform will be deployed is certainly near the top of the list. Backstage can be deployed on a variety of target systems ranging from traditional infrastructure (physical servers or virtual machines) to more cloud native options. Given the popularity of Kubernetes these days, it has become a common choice for running applications and Backstage is no exception to the rule. The Janus project is Red Hat’s upstream community for running Internal Development Platforms and in addition to a series of [Backstage plugins](./newly-released-backstage-plugins-from-the-janus-idp-community) that have been recently developed, it has been working with the community to simplify the process for deploying Backstage on Kubernetes. Deploying an application in Kubernetes can take on many forms, and given that the Helm package manager has become the de facto standard for deploying applications on Kubernetes, the Janus project in conjunction with the greater Backstage community have come together to establish a canonical [Helm chart](https://github.com/backstage/charts) for deploying and maintaining Backstage on Kubernetes. This article will describe how easy it is to get started with the Backstage Helm chart so that an instance of Backstage can be up and running on Kubernetes in no time.
+Red Hat [recently announced](https://developers.redhat.com/articles/2022/10/24/red-hat-joins-backstageio-community) its intention of joining the Backstage community to help shepherd the adoption of Internal Development Platforms more broadly. While there are many aspects that one needs to consider when establishing an IDP, where and how the platform will be deployed is certainly near the top of the list. Backstage can be deployed on a variety of target systems ranging from traditional infrastructure (physical servers or virtual machines) to more cloud native options. Given the popularity of Kubernetes these days, it has become a common choice for running applications and Backstage is no exception to the rule. The Janus project is Red Hat’s upstream community for running Internal Development Platforms and in addition to a series of [Backstage plugins](./newly-released-backstage-plugins-from-the-janus-idp-community) that have been recently developed, it has been working with the community to simplify the process for deploying Backstage on Kubernetes. Deploying an application in Kubernetes can take on many forms, and given that the Helm package manager has become the de facto standard for deploying applications on Kubernetes, the Janus project in conjunction with the greater Backstage community have come together to establish a canonical [Helm chart](https://github.com/backstage/charts) for deploying and maintaining Backstage on Kubernetes. In addition to that, the Janus community created an [oppinionated version of the same chart](https://github.com/janus-idp/helm-backstage) that allows further OpenShift specific customizations. This article will describe how easy it is to get started with the Backstage Helm chart so that an instance of Backstage can be up and running on Kubernetes in no time.
 
 ## Installing Helm
 
@@ -22,6 +22,7 @@ Once Helm has been installed, add the backstage Helm chart repository and its de
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add backstage https://backstage.github.io/charts
+helm repo add janus-idp https://janus-idp.github.io/helm-backstage
 ```
 
 <Callout>
@@ -55,19 +56,19 @@ Following a similar pattern as described in the documentation related to [deploy
 
 ---
 
-```yaml
-backstage:
-  extraEnvVars:
-    - name: 'APP_CONFIG_app_baseUrl'
-      value: 'http://{{ .Values.ingress.host }}:7007'
-    - name: 'APP_CONFIG_backend_baseUrl'
-      value: 'http://{{ .Values.ingress.host }}:7007'
-    - name: 'APP_CONFIG_backend_cors_origin'
-      value: 'http://{{ .Values.ingress.host }}:7007`'
+```yaml filename="values-minikube-default.yaml"
+upstream:
+  backstage:
+    extraEnvVars:
+      - name: 'APP_CONFIG_app_baseUrl'
+        value: 'http://{{ .Values.ingress.host }}:7007'
+      - name: 'APP_CONFIG_backend_baseUrl'
+        value: 'http://{{ .Values.ingress.host }}:7007'
+      - name: 'APP_CONFIG_backend_cors_origin'
+        value: 'http://{{ .Values.ingress.host }}:7007`'
 
-ingress:
-  enabled: false
-  host: localhost
+  ingress:
+    host: localhost
 ```
 
 Environment variables with the prefix APP_CONFIG are eligible to be interpreted by Backstage as configuration properties and any field underneath the extraEnvVars property will be added to the Backstage container. The full list of how Backstage configuration properties can be defined can be found here. Also note that by default, the Backstage Helm chart creates an Ingress resource to expose Backstage outside of the Kubernetes cluster. However, minikube does not contain an Ingress controller in its default state. To access Backstage, the port-forward capability of kubectl will be used.
@@ -75,7 +76,7 @@ Environment variables with the prefix APP_CONFIG are eligible to be interpreted 
 Deploy Backstage to minikube by executing the following command including specifying the Values file created previously.
 
 ```bash
-helm install -n backstage --create-namespace backstage backstage/backstage -f values-minikube-default.yaml
+helm install -n backstage --create-namespace backstage janus-idp/backstage -f values-minikube-default.yaml
 ```
 
 The preceding command deploys Backstage in a new namespace called backstage. Confirm the Backstage pod is running by executing the following command:

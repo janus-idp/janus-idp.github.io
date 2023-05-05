@@ -161,66 +161,68 @@ The next step is to obtain the Client Secret so that it can be used later on as 
 
 ## Deploying Backstage using the Backstage Helm Chart
 
-Given that the required prerequisites have been completed and there is a container image of Backstage available and Keycloak has been configured as an Identity Provider, the final step is to deploy Backstage. As previously mentioned, Backstage can be deployed in a variety of ways, but in this case, a deployment to a Kubernetes cluster will be used and the easiest method for deploying Backstage to Kubernetes is to use the Backstage Helm chart as it not only streamlines the deployment process, but provides the capabilities to define the required configurations to enable OAuth authentication with Keycloak. A full writeup on the [Backstage Helm chart](https://github.com/backstage/charts/tree/main/charts/backstage) including the various configurations that it enables can be found [here](./getting-started-with-the-backstage-helm-chart-part-1).
+Given that the required prerequisites have been completed and there is a container image of Backstage available and Keycloak has been configured as an Identity Provider, the final step is to deploy Backstage. As previously mentioned, Backstage can be deployed in a variety of ways, but in this case, a deployment to a Kubernetes cluster will be used and the easiest method for deploying Backstage to Kubernetes is to use the Backstage Helm chart as it not only streamlines the deployment process, but provides the capabilities to define the required configurations to enable OAuth authentication with Keycloak. A full writeup on the [Janus IDP's Backstage Helm chart](https://github.com/janus-idp/helm-backstage/tree/main/charts/backstage) including the various configurations that it enables can be found [here](./getting-started-with-the-backstage-helm-chart-part-1).
 
-The OAuth2 proxy that bridges the integration between Backstage and Keycloak is deployed as a sidecar container alongside Backstage. Sidecar containers can be enabled by specifying the `backstage.extraContainer` Helm Value. The entire definition of the OAuth proxy container as well as the ability to templatize the required configurations is also supported.
+The OAuth2 proxy that bridges the integration between Backstage and Keycloak is deployed as a sidecar container alongside Backstage. Sidecar containers can be enabled by specifying the `upstream.backstage.extraContainer` Helm Value. The entire definition of the OAuth proxy container as well as the ability to templatize the required configurations is also supported.
 
 Create a new file called `values-backstage-keycloak.yaml` with the following content.
 
 ```yaml filename="values-backstage-keycloak.yaml"
-backstage:
-  image:
-    registry: quay.io
-    repository: ablock/backstage-keycloak
-    tag: latest
-  extraEnvVars:
-    - name: 'APP_CONFIG_app_baseUrl'
-      value: 'https://{{ .Values.ingress.host }}'
-    - name: 'APP_CONFIG_backend_baseUrl'
-      value: 'https://{{ .Values.ingress.host }}'
-    - name: 'APP_CONFIG_backend_cors_origin'
-      value: 'https://{{ .Values.ingress.host }}'
+upstream:
+  backstage:
+    image:
+      registry: quay.io
+      repository: ablock/backstage-keycloak
+      tag: latest
+    extraEnvVars:
+      - name: 'APP_CONFIG_app_baseUrl'
+        value: 'https://{{ .Values.ingress.host }}'
+      - name: 'APP_CONFIG_backend_baseUrl'
+        value: 'https://{{ .Values.ingress.host }}'
+      - name: 'APP_CONFIG_backend_cors_origin'
+        value: 'https://{{ .Values.ingress.host }}'
 
-  extraContainers:
-    - name: oauth2-proxy
-      env:
-        - name: OAUTH2_PROXY_CLIENT_ID
-          value: '{{ required "Keycloak Client Secret is Required" .Values.keycloak.clientId }}'
-        - name: OAUTH2_PROXY_CLIENT_SECRET
-          value: '{{ required "Keycloak Client Secret is Required" .Values.keycloak.clientSecret }}'
-        - name: OAUTH2_PROXY_COOKIE_SECRET
-          value: '{{ default (randAlpha 32 | lower | b64enc) .Values.keycloak.cookieSecret }}'
-        - name: OAUTH2_PROXY_OIDC_ISSUER_URL
-          value: '{{ required "Keycloak Issuer URL is Required" .Values.keycloak.issuerUrl }}'
-        - name: OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY
-          value: 'true'
-      ports:
-        - name: oauth2-proxy
-          containerPort: 4180
-          protocol: TCP
-      imagePullPolicy: IfNotPresent
-      image: 'quay.io/oauth2-proxy/oauth2-proxy:latest'
-      args:
-        - '--provider=oidc'
-        - '--email-domain=*'
-        - '--upstream=http://localhost:7007'
-        - '--http-address=0.0.0.0:4180'
-        - '--skip-provider-button'
+    extraContainers:
+      - name: oauth2-proxy
+        env:
+          - name: OAUTH2_PROXY_CLIENT_ID
+            value: '{{ required "Keycloak Client Secret is Required" .Values.global.keycloak.clientId }}'
+          - name: OAUTH2_PROXY_CLIENT_SECRET
+            value: '{{ required "Keycloak Client Secret is Required" .Values.global.keycloak.clientSecret }}'
+          - name: OAUTH2_PROXY_COOKIE_SECRET
+            value: '{{ default (randAlpha 32 | lower | b64enc) .Values.global.keycloak.cookieSecret }}'
+          - name: OAUTH2_PROXY_OIDC_ISSUER_URL
+            value: '{{ required "Keycloak Issuer URL is Required" .Values.global.keycloak.issuerUrl }}'
+          - name: OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY
+            value: 'true'
+        ports:
+          - name: oauth2-proxy
+            containerPort: 4180
+            protocol: TCP
+        imagePullPolicy: IfNotPresent
+        image: 'quay.io/oauth2-proxy/oauth2-proxy:latest'
+        args:
+          - '--provider=oidc'
+          - '--email-domain=*'
+          - '--upstream=http://localhost:7007'
+          - '--http-address=0.0.0.0:4180'
+          - '--skip-provider-button'
 
-service:
-  ports:
-    backend: 4180
-    targetPort: oauth2-proxy
+  service:
+    ports:
+      backend: 4180
+      targetPort: oauth2-proxy
 
-ingress:
-  enabled: true
-  host: backstage.example.com
+  ingress:
+    enabled: true
+    host: backstage.example.com
 
-keycloak:
-  issuerUrl: '<KEYCLOAK_URL>/realms/backstage'
-  clientId: 'backstage'
-  clientSecret: ''
-  cookieSecret: ''
+global:
+  keycloak:
+    issuerUrl: '<KEYCLOAK_URL>/realms/backstage'
+    clientId: 'backstage'
+    clientSecret: '<CLIENT_SECRET>'
+    cookieSecret: ''
 ```
 
 <Callout>
@@ -232,17 +234,17 @@ keycloak:
   the full set of supported options available.
 </Callout>
 
-Before installing the Helm chart into the Kubernetes cluster, let’s review the contents of the Values file for the significance of certain parameters. The `backstage.extraContainers` parameter includes the definition of the OAuth2 Proxy and configurations are provided through a combination of container arguments and environment variables.
+Before installing the Helm chart into the Kubernetes cluster, let’s review the contents of the Values file for the significance of certain parameters. The `upstream.backstage.extraContainers` parameter includes the definition of the OAuth2 Proxy and configurations are provided through a combination of container arguments and environment variables.
 
 The location of the Keycloak instance is specified by providing the location of the OpenID Endpoint Configuration. This address can be identified within the Realm Settings page of the backstage Keycloak realm.
 
 ![Realm Settings](/images/blog/enabling-keycloak-authentication-in-backstage/realm-settings.png)
 
-Update the `keycloak.issuerURL` parameter by providing the value that was obtained from the OpenID Endpoint Configuration. The `/.well-known/openid-configuration` portion of the URL can be omitted as it is inferred automatically.
+Update the `global.keycloak.issuerURL` parameter by providing the value that was obtained from the OpenID Endpoint Configuration. The `/.well-known/openid-configuration` portion of the URL can be omitted as it is inferred automatically.
 
-Update the `keycloak.clientId` and `keycloak.clientSecret` parameters with the values that were obtained from the backstage OAuth client Credentials tab previously.
+Update the `global.keycloak.clientId` and `global.keycloak.clientSecret` parameters with the values that were obtained from the backstage OAuth client Credentials tab previously.
 
-Next, specify the hostname of the backstage instance by updating the `ingress.host` parameter.
+Next, specify the hostname of the backstage instance by updating the `upstream.ingress.host` parameter.
 
 <Callout>
   An [Ingress
@@ -251,7 +253,7 @@ Next, specify the hostname of the backstage instance by updating the `ingress.ho
   originating outside the cluster.
 </Callout>
 
-Finally, if there was a desire to make use of a custom Backstage image that was built previously instead of the provided image, update the set of parameters underneath the `backstage.image parameter`.
+Finally, if there was a desire to make use of a custom Backstage image that was built previously instead of the provided image, update the set of parameters underneath the `upstream.backstage.image parameter`.
 
 Alternatively, instead of updating the contents of the `values-backstage-keycloak.yaml` Values file, parameters can be provided during the installation of the Helm chart by each parameter using the `--set` option of the `helm install` command.
 
@@ -260,12 +262,13 @@ Before the chart can be installed, add the Backstage chart repository as well as
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add backstage https://backstage.github.io/charts
+helm repo add janus-idp https://janus-idp.github.io/helm-backstage
 ```
 
 Install the Backstage Helm chart to the Kubernetes cluster in a new namespace called backstage by executing the following command referencing the customized Values file:
 
 ```bash
-helm install -n backstage --create-namespace backstage backstage/backstage -f values-backstage-keycloak.yaml
+helm install -n backstage --create-namespace backstage janus-idp/backstage -f values-backstage-keycloak.yaml
 ```
 
 Once the Helm release is complete and the backstage container is running, open a web browser and navigate to the location of the Backstage instance.
