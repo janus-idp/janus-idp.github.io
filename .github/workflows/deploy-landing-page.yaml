@@ -59,6 +59,9 @@ jobs:
           run_install: true
 
       - name: Build
+        run: pnpm run --filter landing-page build
+
+      - name: Export Static HTML
         run: pnpm run --filter landing-page export
 
       - name: Upload artifact
