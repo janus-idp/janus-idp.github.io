@@ -16,7 +16,7 @@
 
 /* eslint-disable no-await-in-loop */
 
-import { test, expect, type Locator, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -36,7 +36,8 @@ test('broken links on pages', async ({ page }) => {
   const anchors = new Map<string, string[]>();
 
   for (const url of localUrls) {
-    await page.goto(url);
+    // networkidle is the only option that works here
+    await page.goto(url, { waitUntil: 'networkidle' });
 
     const anchorElements = page.locator('a');
     const anchorCount = await anchorElements.count();

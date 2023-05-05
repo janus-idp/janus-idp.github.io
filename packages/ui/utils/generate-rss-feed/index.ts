@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-// Functions that use `fs` or `path` cannot be re-exported from here
-
-export * from './get-user-country/get-user-country';
+export * from './generate-rss-feed';

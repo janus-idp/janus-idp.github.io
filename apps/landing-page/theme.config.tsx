@@ -37,7 +37,7 @@ const theme: DocsThemeConfig = {
     return {
       description: String(frontMatter.description),
       defaultTitle,
-      titleTemplate: `%s – ${section}`,
+      titleTemplate: `%s - ${section}`,
     };
   },
   gitTimestamp({ timestamp }: { timestamp: Date }): JSX.Element {
