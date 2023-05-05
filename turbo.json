@@ -4,11 +4,14 @@
   "globalDependencies": ["packages/eslint-config-custom/index.js"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
       "outputs": [".next/**"]
     },
+    "export": {
+      "dependsOn": ["build"],
+      "outputs": ["out/**"]
+    },
     "test:e2e": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "test:unit": {},
     "lint": {},

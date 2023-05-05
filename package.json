@@ -6,6 +6,7 @@
     "preinstall": "npx only-allow pnpm",
     "ci": "turbo run lint build test:unit",
     "build": "turbo run build",
+    "export": "turbo run export",
     "dev": "turbo run dev --parallel",
     "test:unit": "turbo run test:unit --parallel",
     "test:e2e": "turbo run test:e2e --parallel",
@@ -20,7 +21,7 @@
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "tsconfig": "workspace:*",
-    "turbo": "^1.8.3"
+    "turbo": "^1.9.3"
   },
   "engines": {
     "node": ">=14.0.0"
