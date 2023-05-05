@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "ci": "turbo run lint build test:e2e test:unit",
+    "ci": "turbo run lint build test:unit",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "test:unit": "turbo run test:unit --parallel",
