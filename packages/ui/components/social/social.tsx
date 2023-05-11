@@ -15,6 +15,7 @@
  */
 
 import Link from 'next/link';
+import React from 'react';
 import { type SocialLinkKind, SOCIAL_LINKS } from './social-links';
 
 type SocialProps = {

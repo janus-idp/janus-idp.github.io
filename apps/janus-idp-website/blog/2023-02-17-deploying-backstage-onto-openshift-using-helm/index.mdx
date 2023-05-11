@@ -1,0 +1,155 @@
+---
+title: Deploying Backstage onto OpenShift Using the Backstage Helm Chart
+authors: [sabre1041]
+tags: [helm]
+description: Deploying Backstage onto OpenShift Using the Backstage Helm Chart
+---
+
+# Deploying Backstage onto OpenShift Using the Backstage Helm Chart
+
+Backstage is a framework for building developer portals and has become an important tool that is complementary with establishing an [Internal Development Platform](https://internaldeveloperplatform.org/what-is-an-internal-developer-platform/) (IDP). Many of the same organizations who are seeking the benefits that Backstage and an IDP can provide are also using Kubernetes as a platform for building and running containerized workloads. As described within previous articles ([Part 1](/blog/2023-01-15-getting-started-with-the-backstage-helm-chart/index.mdx), [Part 2](/blog/2023-01-25-exploring-the-flexibility-of-the-backstage-helm-chart/index.mdx), the Backstage Helm chart can be used to not only simplify the process for deploying Backstage to Kubernetes, but also how its flexibility can adapt to a variety of conditions and constraints.
+
+While Kubernetes has become the de-facto container orchestration platform, there are a number of Kubernetes distributions on the market. The [Janus Project](https://janus-idp.io) is an upstream community sponsored by Red Hat and OpenShift (along with the upstream OKD) is their Kubernetes distribution. The features and capabilities that are included within OpenShift greatly benefit from a framework like Backstage as it enables end users the ability to simplify their interactions with each of these services. This article will describe the considerations that must be accounted for and the process to deploy the Backstage Helm chart to OpenShift. 
+
+## OpenShift Environment Considerations
+
+As with any target environment, there are a variety of considerations that must be accounted for in order to ensure an integration is successful -- OpenShift is no different and the following are the areas that must be addressed prior to deploying the Helm chart:
+
+* Image Source and Content
+* Ingress Strategy
+* Security
+
+Fortunately, as described in the prior articles, the [Backstage Helm chart](https://github.com/backstage/charts/tree/main/charts/backstage) provides the necessary options to customize the deployment to suit the necessary requirements. These customizations are managed via Helm values and the following sections describe the significance of these areas as well as how they can be accomplished within the Backstage Helm chart. 
+
+### Image Source and Content
+
+OpenShift encompasses an entire container platform that is built upon certified and vetted content. The majority of this content is sourced from one of the Red Hat managed container registries and include everything from the foundational platform services to content designed for application developers. Previously, it was described how the PostgreSQL instance supporting the persistence of Backstage was customized to make use of a PostgreSQL image from Software Collections instead of from Bitnami. 
+
+Using a similar approach, the PostgreSQL instance that is leveraged as part of the Backstage Helm chart can be configured to make use of an image from the Red Hat Container Catalog (RHCC) to provide a greater level of security and assurance. Since the official supported image from Red Hat is the downstream of the PostgreSQL from Software Collections, the only configuration that needs to be modified is the source location as shown below:
+
+```
+postgresql:
+  image:
+    registry: registry.redhat.io
+    repository: rhel9/postgresql-13
+    tag: 1-73
+```
+
+Images originating from Red Hat container registries can be deployed to environments other than OpenShift. However, additional configurations with regards to how to enable access to the image content needs to be applied as standard Kubernetes environments do not include the [Global Pull Secret](https://docs.openshift.com/container-platform/4.11/openshift_images/managing_images/using-image-pull-secrets.html) which include the credentials for accessing the image source. The steps for enabling this functionality is beyond the scope of this article, but the Backstage Helm chart does support this capability.
+
+### Ingress Strategy
+
+Exposing applications externally for the purpose of enabling access from end users or systems is a common concern when operating in a Kubernetes environment. OpenShift saw the need for this feature from the beginning of the Kubernetes based distribution of the platform and has included a component called [`Routes`](https://docs.openshift.com/container-platform/4.9/networking/understanding-networking.html#nw-ne-comparing-ingress-route_understanding-networking) to enable this capability. Since then, the Kubernetes community has introduced a similar concept called [`Ingress`](https://kubernetes.io/docs/concepts/services-networking/ingress/) which similarly provides support for exposing applications externally.
+
+Given the wide adoption of Ingress in the Kubernetes community, and to provide OpenShift users with the freedom to choose from the existing Routes approach or the more Kubernetes native Ingress feature, support was added in OpenShift to “upconvert” any Ingress resource that is deployed within OpenShift to an OpenShift native Route resources. This provides the best of both worlds by giving end users the flexibility to choose the approach for which they feel the most comfortable with. In addition, the up-conversion can be customized to enable Route specific features, such as specifying the TLS termination type when exposing Ingress resources in a secure fashion. The feature can be enabled by specifying the `route.openshift.io/termination` on the Ingress object itself and supports edge, passthrough and termination types.
+
+For simplicity in this implementation so that TLS is offloaded at the OpenShift router, edge termination can be specified by setting the following within the Backstage Helm Values file:
+
+```bash
+ingress:
+  enabled: true
+  annotations:
+    route.openshift.io/termination: "edge"
+```
+
+By setting this annotation, the resulting Route resource in OpenShift will be configured as a secure route with edge termination so that connections to the Backstage dashboard are secure.
+
+### Security
+
+One of the most important aspects of OpenShift is its “secure by default” approach for managing the platform and all of the workloads. By default, OpenShift approaches security by enforcing that workloads conform to certain criteria including not running with elevated permissions (specifically as the root user) as well as not requesting access to privileged resources, such as file systems on each container host. This posture is inverse to a standard deployment of Kubernetes which does not require such considerations to be placed upon workloads. While this does require additional onus on those implementing and managing workloads, it does provide for a more secure operating environment.
+
+While the Backstage component of the Helm chart itself does not include any specific parameters that would require modification from a security perspective, the included [Bitnami postgres Helm chart](https://github.com/bitnami/charts/tree/main/bitnami/postgresql) does specify certain configurations that would conflict when running using OpenShift’s default security profile; specifically within the `securityContext` properties of the Statefulset. Fortunately, the Bitnami postgres chart does contain options that can be used to modify the default configuration to enable a deployment into OpenShift without requiring additional configurations that would need to be employed. All that needs to be configured is to set `enabled: false` within the pod level, container level and default `securityContext` properties within the Values file as shown below
+
+```
+postgresql:
+  primary:
+    securityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+```
+
+## Deploying the Backstage Helm Chart
+
+Taking into account each of the considerations that were discussed in the previous sections as well as the baseline configurations that need to be applied to a Fedora based container -- whether it be from the upstream Software Collections or from Red Hat’s certified RHEL based images. The following is a encompassing Helm Values file that should be included in a file called `values-openshift.yaml` can be used to deploy a Red Hat based set of content (including both Backstage and PostgreSQL) in a manner that is compatible with an OpenShift environment:
+
+```yaml filename="values-openshift.yaml"
+backstage:
+  image:
+    registry: ghcr.io
+    repository: janus-idp/redhat-backstage-build
+    tag: latest
+  extraEnvVars:
+    - name: "APP_CONFIG_app_baseUrl"
+      value: "https://{{ .Values.ingress.host }}"
+    - name: "APP_CONFIG_backend_baseUrl"
+      value: "https://{{ .Values.ingress.host }}"
+    - name: "APP_CONFIG_backend_cors_origin"
+      value: "https://{{ .Values.ingress.host }}"
+    - name: "APP_CONFIG_backend_database_client"
+      value: pg
+    - name: "APP_CONFIG_backend_database_connection_host"
+      value: "{{ include \"backstage.postgresql.host\" . }}"
+    - name: "APP_CONFIG_backend_database_connection_port"
+      value: '5432'
+    - name: "APP_CONFIG_backend_database_connection_user"
+      value: "{{ .Values.postgresql.auth.username }}"
+    - name: "APP_CONFIG_backend_database_connection_password"
+      valueFrom:
+        secretKeyRef:
+          key: postgres-password
+          name: "{{ include \"backstage.postgresql.fullname\" . }}"
+  installDir: /opt/app-root/src
+
+ingress:
+  enabled: true
+  host: backstage.apps.example.com
+  annotations:
+    route.openshift.io/termination: "edge"
+
+postgresql:
+  enabled: true
+  database: backstage
+  postgresqlDataDir: /var/lib/pgsql/data/userdata
+  auth:
+    username: postgres
+    database: backstage
+  image:
+    registry: registry.redhat.io
+    repository: rhel9/postgresql-13
+    tag: 1-73
+  primary:
+    securityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+    persistence:
+      enabled: true
+      mountPath: /var/lib/pgsql/data
+    extraEnvVars:
+    - name: POSTGRESQL_ADMIN_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: postgres-password
+          name: backstage-postgresql
+```
+
+Be sure to update the `ingress.host` property with the desired hostname of the exposed Route.
+
+Install the Backstage Helm chart by executing the following command that includes the location of the previously created Values file:
+
+```bash
+helm install backstage backstage/backstage -f values-openshift.yaml
+```
+
+:::note
+The prior command assumes that the Helm CLI and the Backstage Helm repository have been added to the local machine. Consult prior articles for instructions on how to configure these steps.
+:::
+
+Once the Chart release is successful, confirm that not only that both Backstage and PostgreSQL pods are running, but that an edge terminated Route has been created to enable external access to the Backstage user interface. Open a web browser to the hostname defined within the Route to confirm the Backstage user interface can be accessed securely.
+
+With only a few small steps as demonstrated within this article and thanks to the Backstage Helm chart, Backstage and its required dependencies can be deployed to an OpenShift environment. In no time at all, teams can begin building and consuming developer portals that are built on a hardened and secure foundation to enable organizations the ability to realize the benefits offered by Internal Development Platforms.  

@@ -21,7 +21,7 @@ export default function Document(): JSX.Element {
     <Html lang="en">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=optional"
           rel="stylesheet"
@@ -33,7 +33,6 @@ export default function Document(): JSX.Element {
           as="font"
           href="https://fonts.gstatic.com/s/spacegrotesk/v13/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7aUXskPMBBSSJLm2E.woff2"
           type="font/woff2"
-          crossOrigin="true"
         />
         {/* eslint-disable-next-line @next/next/google-font-preconnect */}
         <link
@@ -41,7 +40,6 @@ export default function Document(): JSX.Element {
           as="font"
           href="https://fonts.gstatic.com/s/spacegrotesk/v13/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMBBSSJLm2E.woff2"
           type="font/woff2"
-          crossOrigin="true"
         />
       </Head>
       <body>

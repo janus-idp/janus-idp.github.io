@@ -15,7 +15,7 @@
  */
 
 import Link from 'next/link';
-import type { PropsWithChildren } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { ThemeSwitch } from 'nextra-theme-docs';
 import { JanusLogo } from '../janus-logo/janus-logo';
@@ -44,7 +44,7 @@ function FooterLink(props: React.PropsWithChildren<FooterLinkProps>): JSX.Elemen
   );
 }
 
-function FooterHeader(props: PropsWithChildren): JSX.Element {
+function FooterHeader(props: React.PropsWithChildren): JSX.Element {
   const { children } = props;
 
   return <h3 className="text-sm text-black dark:text-white">{children}</h3>;

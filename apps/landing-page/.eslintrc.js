@@ -17,5 +17,14 @@
 module.exports = {
   root: true,
   // This tells ESLint to load the config from the package `eslint-config-custom`
-  extends: ['custom'],
+  extends: ['plugin:@next/next/recommended', 'custom'],
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+      rules: {
+        // React is already in-scope for all files compiled with Next.js
+        'react/react-in-jsx-scope': 'off',
+      },
+    },
+  ],
 };

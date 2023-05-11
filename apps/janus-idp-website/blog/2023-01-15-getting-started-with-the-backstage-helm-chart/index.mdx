@@ -1,0 +1,91 @@
+---
+title: Getting Started with the Backstage Helm Chart
+authors: [sabre1041]
+tags: [Helm]
+description: Getting Started with the Backstage Helm Chart, first of a blog series
+---
+
+# Getting Started with the Backstage Helm Chart (Part 1)
+
+Red Hat [recently announced](https://developers.redhat.com/articles/2022/10/24/red-hat-joins-backstageio-community) its intention of joining the Backstage community to help shepherd the adoption of Internal Development Platforms more broadly. While there are many aspects that one needs to consider when establishing an IDP, where and how the platform will be deployed is certainly near the top of the list. Backstage can be deployed on a variety of target systems ranging from traditional infrastructure (physical servers or virtual machines) to more cloud native options. Given the popularity of Kubernetes these days, it has become a common choice for running applications and Backstage is no exception to the rule. The Janus project is Red Hat’s upstream community for running Internal Development Platforms and in addition to a series of [Backstage plugins](blog/2022-12-21-newly-released-backstage-plugins/index.mdx) that have been recently developed, it has been working with the community to simplify the process for deploying Backstage on Kubernetes. Deploying an application in Kubernetes can take on many forms, and given that the Helm package manager has become the de facto standard for deploying applications on Kubernetes, the Janus project in conjunction with the greater Backstage community have come together to establish a canonical [Helm chart](https://github.com/backstage/charts) for deploying and maintaining Backstage on Kubernetes. This article will describe how easy it is to get started with the Backstage Helm chart so that an instance of Backstage can be up and running on Kubernetes in no time.
+
+## Installing Helm
+
+Helm is a versatile tool and has been integrated into a number of popular solutions as its adoption grows. However, the simplest way to demonstrate the use of the Backstage Helm chart is to utilize the standalone command line tool from a local machine. Download and install the Helm CLI from the Helm website using the method of your choosing for the target Operating System.
+
+Once Helm has been installed, add the backstage Helm chart repository and its dependent repository using the following commands:
+
+```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add backstage https://backstage.github.io/charts
+```
+
+:::note
+  The Backstage Helm chart is also available as an OCI artifact. However, the steps described in
+  this article will focus on the installation from a Helm Chart repository. Instructions on how to
+  leverage the chart from an OCI registry can be found on the chart GitHub project repository.
+:::
+
+## Deploying to Kubernetes
+
+Several options are available for accessing a Kubernetes cluster, ranging from a managed cloud provider or running one locally. Let's start by using Minikube, a solution for running a Kubernetes cluster locally, as the target environment for deploying the Backstage Helm chart by first installing and configuring Minikube on the local machine based on the steps described on the [Minikube website](https://minikube.sigs.k8s.io/docs/) for the target Operating System.
+
+Once Minikube has been installed and configured, start an instance by executing the following command:
+
+```bash
+minikube start
+```
+
+:::note
+  The Kubernetes CLI (kubectl) may be desired in order to perform commands against the minikube
+  instance. By default, it is not installed when minikube is installed. Follow [these
+  steps](https://minikube.sigs.k8s.io/docs/handbook/kubectl/) to configure kubectl on the local
+  machine.
+:::
+
+Now that the minikube instance is up running, the next step is to deploy the Backstage Helm chart to Kubernetes. Regardless of the operating environment that is used for Backstage, there are a few configuration details that need to be specified, particularly the baseUrl that will be used to access the platform. Backstage configuration properties can be provided in several ways and the Backstage Helm chart (thanks to both Helm’s templating capabilities along with the ability to specify parameterized values) includes support for many of the most common types, including as environment variables, additional configuration files that are contained within ConfigMaps, and as inline configuration files that are transformed into ConfigMaps.
+
+The most straightforward method for the purposes of this article is to define any configuration properties as environment variables which are then added as environment variables that are added to the Backstage container.
+
+Following a similar pattern as described in the documentation related to [deploying Backstage to Kubernetes](https://backstage.io/docs/deployment/k8s), create a file called values-minikube-default.yaml with the following content:
+
+---
+
+```yaml
+backstage:
+  extraEnvVars:
+    - name: 'APP_CONFIG_app_baseUrl'
+      value: 'http://{{ .Values.ingress.host }}:7007'
+    - name: 'APP_CONFIG_backend_baseUrl'
+      value: 'http://{{ .Values.ingress.host }}:7007'
+    - name: 'APP_CONFIG_backend_cors_origin'
+      value: 'http://{{ .Values.ingress.host }}:7007`'
+
+ingress:
+  enabled: false
+  host: localhost
+```
+
+Environment variables with the prefix APP_CONFIG are eligible to be interpreted by Backstage as configuration properties and any field underneath the extraEnvVars property will be added to the Backstage container. The full list of how Backstage configuration properties can be defined can be found here. Also note that by default, the Backstage Helm chart creates an Ingress resource to expose Backstage outside of the Kubernetes cluster. However, minikube does not contain an Ingress controller in its default state. To access Backstage, the port-forward capability of kubectl will be used.
+
+Deploy Backstage to minikube by executing the following command including specifying the Values file created previously.
+
+```bash
+helm install -n backstage --create-namespace backstage backstage/backstage -f values-minikube-default.yaml
+```
+
+The preceding command deploys Backstage in a new namespace called backstage. Confirm the Backstage pod is running by executing the following command:
+
+```bash
+kubectl get pods -n backstage
+```
+
+Now, forward a local port to gain access to the Backstage service from the local machine:
+
+```bash
+kubectl port-forward -n backstage svc/backstage 7007:7007
+```
+
+Open a web browser and navigate to [http://localhost:7007](http://localhost:7007) to view the deployed instance of Backstage.
+
+And just like that, after only a few steps, Backstage has been deployed to Kubernetes. Establishing an instance of Backstage within a Kubernetes environment is just the beginning of the journey towards achieving a robust developer platform within an organization. With the help of the Backstage Helm chart, realizing this goal becomes much more attainable.

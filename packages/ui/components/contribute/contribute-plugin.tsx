@@ -15,6 +15,7 @@
  */
 
 import Link from 'next/link';
+import React from 'react';
 import { SocialLink } from '../social/social';
 
 type ContributePluginProps = {

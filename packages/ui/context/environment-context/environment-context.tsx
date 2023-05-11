@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-import { generateRssFeed } from 'ui/utils/generate-rss-feed';
-import { type GetStaticProps } from 'next';
+import React, { createContext, type ComponentProps } from 'react';
 
-function RSSPage(): JSX.Element {
-  return <meta httpEquiv="refresh" content="0; url=/rss.xml" />;
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  await generateRssFeed();
-
-  return {
-    props: {},
-  };
+export type LinkProps = {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
 };
 
-export default RSSPage;
+export const EnvironmentContext = createContext<{
+  Link: React.FunctionComponent<ComponentProps<'a'>>;
+}>({
+  // children will always exist
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  Link: (props) => <a {...props} />,
+});

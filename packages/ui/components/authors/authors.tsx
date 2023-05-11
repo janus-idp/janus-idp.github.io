@@ -16,6 +16,7 @@
 
 import Image from 'next/image';
 import clsx from 'clsx';
+import React from 'react';
 import { JANUS_IDP_TEAM, type AuthorDetails, type Author } from './team';
 
 export function Avatar(props: AuthorDetails): JSX.Element {
