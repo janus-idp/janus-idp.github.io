@@ -16,7 +16,7 @@
 
 import Link from '@docusaurus/Link';
 import React, { memo, type ComponentProps } from 'react';
-import { EnvironmentContext } from 'ui/context';
+import { EnvironmentContext } from 'ui/contexts';
 
 const LinkWrapper = memo((props: ComponentProps<'a'>) => {
   const { href, ...rest } = props;

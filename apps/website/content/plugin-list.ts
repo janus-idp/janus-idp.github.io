@@ -16,7 +16,7 @@
 
 import { Feature } from 'ui/types';
 
-export const pluginsList: Feature[] = [
+export const PLUGINS_LIST: Feature[] = [
   {
     title: '3scale',
     icon: '/images/plugins/3scale.svg',

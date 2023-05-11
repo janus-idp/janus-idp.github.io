@@ -14,18 +14,4 @@
  * limitations under the License.
  */
 
-import React, { createContext, type ComponentProps } from 'react';
-
-export type LinkProps = {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-};
-
-export const EnvironmentContext = createContext<{
-  Link: React.FunctionComponent<ComponentProps<'a'>>;
-}>({
-  // children will always exist
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  Link: (props) => <a {...props} />,
-});
+export * from './analytics-provider/analytics-provider';

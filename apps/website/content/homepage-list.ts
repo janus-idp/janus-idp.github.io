@@ -16,7 +16,7 @@
 
 import { Feature } from 'ui/types';
 
-export const homepageList: Feature[] = [
+export const HOMEPAGE_LIST: Feature[] = [
   {
     title: 'Golden Path Templates',
     icon: '/images/icon.svg',

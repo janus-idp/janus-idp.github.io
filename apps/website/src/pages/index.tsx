@@ -19,11 +19,11 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React from 'react';
 import { HomepageGrid } from 'ui/components/homepage-grid/homepage-grid';
-import { homepageList } from '../../content/homepage-list';
-import { EnvironmentProvider } from '../lib/environment-provider';
+import { HOMEPAGE_LIST } from '../../content/homepage-list';
 
 function HomepageHeader(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+
   return (
     <header className="hero hero--primary text-center relative overflow-hidden px-0 py-16">
       <div className="container">
@@ -48,9 +48,7 @@ export default function Home(): JSX.Element {
     >
       <HomepageHeader />
       <main>
-        <EnvironmentProvider>
-          <HomepageGrid homepageList={homepageList} />
-        </EnvironmentProvider>
+        <HomepageGrid homepageList={HOMEPAGE_LIST} />
       </main>
     </Layout>
   );

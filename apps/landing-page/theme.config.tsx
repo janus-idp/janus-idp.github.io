@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react';
-import { useConfig, type DocsThemeConfig } from 'nextra-theme-docs';
+import { ThemeSwitch, useConfig, type DocsThemeConfig } from 'nextra-theme-docs';
+import { useEffect, useState } from 'react';
 import { Footer, JanusLogo, SocialLogo } from 'ui/components';
 
 const theme: DocsThemeConfig = {
@@ -102,7 +102,7 @@ const theme: DocsThemeConfig = {
     ),
   },
   footer: {
-    component: Footer,
+    component: (props) => <Footer {...props} ThemeSwitch={ThemeSwitch} />,
   },
 };
 

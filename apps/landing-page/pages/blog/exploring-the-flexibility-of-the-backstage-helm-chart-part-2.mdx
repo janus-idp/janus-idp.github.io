@@ -35,21 +35,22 @@ On OSX machines, a tunnel can be created for which connectivity can be achieved 
 
 ### Accessing Backstage through the Minikube Ingress Controller
 
-To configure Backstage to expose an Ingress through the newly created ingress controller, update the content of the values that are used for the Backstage Helm chart by creating a new values file called `values-minikube-ingress.yaml` with the following content:
+To configure Backstage to expose an Ingress through the newly created ingress controller, update the content of the values that are used for the Janus IDP's Backstage Helm chart by creating a new values file called `values-minikube-ingress.yaml` with the following content:
 
 ```yaml filename="values-minikube-ingress.yaml"
-backstage:
-  extraEnvVars:
-    - name: 'APP_CONFIG_app_baseUrl'
-      value: 'http://{{ .Values.ingress.host }}'
-    - name: 'APP_CONFIG_backend_baseUrl'
-      value: 'http://{{ .Values.ingress.host }}'
-    - name: 'APP_CONFIG_backend_cors_origin'
-      value: 'http://{{ .Values.ingress.host }}`'
+upstream:
+  backstage:
+    extraEnvVars:
+      - name: 'APP_CONFIG_app_baseUrl'
+        value: 'http://{{ .Values.ingress.host }}'
+      - name: 'APP_CONFIG_backend_baseUrl'
+        value: 'http://{{ .Values.ingress.host }}'
+      - name: 'APP_CONFIG_backend_cors_origin'
+        value: 'http://{{ .Values.ingress.host }}`'
 
-ingress:
-  enabled: true
-  host: localhost
+  ingress:
+    enabled: true
+    host: localhost
 ```
 
 The only noticeable difference between the content of these values versus the prior content contained in the `values-minikube-ingress.yaml` is enabling the creation of the Ingress resource which is triggered by setting the enabled field within the ingress property to true.
@@ -67,7 +68,7 @@ Regardless of the approach, when using a Linux machine, update the value of the 
 Create a new Helm release by performing an upgrade of the prior release by providing the updated values file as shown below:
 
 ```bash
-helm upgrade -n backstage backstage backstage/backstage -f values-minikube-ingress.yaml
+helm upgrade -n backstage backstage janus-idp/backstage -f values-minikube-ingress.yaml
 ```
 
 Once the release is complete, a new Ingress resource will have been created in the backstage namespace to expose Backstage outside the cluster.
@@ -84,33 +85,34 @@ PostgreSQL is the database backend that is used by Backstage store data persiste
 
 Create a new values file called `values-minikube-persistent.yaml` with the following content:
 
-```yaml filename="values-minikube-persistent.yaml"
-backstage:
-  extraEnvVars:
-    - name: 'APP_CONFIG_app_baseUrl'
-      value: 'http://{{ .Values.ingress.host }}'
-    - name: 'APP_CONFIG_backend_baseUrl'
-      value: 'http://{{ .Values.ingress.host }}'
-    - name: 'APP_CONFIG_backend_cors_origin'
-      value: 'http://{{ .Values.ingress.host }}'
-  args:
-    - '--config'
-    - '/app/app-config.yaml'
-    - '--config'
-    - '/app/app-config.production.yaml'
+```yaml {18} filename="values-minikube-persistent.yaml"
+upstream:
+  backstage:
+    extraEnvVars:
+      - name: 'APP_CONFIG_app_baseUrl'
+        value: 'http://{{ .Values.ingress.host }}'
+      - name: 'APP_CONFIG_backend_baseUrl'
+        value: 'http://{{ .Values.ingress.host }}'
+      - name: 'APP_CONFIG_backend_cors_origin'
+        value: 'http://{{ .Values.ingress.host }}'
+    args:
+      - '--config'
+      - '/app/app-config.yaml'
+      - '--config'
+      - '/app/app-config.production.yaml'
 
-ingress:
-  enabled: true
-  host: localhost
+  ingress:
+    enabled: true
+    host: localhost
 
-postgresql:
-  enabled: true
-  auth:
-    username: bn_backstage
-    database: backstage
-  primary:
-    persistence:
-      enabled: true
+  postgresql:
+    enabled: true
+    auth:
+      username: bn_backstage
+      database: backstage
+    primary:
+      persistence:
+        enabled: true
 ```
 
 While no changes occurred within the set of extra environment variables, several new properties were added; specifically `args` and `postgresql`. Setting `postgresql.enabled` will trigger the installation of the postgresql chart as defined in the `Chart.yaml` file. The `postgresql` section also specifies the username and database that should be created on the PostgreSQL instance along with the creation of a PersistentVolumeClaim within Kubernetes that will serve as the backing storage for the database.
@@ -125,10 +127,10 @@ As a result, uninstall the previously created chart from the minikube cluster by
 helm uninstall -n backstage backstage
 ```
 
-With the chart now uninstalled and the resources removed from the cluster, install a brand new instance of Backstage with persistence support by executing the following command. In addition, be sure to update the `host` field underneath the `ingress` property if a different value was used from the Ingress section of this article.
+With the chart now uninstalled and the resources removed from the cluster, install a brand new instance of Backstage with persistence support by executing the following command. In addition, be sure to update the `upstream.ingress.host` field if a different value was used from the Ingress section of this article.
 
 ```bash
-helm install -n backstage backstage backstage/backstage -f values-minikube-persistent.yaml
+helm install -n backstage backstage janus-idp/backstage -f values-minikube-persistent.yaml
 ```
 
 Once the release is complete, there will be two pods in the backstage namespace: one for the instance of backstage and the other for PostgreSQL. Confirm that the Backstage instance has connected and created the necessary tables within PostgreSQL by executing the following command:
@@ -145,14 +147,15 @@ One of the most common tasks for anyone working with Backstage is the customizat
 
 The Janus community also produces a minimal container image, similar to the upstream backstage community, to provide an instance of Backstage that is built from an Universal Base Image (UBI) base. Switching from the upstream Backstage image to the Janus project image can be used to demonstrate the common task of replacing where the container image of Backstage is sourced from.
 
-The following values illustrate how to switch to the Janus provided image. Keep in mind that in practice, you will most likely need to use an image of your own with your specific customizations, but this provides a good example for understanding the process involved.
+The following values illustrate how to switch to the Janus provided image. This is the default image used by our Janus chart. Keep in mind that in practice, you will most likely need to use an image of your own with your specific customizations, but this provides a good example for understanding the process involved.
 
 ```yaml
-backstage:
-  image:
-    registry: ghcr.io
-    repository: janus-idp/redhat-backstage-build
-    tag: latest
+upstream:
+  backstage:
+    image:
+      registry: ghcr.io
+      repository: janus-idp/redhat-backstage-build
+      tag: latest
 ```
 
 Any of the Helm values files that were provided in the prior sections can be used to demonstrate substituting the location of the Backstage image.
@@ -175,57 +178,58 @@ Similar to the Backstage image itself, the image associated with the PostgreSQL 
 
 Create a new values file called `values-minikube-persistent-scl.yaml` with the following content:
 
-```yaml
-backstage:
-  extraEnvVars:
-    - name: "APP_CONFIG_app_baseUrl"
-      value: "http://{{ .Values.ingress.host }}"
-    - name: "APP_CONFIG_backend_baseUrl"
-      value: "http://{{ .Values.ingress.host }}"
-    - name: "APP_CONFIG_backend_cors_origin"
-      value: "http://{{ .Values.ingress.host }}"
-    - name: "APP_CONFIG_backend_database_connection_password" (1)
-      valueFrom:
-        secretKeyRef:
-          key: postgres-password
-          name: "{{ include \"backstage.postgresql.fullname\" . }}"
-  args:
-    - "--config"
-    - "/app/app-config.yaml"
-    - "--config"
-    - "/app/app-config.production.yaml"
-
-ingress:
-  enabled: true
-  host: localhost
-
-postgresql:
-  enabled: true
-  database: backstage
-  postgresqlDataDir: /var/lib/pgsql/data/userdata (2)
-  auth: (3)
-    username: postgres
-    database: backstage
-  image: (4)
-    registry: quay.io
-    repository: fedora/postgresql-13
-    tag: "13"
-  primary:
-    securityContext:
-      enabled: false
-    podSecurityContext:
-      enabled: false
-    containerSecurityContext:
-      enabled: false
-    persistence:
-      enabled: true
-      mountPath: /var/lib/pgsql/data
+```yaml {10,28,29,32,47} filename="values-minikube-persistent-scl.yaml"
+upstream:
+  backstage:
     extraEnvVars:
-    - name: POSTGRESQL_ADMIN_PASSWORD (5)
-      valueFrom:
-        secretKeyRef:
-          key: postgres-password
-          name: backstage-postgresql
+      - name: "APP_CONFIG_app_baseUrl"
+        value: "http://{{ .Values.ingress.host }}"
+      - name: "APP_CONFIG_backend_baseUrl"
+        value: "http://{{ .Values.ingress.host }}"
+      - name: "APP_CONFIG_backend_cors_origin"
+        value: "http://{{ .Values.ingress.host }}"
+      - name: "APP_CONFIG_backend_database_connection_password" (1)
+        valueFrom:
+          secretKeyRef:
+            key: postgres-password
+            name: "{{ include \"backstage.postgresql.fullname\" . }}"
+    args:
+      - "--config"
+      - "/app/app-config.yaml"
+      - "--config"
+      - "/app/app-config.production.yaml"
+
+  ingress:
+    enabled: true
+    host: localhost
+
+  postgresql:
+    enabled: true
+    database: backstage
+    postgresqlDataDir: /var/lib/pgsql/data/userdata (2)
+    auth: (3)
+      username: postgres
+      database: backstage
+    image: (4)
+      registry: quay.io
+      repository: fedora/postgresql-13
+      tag: "13"
+    primary:
+      securityContext:
+        enabled: false
+      podSecurityContext:
+        enabled: false
+      containerSecurityContext:
+        enabled: false
+      persistence:
+        enabled: true
+        mountPath: /var/lib/pgsql/data
+      extraEnvVars:
+      - name: POSTGRESQL_ADMIN_PASSWORD (5)
+        valueFrom:
+          secretKeyRef:
+            key: postgres-password
+            name: backstage-postgresql
 ```
 
 There are quite a number of additional configurations that are included within this values file. Let's break down some of the most important configurations to illustrate their significance:

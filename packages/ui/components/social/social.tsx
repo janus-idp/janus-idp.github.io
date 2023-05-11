@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
-import React from 'react';
-import { type SocialLinkKind, SOCIAL_LINKS } from './social-links';
+import React, { useContext } from 'react';
+import { EnvironmentContext } from '../../contexts';
+import { SOCIAL_LINKS, type SocialLinkKind } from './social-links';
 
 type SocialProps = {
   social: SocialLinkKind;
@@ -24,6 +24,8 @@ type SocialProps = {
 
 export function SocialLogo(props: SocialProps): JSX.Element {
   const { social } = props;
+
+  const { Link } = useContext(EnvironmentContext);
 
   const { Icon, name, href } = SOCIAL_LINKS[social];
 
@@ -47,6 +49,8 @@ type SocialLinkProps = {
 
 export function SocialLink(props: SocialLinkProps): JSX.Element {
   const { social, text } = props;
+
+  const { Link } = useContext(EnvironmentContext);
 
   const { href, name } = SOCIAL_LINKS[social];
 

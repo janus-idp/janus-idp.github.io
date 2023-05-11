@@ -15,10 +15,15 @@
  */
 
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const dotenv = require('dotenv');
+
+dotenv.config();
+dotenv.config({ path: `.env.local`, override: true });
+
+const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -40,6 +45,10 @@ const config = {
     locales: ['en'],
   },
 
+  customFields: {
+    writeKey: process.env.WRITE_KEY,
+  },
+
   presets: [
     [
       'classic',
@@ -49,15 +58,25 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/janus-idp-website/',
+          editUrl: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/website/',
         },
         blog: {
+          feedOptions: {
+            type: 'all',
+            copyright,
+            createFeedItems: async (params) => {
+              const { blogPosts, defaultCreateFeedItems, ...rest } = params;
+              return defaultCreateFeedItems({
+                // keep only the 10 most recent blog posts in the feed
+                blogPosts: blogPosts.filter((item, index) => index < 10),
+                ...rest,
+              });
+            },
+          },
           showReadingTime: true,
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/janus-idp-website/',
+          editUrl: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -142,7 +161,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`,
+        copyright,
       },
       prism: {
         theme: lightCodeTheme,
@@ -151,7 +170,7 @@ const config = {
     }),
 
   plugins: [
-    async function myPlugin() {
+    async () => {
       return {
         name: 'docusaurus-tailwindcss',
         configurePostCss(postcssOptions) {

@@ -10,7 +10,7 @@ import { Authors } from 'ui/components';
 
 <Authors authors={['sabre1041']} />
 
-Backstage is a tool for building Internal Development Platforms and includes the flexibility to be deployed within a variety of operating environments, including containers. In prior articles, it was introduced how the deployment of Backstage within Kubernetes environments can be streamlined through the use of the [Backstage Helm chart](https://github.com/backstage/charts/tree/main/charts/backstage) as well as integrating the platform into identity stores, such as Keycloak. OpenShift is a common deployment target for running Backstage as it provides enterprise grade container orchestration and one of its capabilities is the  ability to integrate with a variety of Identity Providers. Since many users of Backstage also use OpenShift to build and deploy containerized workloads, there is a desire to more closely tie into existing workflows and access models. This article introduces how Backstage can be integrated with OpenShift’s existing authentication capabilities to provide a seamless path for users to access the Backstage portal.
+Backstage is a tool for building Internal Development Platforms and includes the flexibility to be deployed within a variety of operating environments, including containers. In prior articles, it was introduced how the deployment of Backstage within Kubernetes environments can be streamlined through the use of the [Janus IDP's Backstage Helm chart](https://github.com/janus-idp/helm-backstage/tree/main/charts/backstage) as well as integrating the platform into identity stores, such as Keycloak. OpenShift is a common deployment target for running Backstage as it provides enterprise grade container orchestration and one of its capabilities is the  ability to integrate with a variety of Identity Providers. Since many users of Backstage also use OpenShift to build and deploy containerized workloads, there is a desire to more closely tie into existing workflows and access models. This article introduces how Backstage can be integrated with OpenShift’s existing authentication capabilities to provide a seamless path for users to access the Backstage portal.
 
 In addition to the base platform, OpenShift also includes a number of additional features that enhance not only how administrators, but developers work with the platform and include those that support GitOps and multicluster workflows just to name a few. Many of these same components also provide their own user interface which expose their capabilities. To enable ease of use, access is granted using the same authentication mechanisms as the OpenShift cluster itself using a workflow similar to the native OpenShift console. The ability to authenticate to applications using the same set of credentials as OpenShift itself is facilitated through the [OpenShift oauth-proxy](https://github.com/openshift/oauth-proxy) -- a separate container running within the same pod, using the sidecar pattern, which intercepts requests and interacts with the OpenShift platform to restrict access to facilitate the authentication process.
 
@@ -38,10 +38,11 @@ The former is commonly used by cluster services, such as the OpenShift web conso
 This capability can be enabled by setting the following Helm values.
 
 ```yaml
-serviceAccount:
-  create: true
-  annotations:
-    serviceaccounts.openshift.io/oauth-redirecturi.backstage: "https://{{ .Values.ingress.host }}/oauth/callback"
+upstream:
+  serviceAccount:
+    create: true
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirecturi.backstage: "https://{{ .Values.ingress.host }}/oauth/callback"
 ```
 
 ### TLS Certificate Management
@@ -51,9 +52,10 @@ There are multiple methods for which TLS certificates can be configured within O
 To have OpenShift generate certificate within a Secret called `backstage-tls` which can be configured within the OAuth proxy, the following Helm values can be specified:
 
 ```yaml
-service:
-  annotations:
-    service.alpha.openshift.io/serving-cert-secret-name: backstage-tls
+upstream:
+  service:
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: backstage-tls
 ```
 
 ### Ingress Configuration
@@ -66,15 +68,28 @@ To work around this challenge, the generated `Route` that is created from an `In
 
 Similar to the enablement of the Service Account as a OAuth Client and the Service Service Certificate feature, an annotation can be placed on an `Ingress` resource with the key `route.openshift.io/termination` with the value of `reencrypt` to set up the `Route` to expose the Backstage instance. 
 
+In the Janus Backstage chart we provide you with both options. To either use OpenShift `Route` or Kubernetes `Ingress`. The following Helm values can be used to enable and configure the `Route` resource:
+
+```yaml
+route:
+  enabled: true
+  host: backstage.apps.example.com
+  tls:
+    enabled: true
+    termination: reencrypt
+```
+
 The following Helm values can be specified to configure the `Ingress` resource:
 
 ```yaml
-ingress:
-  enabled: true
-  host: backstage.apps.example.com
-  annotations:
-    route.openshift.io/termination: "reencrypt"
+upstream:
+  ingress:
+    enabled: true
+    host: backstage.apps.example.com
+    annotations:
+      route.openshift.io/termination: "reencrypt"
 ```
+
 
 ## Deploying the Backstage Helm Chart
 
@@ -83,86 +98,88 @@ With the primary changes called out, the final step is to declare the full set o
 Create a file called `values-backstage-openshift-auth.yaml` with the following content:
 
 ```yaml filename="values-backstage-openshift-auth.yaml"
-backstage:
-  image:
-    registry: quay.io
-    repository: ablock/backstage-oauth
-    tag: latest
-  extraEnvVars:
-    - name: "APP_CONFIG_app_baseUrl"
-      value: "https://{{ .Values.ingress.host }}"
-    - name: "APP_CONFIG_backend_baseUrl"
-      value: "https://{{ .Values.ingress.host }}"
-    - name: "APP_CONFIG_backend_cors_origin"
-      value: "https://{{ .Values.ingress.host }}"
-  installDir: /opt/app-root/src
+upstream:
+  backstage:
+    image:
+      registry: quay.io
+      repository: ablock/backstage-oauth
+      tag: latest
+    extraEnvVars:
+      - name: "APP_CONFIG_app_baseUrl"
+        value: "https://{{ .Values.ingress.host }}"
+      - name: "APP_CONFIG_backend_baseUrl"
+        value: "https://{{ .Values.ingress.host }}"
+      - name: "APP_CONFIG_backend_cors_origin"
+        value: "https://{{ .Values.ingress.host }}"
+    installDir: /opt/app-root/src
 
-  extraContainers:
-    - name: oauth-proxy 
-      args:
-        - -provider=openshift
-        - -https-address=:8888
-        - -http-address=
-        - -email-domain=*
-        - -upstream=http://localhost:7007
-        - -tls-cert=/etc/tls/private/tls.crt
-        - -tls-key=/etc/tls/private/tls.key
-        - -cookie-secret="{{ default (randAlpha 32 | lower | b64enc) .Values.oauthProxy.cookieSecret }}"
-        - -openshift-service-account={{ include "common.names.fullname" . }}
-        - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-        - -skip-auth-regex=^/metrics
-        - -skip-provider-button
-        - -request-logging=true
-      image: registry.redhat.io/openshift4/ose-oauth-proxy:v4.12
-      imagePullPolicy: IfNotPresent
-      ports:
-        - name: oauth-proxy
-          containerPort: 8888    
-          protocol: TCP
-      volumeMounts:
-        - mountPath: /etc/tls/private
-          name: backstage-tls
+    extraContainers:
+      - name: oauth-proxy 
+        args:
+          - -provider=openshift
+          - -https-address=:8888
+          - -http-address=
+          - -email-domain=*
+          - -upstream=http://localhost:7007
+          - -tls-cert=/etc/tls/private/tls.crt
+          - -tls-key=/etc/tls/private/tls.key
+          - -cookie-secret="{{ default (randAlpha 32 | lower | b64enc) .Values.global.oauthProxy.cookieSecret }}"
+          - -openshift-service-account={{ include "common.names.fullname" . }}
+          - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          - -skip-auth-regex=^/metrics
+          - -skip-provider-button
+          - -request-logging=true
+        image: registry.redhat.io/openshift4/ose-oauth-proxy:v4.12
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: oauth-proxy
+            containerPort: 8888    
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /etc/tls/private
+            name: backstage-tls
 
-  extraVolumeMounts:
-    - mountPath: /tmp/fakepath
-      name: backstage-tls
+    extraVolumeMounts:
+      - mountPath: /tmp/fakepath
+        name: backstage-tls
 
-  extraVolumes:
-    - name: backstage-tls
-      secret:
-        defaultMode: 420
-        secretName: backstage-tls
+    extraVolumes:
+      - name: backstage-tls
+        secret:
+          defaultMode: 420
+          secretName: backstage-tls
 
-service:
-  annotations:
-    service.alpha.openshift.io/serving-cert-secret-name: backstage-tls
-  ports:
-    backend: 8888
-    targetPort: oauth-proxy
+  service:
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: backstage-tls
+    ports:
+      backend: 8888
+      targetPort: oauth-proxy
 
-serviceAccount:
-  create: true
-  annotations:
-    serviceaccounts.openshift.io/oauth-redirecturi.backstage: "https://{{ .Values.ingress.host }}/oauth/callback"
+  serviceAccount:
+    create: true
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirecturi.backstage: "https://{{ .Values.ingress.host }}/oauth/callback"
 
-ingress:
-  enabled: true
-  host: backstage.apps.example.com
-  annotations:
-    route.openshift.io/termination: "reencrypt"
+  ingress:
+    enabled: true
+    host: backstage.apps.example.com
+    annotations:
+      route.openshift.io/termination: "reencrypt"
 
-oauthProxy:
-  cookieSecret: ""
+global:
+  oauthProxy:
+    cookieSecret: ""
 ```
 
-Be sure to update the `ingress.host` property with the desired exposed hostname for Backstage.
+Be sure to update the `upstream.ingress.host` property with the desired exposed hostname for Backstage.
 
 The majority of the values have been reused from prior articles on this subject aside from those that were highlighted in the previous sections as well as the `extraContainers` property which contains the definition for the oauth-proxy container. Also note that none of the customizations as it pertains to the PostgreSQL database supporting Backstage has been defined either resulting in an ephemeral deployment for demonstration purposes. Consult the prior articles, specifically [Exploring the Flexibility of the Backstage Helm Chart](./exploring-the-flexibility-of-the-backstage-helm-chart-part-2), for steps on how to customize the Backstage deploying using the Helm chart along with configuring your machine with the necessary Helm dependencies.
 
 Install the chart by executing the following command:
 
 ```bash
-helm install -n backstage --create-namespace backstage backstage/backstage -f values-backstage-openshift-auth.yaml
+helm install -n backstage --create-namespace backstage janus-idp/backstage -f values-backstage-openshift-auth.yaml
 ```
 
 Once the chart has been installed, open a web browser and navigate to the hostname as defined by the hostname within the Ingress resource. You should be presented with the familiar OpenShift login page for which you may be able to select the appropriate identity provider (if multiple are defined) as well as providing your credentials to complete the authentication process. 

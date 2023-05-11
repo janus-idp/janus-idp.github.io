@@ -16,7 +16,7 @@
 
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import React, { useCallback, useContext } from 'react';
-import { EnvironmentContext } from '../../context';
+import { EnvironmentContext } from '../../contexts';
 import { Feature } from '../../types';
 
 type PluginTileProps = Feature;

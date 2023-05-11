@@ -17,8 +17,7 @@
 import Layout from '@theme/Layout';
 import React from 'react';
 import { PluginsGrid } from 'ui/components/plugin-grid/plugin-grid';
-import { pluginsList } from '../../../content/plugin-list';
-import { EnvironmentProvider } from '../../lib/environment-provider';
+import { PLUGINS_LIST } from '../../../content/plugin-list';
 
 function PluginsHeader(): JSX.Element {
   return (
@@ -36,9 +35,7 @@ export default function Plugins(): JSX.Element {
     <Layout title="Hello!" description="Description will go into a meta tag in <head />">
       <PluginsHeader />
       <main>
-        <EnvironmentProvider>
-          <PluginsGrid pluginsList={pluginsList} />
-        </EnvironmentProvider>
+        <PluginsGrid pluginsList={PLUGINS_LIST} />
       </main>
     </Layout>
   );

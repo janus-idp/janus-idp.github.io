@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
-export * from './generate-rss-feed';
+export type CustomFields = {
+  writeKey: string;
+};

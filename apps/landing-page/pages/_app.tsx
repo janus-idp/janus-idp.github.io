@@ -14,34 +14,43 @@
  * limitations under the License.
  */
 
-import '../styles/tailwind.css';
+import { SSRProvider, useIsSSR } from '@react-aria/ssr';
 import type { AppProps } from 'next/app';
-import { SSRProvider } from '@react-aria/ssr';
-import { AnalyticsProvider } from 'ui/hooks';
+import { useRouter } from 'next/router';
 import CookieConsent from 'react-cookie-consent';
+import { AnalyticsProvider } from 'ui/providers';
+import '../styles/tailwind.css';
 
-const analyticsConfig = {
+const ANALYTICS_CONFIG = {
   writeKey: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY ?? '',
-  client: 'landing-page',
 };
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function SSRWrapper(props: AppProps): JSX.Element {
   return (
     <SSRProvider>
-      <AnalyticsProvider {...analyticsConfig}>
-        <Component {...pageProps} />
-        {/* Important modifiers need to be used to override the default styling */}
-        <CookieConsent
-          contentClasses="!text-opacity-80 !text-[#E2E8F0]"
-          containerClasses="!bg-[#232323]"
-          buttonClasses="!bg-janus-blue !rounded-md !opacity-80 !hover:opacity-100 !text-black"
-          buttonText="I accept"
-        >
-          This website uses cookies to collect anonymized telemetry data.
-        </CookieConsent>
-      </AnalyticsProvider>
+      <MyApp {...props} />
     </SSRProvider>
   );
 }
 
-export default MyApp;
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+  const router = useRouter();
+  const isSSR = useIsSSR();
+
+  return (
+    <AnalyticsProvider {...ANALYTICS_CONFIG} pathname={router.asPath} isSSR={isSSR}>
+      <Component {...pageProps} />
+      {/* Important modifiers need to be used to override the default styling */}
+      <CookieConsent
+        contentClasses="!text-opacity-80 !text-[#E2E8F0]"
+        containerClasses="!bg-[#232323]"
+        buttonClasses="!bg-janus-blue !rounded-md !opacity-80 !hover:opacity-100 !text-black"
+        buttonText="I accept"
+      >
+        This website uses cookies to collect anonymized telemetry data.
+      </CookieConsent>
+    </AnalyticsProvider>
+  );
+}
+
+export default SSRWrapper;

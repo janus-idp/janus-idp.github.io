@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
-import React from 'react';
 import clsx from 'clsx';
-import { ThemeSwitch } from 'nextra-theme-docs';
+import React, { useContext } from 'react';
+import { EnvironmentContext } from '../../contexts';
 import { JanusLogo } from '../janus-logo/janus-logo';
 import { SOCIAL_LINKS } from '../social/social-links';
 
@@ -27,6 +26,8 @@ type FooterLinkProps = {
 
 function FooterLink(props: React.PropsWithChildren<FooterLinkProps>): JSX.Element {
   const { href, children } = props;
+
+  const { Link } = useContext(EnvironmentContext);
 
   const classes =
     'text-sm text-[#666666] dark:text-[#888888] no-underline hover:text-gray-700 hover:dark:text-white transition';
@@ -117,11 +118,12 @@ export function FooterContent(): JSX.Element {
 }
 
 type FooterProps = {
+  ThemeSwitch: React.FunctionComponent;
   menu?: boolean;
 };
 
 export function Footer(props: FooterProps): JSX.Element {
-  const { menu } = props;
+  const { menu, ThemeSwitch } = props;
 
   return (
     <footer className="bg-[#FAFAFA] pb-[env(safe-area-inset-bottom)] relative dark:bg-[#111111]">
