@@ -20,4 +20,5 @@ export type Feature = {
   description: string;
   href: string;
   githubUrl?: string;
+  npmUrl?: string;
 };

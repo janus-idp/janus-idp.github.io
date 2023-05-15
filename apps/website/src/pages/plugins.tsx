@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import Layout from '@theme/Layout';
 import React from 'react';
@@ -67,7 +68,17 @@ function PluginPage(): JSX.Element {
   }
 
   return (
-    <main className="container container--fluid margin-vert--lg">
+    <main className="container my-4">
+      <div className="flex flex-col sm:flex-row mb-4">
+        <img src={plugin?.icon} alt={plugin?.title} className="h-32 w-auto sm:mr-4" />
+        <div className="flex-1">
+          <h1>{plugin.title}</h1>
+          <p>{plugin.description}</p>
+        </div>
+        <div>
+          <Link to={plugin.npmUrl}>NPM</Link>
+        </div>
+      </div>
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{data}</ReactMarkdown>
     </main>
   );
