@@ -9,7 +9,7 @@
     },
     "export": {
       "dependsOn": ["build"],
-      "outputs": ["out/**"]
+      "outputs": ["out/**", "build/**"]
     },
     "test:e2e": {
       "dependsOn": ["build"]
