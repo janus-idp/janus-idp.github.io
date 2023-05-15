@@ -1,9 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NEXT_PUBLIC_ANALYTICS_WRITE_KEY", "SITE_URL"],
+  "globalEnv": ["NEXT_PUBLIC_ANALYTICS_WRITE_KEY", "SITE_URL", "WRITE_KEY"],
   "globalDependencies": ["packages/eslint-config-custom/index.js"],
   "pipeline": {
     "build": {
+      "dependsOn": ["^build"],
       "outputs": [".next/**"]
     },
     "export": {
@@ -15,7 +16,9 @@
     },
     "test:unit": {},
     "lint": {},
+    "clean": {},
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     }

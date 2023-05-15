@@ -1,0 +1,21 @@
+{
+  "name": "docusaurus-plugin-dynamic-routes",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "devDependencies": {
+    "@docusaurus/types": "^2.4.1",
+    "@types/node": "^18.11.14",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.29.0",
+    "eslint-config-custom": "workspace:*",
+    "tailwindcss": "^3.2.4",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.9.4"
+  }
+}
