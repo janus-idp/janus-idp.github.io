@@ -15,20 +15,18 @@
     "eslint-config-custom": "workspace:*",
     "postcss": "^8.4.20",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "^3.2.4",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@react-aria/ssr": "^3.4.0",
     "@segment/analytics-next": "^1.49.2",
     "clsx": "^1.2.1",
+    "deepmerge": "^4.2.2",
     "encoding": "^0.1.13",
     "feed": "^4.2.2",
-    "next": "^13.1.6",
-    "nextra": "^2.2.4",
-    "nextra-theme-docs": "2.2.4",
-    "react-dom": "^18.2.0",
+    "framer-motion": "^10.12.10",
     "react-icons": "^4.8.0"
   }
 }

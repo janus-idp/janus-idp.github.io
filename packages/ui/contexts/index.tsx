@@ -14,19 +14,4 @@
  * limitations under the License.
  */
 
-import { generateRssFeed } from 'ui/utils/generate-rss-feed';
-import { type GetStaticProps } from 'next';
-
-function RSSPage(): JSX.Element {
-  return <meta httpEquiv="refresh" content="0; url=/rss.xml" />;
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  await generateRssFeed();
-
-  return {
-    props: {},
-  };
-};
-
-export default RSSPage;
+export * from './environment-context/environment-context';

@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-import Image from 'next/image';
 import clsx from 'clsx';
-import { JANUS_IDP_TEAM, type AuthorDetails, type Author } from './team';
+import React, { useContext } from 'react';
+import { EnvironmentContext } from '../../contexts';
+import { JANUS_IDP_TEAM, type Author, type AuthorDetails } from './team';
 
 export function Avatar(props: AuthorDetails): JSX.Element {
   const { name, picture, twitterUsername } = props;
+
+  const { Image } = useContext(EnvironmentContext);
 
   return (
     <div className="flex items-center flex-shrink-0 md:justify-start">

@@ -1,0 +1,25 @@
+---
+title: Newly Released Backstage plugins from the Janus IDP community
+authors: [tumido]
+tags: [Keycloak, Multicluster, Plugins]
+date: 2022/12/21
+description: Keycloak and MultiCluster Engine plugins now available
+---
+
+# Newly Released Backstage plugins from the Janus IDP community
+
+Not so long ago, [Red Hat pledged its intention](https://developers.redhat.com/articles/2022/10/24/red-hat-joins-backstageio-community) to join the Backstage community. Several weeks later we're starting to see the first fruits of the effort. The Janus community is pleased to announce the availability of the first 2 Backstage plugins created at Red Hat. These plugins target upstream community projects, namely [Keycloak](https://www.keycloak.org/) and [Open Cluster Management](https://open-cluster-management.io/). Both plugins are in the early stages of development and are not meant to be used yet in production environments, however [we welcome any feedback](https://github.com/janus-idp/backstage-plugins/issues) and suggestions as they continue to mature. Please join us on our path to building a better Internal Development Platforms for Kubernetes and OpenShift on the [Janus IDP community website](http://www.janus-idp.io).
+
+Details related to the first Keycloak and Multicluster Engine plugins for Backstage can be found in the following sections:
+
+## Keycloak plugin for Backstage
+
+The need for Identity management is a common concern for any internal development platform. Backstage already contains the functionality to connect to external identity providers to enable authentication and apply proper RBAC. However, these concerns are not the sole role of identity management in relation to development portals. These portals also focus on accountability, responsibility and relationship of users and contributors to their project. Backstage achieves that through entity relations within a service catalog. All actors and objects are modeled as entities in this catalog and the Keycloak plugin ensures that all of your Keycloak users and groups are properly represented and mapped within the catalog. It allows the Backstage instance to interface with Keycloak directly and perform automatic and recurring importing of assets. Once imported, these user and group entities can be used in the standard Backstage catalog model with the added benefits of Keycloak’s diverse identity brokering capabilities.
+
+## MultiCluster Engine plugin for Backstage
+
+One of the key focus areas for Backstage is the ability to provide a full, transparent service catalog to their developers. This includes mapping service dependencies on other components, resource ownership, and many more. Service dependencies should not include only the requirements of other services, but also model the underlying consumed resources. This plugin aims to provide a seamless, automated resource import for companies that use MulticlusterEngine from [Open Cluster Management](https://open-cluster-management.io/) or [Red Hat Advanced Cluster Management for Kubernetes](https://www.redhat.com/en/technologies/management/advanced-cluster-management) (RHACM) for their cluster fleet management. By connecting the Backstage instance to the Hub cluster, all managed clusters are discovered and imported into Backstage as standard catalog resources. In addition, the plugin also provides frontend components that fetch data from the hub cluster through the Kubernetes plugin on the Backstage instance as a proxy allowing users to quickly observe the current status of each of their clusters and providing quick access to the OpenShift console.
+
+## What's Next?
+
+We'll be investigating a way to import the managed clusters into the Backstage Kubernetes plugin configuration. This capability will enable Backstage users the ability to observe workloads on the managed clusters and further simplify Backstage catalog maintenance and integration with Kubernetes cluster fleets.

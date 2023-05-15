@@ -1,0 +1,238 @@
+---
+title: Exploring the Flexibility of the Backstage Helm Chart
+authors: [sabre1041]
+tags: [Helm]
+description: Exploring the Flexibility of the Backstage Helm Chart
+---
+
+# Exploring the Flexibility of the Backstage Helm Chart
+
+Getting Backstage up and running takes no time at all thanks to the Backstage Helm chart as described in the [first article](blog/2023-01-15-getting-started-with-the-backstage-helm-chart/index.mdx) in this series. However, even though Backstage has been deployed, it is hardly ready in its current state for production use. There are several key factors that need to be addressed:
+
+1. Exposing Backstage properly outside the cluster
+2. Adding persistence
+
+## Ingress
+
+Accessing the Backstage instance as part of the initial deployment made use of the `kubectl port-forward{:bash}` command, which is a key tool that is used as part of the development process. However, in order to make a deployment more representative of how Backstage would need to be configured for a production state, a proper Ingress strategy should be implemented.
+
+Minikube includes a set of features that extend the baseline configuration of Kubernetes, known as [addons](https://minikube.sigs.k8s.io/docs/commands/addons/). Included in the collection of minikube addons is support for deploying the [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx) to enable more native access to resources within Kubernetes.
+
+Execute the following command to enable the ingress addon which will deploy the NGINX Ingress Controller into a namespace called `ingress-nginx`:
+
+```bash
+minikube addons enable ingress
+```
+
+### Connecting through the Minikube Ingress Controller
+
+Access to resources deployed within Kubernetes through the ingress controller varies depending on the host operating system. On linux machines which can run containers natively, access can be achieved through the ip address in use by the `minikube` virtual machine. This address can be obtained by running the `minikube ip{:bash}` command.
+
+On OSX machines, a tunnel can be created for which connectivity can be achieved through the ingress controller using the minikube tunnel command. Since this will expose the tunnel on ports 80 and 443, elevated permissions are needed. A password prompt will appear requesting permission to access these privileged ports.
+
+### Accessing Backstage through the Minikube Ingress Controller
+
+To configure Backstage to expose an Ingress through the newly created ingress controller, update the content of the values that are used for the Backstage Helm chart by creating a new values file called `values-minikube-ingress.yaml` with the following content:
+
+```yaml filename="values-minikube-ingress.yaml"
+backstage:
+  extraEnvVars:
+    - name: 'APP_CONFIG_app_baseUrl'
+      value: 'http://{{ .Values.ingress.host }}'
+    - name: 'APP_CONFIG_backend_baseUrl'
+      value: 'http://{{ .Values.ingress.host }}'
+    - name: 'APP_CONFIG_backend_cors_origin'
+      value: 'http://{{ .Values.ingress.host }}`'
+
+ingress:
+  enabled: true
+  host: localhost
+```
+
+The only noticeable difference between the content of these values versus the prior content contained in the `values-minikube-ingress.yaml` is enabling the creation of the Ingress resource which is triggered by setting the enabled field within the ingress property to true.
+
+For those making use of a Linux machine, since the ingress controller is accessed through the IP address of the minikube VM, a fake hostname (backstage.minikube.info) can be created by setting the following value in the `/etc/hosts` file.
+
+```bash
+$(minikube ip) backstage.minikube.info
+```
+
+Alternatively, a wildcard IP address DNS service, such as nip.io can be used if there was a desire to avoid modifying the `/etc/hosts` file.
+
+Regardless of the approach, when using a Linux machine, update the value of the host field within the ingress property in the `values-minikube-ingress.yaml` file to the hostname configured above.
+
+Create a new Helm release by performing an upgrade of the prior release by providing the updated values file as shown below:
+
+```bash
+helm upgrade -n backstage backstage backstage/backstage -f values-minikube-ingress.yaml
+```
+
+Once the release is complete, a new Ingress resource will have been created in the backstage namespace to expose Backstage outside the cluster.
+
+Navigate to the hostname that was defined in the Ingress resource. Due to caching techniques employed by many web browsers, a “hard reload” of the page may be required in order to ensure the updated set of Javascript resources from the Backstage instance. Consult the documentation of the browser being used for the necessary steps.
+
+By exposing and accessing Backstage through a Kubernetes Ingress, it better aligns to how one would want to configure Backstage for a production deployment.
+
+## Persistence
+
+To simplify the getting started experience for users, Backstage makes use of an in-memory SQLite database as a persistent store. While this reduces the initial barrier of entry, it also limits how far one can go in their Backstage journey. Limitations with this implementation include the ability to achieve high-availability as each instance of Backstage has its own independent persistent store and existing data would be lost if the pod is restarted or deleted.
+
+PostgreSQL is the database backend that is used by Backstage store data persistently and the Backstage Helm chart includes the ability to provision a deployment of PostgreSQL in order to support Backstage. The [postgres Helm chart from Bitnami](https://github.com/bitnami/charts/tree/main/bitnami/postgresql) as a [dependency chart](https://helm.sh/docs/chart_best_practices/dependencies/) which is, as demonstrated previously, disabled by default. Similar to how ingress was enabled in the prior section, enabling and configuring the integration between PostgreSQL and Backstage can be achieved through the Backstage Helm chart.
+
+Create a new values file called `values-minikube-persistent.yaml` with the following content:
+
+```yaml filename="values-minikube-persistent.yaml"
+backstage:
+  extraEnvVars:
+    - name: 'APP_CONFIG_app_baseUrl'
+      value: 'http://{{ .Values.ingress.host }}'
+    - name: 'APP_CONFIG_backend_baseUrl'
+      value: 'http://{{ .Values.ingress.host }}'
+    - name: 'APP_CONFIG_backend_cors_origin'
+      value: 'http://{{ .Values.ingress.host }}'
+  args:
+    - '--config'
+    - '/app/app-config.yaml'
+    - '--config'
+    - '/app/app-config.production.yaml'
+
+ingress:
+  enabled: true
+  host: localhost
+
+postgresql:
+  enabled: true
+  auth:
+    username: bn_backstage
+    database: backstage
+  primary:
+    persistence:
+      enabled: true
+```
+
+While no changes occurred within the set of extra environment variables, several new properties were added; specifically `args` and `postgresql`. Setting `postgresql.enabled` will trigger the installation of the postgresql chart as defined in the `Chart.yaml` file. The `postgresql` section also specifies the username and database that should be created on the PostgreSQL instance along with the creation of a PersistentVolumeClaim within Kubernetes that will serve as the backing storage for the database.
+
+The `backstage.args` property is used to specify the container arguments that are injected into the Backstage container. When an installation of Backstage is created, several sample application configuration files are created: One that contains the baseline configuration for Backstage, one that features configurations that are designed for production use and one that can be used to specify configurations that are used for local development. The production configuration file (`app-config.production.yaml`) includes the necessary configurations to enable Backstage to use PostgreSQL as its persistence store. The location of these configuration files are added as arguments using the `--config` flag as declared in values file sample above.
+
+Several options are available within the Bitnami postgres chart to set the password for the newly created database use including providing it within a Kubernetes secret, explicitly as a Helm Value, or having one automatically generated which is the option that will be chosen in this case. There is one disadvantage to having the chart automatically generate the password; The `helm upgrade` command cannot be used as each invocation would result in a newly generated password, thus invalidating the prior value and causing issues for clients looking to connect.
+
+As a result, uninstall the previously created chart from the minikube cluster by executing the following command:
+
+```bash
+helm uninstall -n backstage backstage
+```
+
+With the chart now uninstalled and the resources removed from the cluster, install a brand new instance of Backstage with persistence support by executing the following command. In addition, be sure to update the `host` field underneath the `ingress` property if a different value was used from the Ingress section of this article.
+
+```bash
+helm install -n backstage backstage backstage/backstage -f values-minikube-persistent.yaml
+```
+
+Once the release is complete, there will be two pods in the backstage namespace: one for the instance of backstage and the other for PostgreSQL. Confirm that the Backstage instance has connected and created the necessary tables within PostgreSQL by executing the following command:
+
+```bash
+kubectl exec -it -n backstage statefulset/backstage-postgresql -- sh -c "export PGPASSWORD=$(kubectl get secrets -n backstage backstage-postgresql  -o jsonpath='{.data.postgres-password}' | base64 -d) && psql --host localhost -U postgres -c '\l'"
+```
+
+Several tables prefixed with “backstage” should be present and once confirmed, one has the assurance Backstage is making use of the PostgreSQL instance and storing data persistently.
+
+## Replacing the Default Images
+
+One of the most common tasks for anyone working with Backstage is the customization of the components that are installed within the Backstage instance. This typically includes the addition of plugins that extend the baseline functionality of Backstage to enable the integration with external systems. The Backstage Helm chart references a container image from the Backstage community, but in many cases, does not include all of the components that may be needed by consumers. As a result, those looking to use Backstage in their own environment will need to produce their own instance of Backstage and store the resulting image in a container registry. The location of this instance can be specified as a set of Helm values to enable users to leverage their own image.
+
+The Janus community also produces a minimal container image, similar to the upstream backstage community, to provide an instance of Backstage that is built from an Universal Base Image (UBI) base. Switching from the upstream Backstage image to the Janus project image can be used to demonstrate the common task of replacing where the container image of Backstage is sourced from.
+
+The following values illustrate how to switch to the Janus provided image. Keep in mind that in practice, you will most likely need to use an image of your own with your specific customizations, but this provides a good example for understanding the process involved.
+
+```yaml
+backstage:
+  image:
+    registry: ghcr.io
+    repository: janus-idp/redhat-backstage-build
+    tag: latest
+```
+
+Any of the Helm values files that were provided in the prior sections can be used to demonstrate substituting the location of the Backstage image.
+
+Each Backstage image can feature a different database schema, therefore if an existing Helm release has been deployed previously with postgresql enabled, uninstall it so that the new configurations can be applied. In addition, if persistent storage was used to support PostgreSQL, the PersistentVolumeClaim that was also created needs to be manually removed. This can be achieved using the following command:
+
+```bash
+kubectl delete pvc -n backstage -l=app.kubernetes.io/name=postgresql
+```
+
+Once all of the resources have been removed, use the Backstage Helm chart to deploy Backstage with the updated set of values. Confirm the image associated with the Backstage deployment is leveraging the custom image by executing the following command:
+
+```bash
+kubectl get deployment -n backstage backstage -o jsonpath='{ .spec.template.spec.containers[?(@.name=="backstage-backend")].image }'
+```
+
+## Customizing the PostgreSQL Configuration
+
+Similar to the Backstage image itself, the image associated with the PostgreSQL instance can also be customized if there was a desire to make use of an alternate image other than the image provided by the Bitnami postgres Helm chart. Given that the Janus community is a Red Hat sponsored initiative, switching to a PostgreSQL image that is provided from [Red Hat Software Collections](https://www.redhat.com/en/resources/red-hat-software-collections) is a common task. Fortunately, the combination of features provided by the Backstage and Bitnami postgres Helm charts enable not only the customization of image location, but additional configurations that are needed to support any other required configurations needed to support an alternate image.
+
+Create a new values file called `values-minikube-persistent-scl.yaml` with the following content:
+
+```yaml
+backstage:
+  extraEnvVars:
+    - name: "APP_CONFIG_app_baseUrl"
+      value: "http://{{ .Values.ingress.host }}"
+    - name: "APP_CONFIG_backend_baseUrl"
+      value: "http://{{ .Values.ingress.host }}"
+    - name: "APP_CONFIG_backend_cors_origin"
+      value: "http://{{ .Values.ingress.host }}"
+    - name: "APP_CONFIG_backend_database_connection_password" (1)
+      valueFrom:
+        secretKeyRef:
+          key: postgres-password
+          name: "{{ include \"backstage.postgresql.fullname\" . }}"
+  args:
+    - "--config"
+    - "/app/app-config.yaml"
+    - "--config"
+    - "/app/app-config.production.yaml"
+
+ingress:
+  enabled: true
+  host: localhost
+
+postgresql:
+  enabled: true
+  database: backstage
+  postgresqlDataDir: /var/lib/pgsql/data/userdata (2)
+  auth: (3)
+    username: postgres
+    database: backstage
+  image: (4)
+    registry: quay.io
+    repository: fedora/postgresql-13
+    tag: "13"
+  primary:
+    securityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+    persistence:
+      enabled: true
+      mountPath: /var/lib/pgsql/data
+    extraEnvVars:
+    - name: POSTGRESQL_ADMIN_PASSWORD (5)
+      valueFrom:
+        secretKeyRef:
+          key: postgres-password
+          name: backstage-postgresql
+```
+
+There are quite a number of additional configurations that are included within this values file. Let's break down some of the most important configurations to illustrate their significance:
+
+1. The Software Collections PostgreSQL image manages permissions differently than the Bitnami PostgreSQL image and the key within the generated Secret differs and needs to be provided for the Backstage container
+2. Specifies the location of where PostgreSQL stores persistent content
+3. The name of the database to use and user to authenticate against
+4. The location of the Software Collections image
+5. The environment variable used by the Software Collections PostgreSQL image to signify the password for the postgres admin account
+
+Uninstall and reinstall the Backstage Helm chart once again so that the Software Collections image will be used to support PostgreSQL.
+
+As demonstrated throughout this article, the Helm chart for Backstage provides a robust set of capabilities in order to support customizing and orchestrating a deployment to a Kubernetes environment. By simplifying the steps that it takes to deploy Backstage, the benefits when establishing an Internal Development Platform can be realized.

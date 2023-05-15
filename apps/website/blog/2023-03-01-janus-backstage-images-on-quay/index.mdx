@@ -1,0 +1,27 @@
+---
+title: Janus Backstage Images Now Available on quay.io
+authors: [sabre1041]
+tags: [Quay, Plugins]
+description: Learn how to consume content hosted on quay.io, and why it matters!
+---
+
+# Janus Backstage Images Now Available on quay.io
+The Janus project produces container images to support many of the active initiatives within the community. These images, built on top Red Hat certified content, help provide a stable and secure base to enable use in most environments. Previously, these images were only available within the [GitHub Container Registry](https://github.com/orgs/janus-idp/packages) service associated with [janus-idp GitHub organization](https://github.com/janus-idp/). The Janus community is happy to announce that all images produced by the Janus project are now available on [quay.io](https://quay.io) within the [janus-idp organization](https://quay.io/organization/janus-idp). quay.io is a hosted registry service for storing and building container images and distributing other OCI artifacts. With this new offering, community members and consumers can take full advantage of the benefits now provided by sourcing container content from quay.io.
+
+## The Significance of quay.io Integration
+You might be wondering why serving content on quay.io is noteworthy. Let's expound upon several of these reasons:
+
+### Security First
+Security is a top of mind concern these days, and steps should be taken to ensure that all phases of development and deployment use a secure-first mentality. It was already described how the Janus Project images use certified Red Hat container images, specifically those based on the [Universal Base Image (UBI)](https://catalog.redhat.com/software/base-images). These freely available images contain the same enterprise grade packages and content as found in Red Hat Enterprise Linux (RHEL), so security and lifecycle management is top of mind.
+
+Another security feature provided out-of-the-box when making use of quay.io as a container registry: image scanning. Each and every image that is published to quay.io undergoes a scan from [Clair](https://quay.github.io/clair/) to determine if any vulnerabilities are present within the image. Having an understanding of whether the image contains any current security concerns is important for both producers and consumers. Producers need to be able to determine whether the content they are producing contains any vulnerabilities and mitigate them appropriately. Consumers, more importantly, seek the ability to understand if the content they are leveraging includes any risks. This is crucial information to have at one's fingertips, as up to half of the content in some publicly hosted registries contain at least one critical vulnerability ([Reference](https://www.infoq.com/news/2020/12/dockerhub-image-vulnerabilities/)). With the Janus images hosted on quay.io, these benefits are now available.
+
+### Support Within Enterprise Environments
+Backstage along with the concepts preached by Internal Development Platforms are seeing adoption within many types of environments, including those with enterprise concerns. While every organization is unique, there are some common traits that they share - one of which is leveraging content from trusted sources. Many of these same organizations forbid accessing external resources and operate in a fully disconnected mode. For those that use externally sourced content, steps are typically put in place to enable and allow access to these assets. 
+
+OpenShift, Red Hat's Kubernetes distribution, serves platform container images from quay.io. Given that any necessary approval to access external content may have been already completed to use quay.io as a source of content, no additional steps would be needed. Otherwise, adding another namespace (quay.io/janus-idp for example) as an allowed content source may be easier to have approved since other namespaces within the same registry as there is already an existing precedent in place.
+
+### Continued Investment of Quay as a Container Registry
+Hosting assets within quay.io is another example of the Janus Project supporting the Quay ecosystem. Content stored in Quay (either the hosted quay.io or self managed standalone Product Red Hat Quay) can be visualized thanks to the [Quay Backstage plugin](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/quay) providing many of the same data points, including security related data, all available within the Backstage dashboard. A full overview of the Quay Backstage plugin and its features can be found in [this article](../2023-02-20-exploring-quay-registry-in-backstage/index.mdx). The Quay Backstage plugin is just one of many plugins developed by the Janus community and can be found in the [backstage-plugins repository](https://github.com/janus-idp/backstage-plugins) within the [janus-idp GitHub organization](https://github.com/janus-idp/).
+
+Simplifying the experience surrounding the use of an Internal Development Platform is one of the core tenets of the Janus Project, and one way to stay true to this mission is making content more readily accessible and as feature rich as possible. By serving Janus Project related OCI assets within quay.io, project contributors, community members, and consumers can take advantage of this globally hosted service and all of the features it provides.

@@ -17,7 +17,6 @@
 module.exports = {
   plugins: ['eslint-comments', 'promise', 'unicorn', 'license-header'],
   extends: [
-    'plugin:@next/next/recommended',
     'turbo',
     'airbnb',
     'airbnb/hooks',
@@ -38,8 +37,6 @@ module.exports = {
       files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
       rules: {
         'unicorn/prevent-abbreviations': 'off',
-        // React is already in-scope for all files compiled with Next.js
-        'react/react-in-jsx-scope': 'off',
         // SSR does not support useLayoutEffect
         'no-restricted-imports': [
           'error',

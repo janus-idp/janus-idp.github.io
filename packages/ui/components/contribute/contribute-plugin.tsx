@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import Link from 'next/link';
+import React, { useContext } from 'react';
+import { EnvironmentContext } from '../../contexts';
 import { SocialLink } from '../social/social';
 
 type ContributePluginProps = {
@@ -23,6 +24,8 @@ type ContributePluginProps = {
 
 export function ContributePlugin(props: ContributePluginProps): JSX.Element {
   const { repoHref } = props;
+
+  const { Link } = useContext(EnvironmentContext);
 
   return (
     <p className="nx-mt-6 nx-leading-7 first:nx-mt-0">
