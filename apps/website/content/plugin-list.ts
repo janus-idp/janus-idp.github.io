@@ -18,9 +18,9 @@ import { Feature } from 'ui/types';
 
 export const PLUGINS_LIST: Feature[] = [
   {
-    title: '3scale',
+    title: 'APIs with 3scale',
     icon: '/images/plugins/3scale.svg',
-    description: 'Need description',
+    description: 'View your 3scale APIs in the Backstage catalog.',
     href: '/plugins/3scale',
   },
   {
@@ -39,7 +39,7 @@ export const PLUGINS_LIST: Feature[] = [
   {
     title: 'Container Image Registry for JFrog Artifactory',
     icon: '/images/plugins/oci-jfrog.svg',
-    description: 'View container image details from Quay in Backstage.',
+    description: 'View container image details from JFrog Artifactory in Backstage.',
     href: '/plugins/jfrog-artifactory',
   },
   {
