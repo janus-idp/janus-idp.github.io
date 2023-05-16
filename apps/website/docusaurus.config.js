@@ -27,8 +27,8 @@ const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights 
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Janus Community site',
-  tagline: 'what are we saying here',
+  title: 'Janus',
+  tagline: 'A Red Hat sponsored community for building developer portals, built on Backstage',
   favicon: '/images/favicon/favicon.ico',
   url: 'https://janus-idp.io',
   baseUrl: '/',
