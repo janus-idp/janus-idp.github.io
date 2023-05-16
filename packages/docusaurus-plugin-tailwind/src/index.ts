@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-export type Feature = {
-  icon: string;
-  title: string;
-  description: string;
-  href: string;
-  githubUrl?: string;
-  npmUrl?: string;
-};
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+
+import type { Plugin, PostCssOptions } from '@docusaurus/types';
+
+export default function pluginTailwind(): Plugin<void> {
+  return {
+    name: 'docusaurus-plugin-tailwind',
+
+    configurePostCss(postcssOptions): PostCssOptions {
+      postcssOptions.plugins.push(require('tailwindcss'), require('autoprefixer'));
+      return postcssOptions;
+    },
+  };
+}

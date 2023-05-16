@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Deploy the Landing Page to Pages
+name: Deploy the Website to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -38,8 +38,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_ANALYTICS_WRITE_KEY: semVJB1hXAeudvf1VExo0gdJcJQheGBZ
-      SITE_URL: https://janus-idp.io
+      WRITE_KEY: semVJB1hXAeudvf1VExo0gdJcJQheGBZ
 
     steps:
       - name: Checkout
@@ -61,15 +60,12 @@ jobs:
         run: pnpm install --prefer-offline --frozen-lockfile
 
       - name: Build
-        run: pnpm run --filter landing-page build
-
-      - name: Export Static HTML
-        run: pnpm run --filter landing-page export
+        run: pnpm run --filter website build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./apps/landing-page/out
+          path: ./apps/website/build
 
   # Deployment job
   deploy:

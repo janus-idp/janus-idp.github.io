@@ -27,13 +27,14 @@ const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights 
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Janus Community site',
+  title: 'Janus',
+  // TODO: add tagline
   tagline: 'what are we saying here',
   favicon: '/images/favicon/favicon.ico',
   url: 'https://janus-idp.io',
   baseUrl: '/',
   organizationName: 'janus-idp',
-  projectName: 'docusaurus',
+  projectName: 'janus-idp.io.github.io',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
@@ -64,14 +65,6 @@ const config = {
           feedOptions: {
             type: 'all',
             copyright,
-            createFeedItems: async (params) => {
-              const { blogPosts, defaultCreateFeedItems, ...rest } = params;
-              return defaultCreateFeedItems({
-                // keep only the 10 most recent blog posts in the feed
-                blogPosts: blogPosts.filter((item, index) => index < 10),
-                ...rest,
-              });
-            },
           },
           showReadingTime: true,
           blogSidebarTitle: 'All posts',
@@ -170,17 +163,19 @@ const config = {
     }),
 
   plugins: [
-    async () => {
-      return {
-        name: 'docusaurus-tailwindcss',
-        configurePostCss(postcssOptions) {
-          // Appends TailwindCSS and AutoPrefixer.
-          postcssOptions.plugins.push(require('tailwindcss'));
-          postcssOptions.plugins.push(require('autoprefixer'));
-          return postcssOptions;
-        },
-      };
-    },
+    'docusaurus-plugin-tailwind',
+    [
+      'docusaurus-plugin-dynamic-routes',
+      {
+        routes: [
+          {
+            path: '/plugins',
+            exact: false,
+            component: '../src/pages/plugins',
+          },
+        ],
+      },
+    ],
   ],
 };
 

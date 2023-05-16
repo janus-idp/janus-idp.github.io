@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-export type Feature = {
-  icon: string;
-  title: string;
-  description: string;
-  href: string;
-  githubUrl?: string;
-  npmUrl?: string;
-};
+import type { LoadContext, Plugin, RouteConfig } from '@docusaurus/types';
+
+export default function pluginDynamicRoutes(
+  _: LoadContext,
+  options: { routes: RouteConfig[] },
+): Plugin<void> {
+  return {
+    name: 'docusaurus-plugin-dynamic-routes',
+
+    contentLoaded({ actions }): void {
+      const { routes } = options;
+      const { addRoute } = actions;
+
+      routes.map((route) => addRoute(route));
+    },
+  };
+}

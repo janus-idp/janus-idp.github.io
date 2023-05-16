@@ -22,6 +22,9 @@ export const PLUGINS_LIST: Feature[] = [
     icon: '/images/plugins/3scale.svg',
     description: 'Need description',
     href: '/plugins/3scale',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/3scale-backend/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-3scale-backend',
   },
   {
     title: 'Authentication and Authorization with Keycloak',
@@ -29,30 +32,45 @@ export const PLUGINS_LIST: Feature[] = [
     description:
       'Load users and groups from Keycloak, enabling use of multiple authentication providers to be applied to Backstage entities.',
     href: '/plugins/keycloak',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/keycloak-backend/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-keycloak-backend',
   },
   {
     title: 'Container Image Registry for ACR',
     icon: '/images/plugins/oci-acr.svg',
     description: 'View container image details from ACR in Backstage.',
     href: '/plugins/acr',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/openshift-image-registry/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-openshift-image-registry',
   },
   {
     title: 'Container Image Registry for JFrog Artifactory',
     icon: '/images/plugins/oci-jfrog.svg',
     description: 'View container image details from Quay in Backstage.',
     href: '/plugins/jfrog-artifactory',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/jfrog-artifactory/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-jfrog-artifactory',
   },
   {
     title: 'Container Image Registry for Quay',
     icon: '/images/plugins/oci-quay.svg',
     description: 'View container image details from Quay in Backstage.',
     href: '/plugins/quay',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/quay/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-quay',
   },
   {
     title: 'Multi Cluster View with OCM',
     icon: '/images/plugins/ocm.svg',
     description: "View clusters from OCM's MultiClusterHub and MultiCluster Engine in Backstage.",
     href: '/plugins/ocm',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/ocm/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-ocm',
   },
   {
     title: 'Application Topology for Kubernetes',
@@ -60,11 +78,17 @@ export const PLUGINS_LIST: Feature[] = [
     description:
       'Visualize the deployment status and related resources of your applications deployed on any Kubernetes cluster.',
     href: '/plugins/topology',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/topology/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-topology',
   },
   {
     title: 'Pipelines with Tekton',
     icon: '/images/plugins/tekton.svg',
     description: 'Easily view Tekton PipelineRun status for your services in Backstage.',
     href: '/plugins/tekton',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/tekton/README.md',
+    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-tekton',
   },
 ];

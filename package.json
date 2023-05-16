@@ -12,6 +12,7 @@
     "test:e2e": "turbo run test:e2e --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo run clean",
     "prepare": "husky install"
   },
   "devDependencies": {
