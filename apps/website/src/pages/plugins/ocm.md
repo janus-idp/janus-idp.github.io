@@ -337,4 +337,4 @@ To start a development setup in isolation with a faster setup and hot reloads, c
 
    `yarn start`
 
-The previous steps are meant for local development and you can find the setup inside the [/dev](./dev) directories of the individual plugins.
+The previous steps are meant for local development and you can find the setup inside the `dev` directories of the individual plugins.
