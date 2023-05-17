@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import React from 'react';
 import { PluginsGrid } from 'ui/components/plugin-grid/plugin-grid';
@@ -24,7 +25,15 @@ function PluginsHeader(): JSX.Element {
     <header className="hero hero--primary text-center relative overflow-hidden px-0 py-16">
       <div className="container">
         <h1 className="hero__title">Janus Plugins</h1>
-        <p className="hero__subtitle">Check out our plugins for Backstage</p>
+        <p className="hero__subtitle">Have a plugin idea?</p>
+        <div className="flex items-center justify-center">
+          <Link
+            className="button button--secondary button--lg"
+            to="https://github.com/janus-idp/backstage-plugins/issues/new?assignees=&labels=plugin&projects=&template=plugin.yaml&title=%F0%9F%94%8C+Plugin%3A+ins"
+          >
+            Submit a proposal for a plugin!
+          </Link>
+        </div>
       </div>
     </header>
   );

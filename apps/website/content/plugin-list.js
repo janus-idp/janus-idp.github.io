@@ -19,8 +19,8 @@ const PLUGINS_LIST = [
   {
     title: '3scale',
     icon: '/images/plugins/3scale.svg',
-    description: 'Need description',
-    href: 'plugins/3scale',
+    description: 'Synchronize 3scale content into the Backstage catalog.',
+    href: '/plugins/3scale',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/3scale-backend/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-3scale-backend',
@@ -46,7 +46,7 @@ const PLUGINS_LIST = [
   },
   {
     title: 'Container Image Registry for JFrog Artifactory',
-    icon: '/images/plugins/oci-jfrog.svg',
+    icon: '/images/plugins/jfrog-artifactory.svg',
     description: 'View container image details from Quay in Backstage.',
     href: 'plugins/jfrog-artifactory',
     githubUrl:
@@ -55,7 +55,7 @@ const PLUGINS_LIST = [
   },
   {
     title: 'Container Image Registry for Quay',
-    icon: '/images/plugins/oci-quay.svg',
+    icon: '/images/plugins/quay.svg',
     description: 'View container image details from Quay in Backstage.',
     href: 'plugins/quay',
     githubUrl:

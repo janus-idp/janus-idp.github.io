@@ -66,8 +66,7 @@ ${content.replace(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Janus',
-  // TODO: add tagline
-  tagline: 'what are we saying here',
+  tagline: 'A Red Hat sponsored community for building developer portals, built on Backstage',
   favicon: '/images/favicon/favicon.ico',
   url: 'https://janus-idp.io',
   baseUrl: '/',
