@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-import Link from '@docusaurus/Link';
-import { useLocation } from '@docusaurus/router';
 import Layout from '@theme/Layout';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import { Route, Switch } from 'react-router';
-import remarkGfm from 'remark-gfm';
-import useSWR from 'swr';
 import { PluginsGrid } from 'ui/components/plugin-grid/plugin-grid';
-import { PLUGINS_LIST } from '../../content/plugin-list';
+import PLUGINS_LIST from '../../content/plugin-list';
 
 function PluginsHeader(): JSX.Element {
   return (
@@ -47,50 +41,10 @@ function PluginsPage(): JSX.Element {
   );
 }
 
-function fetcher<T>(...args: Parameters<typeof fetch>): Promise<T> {
-  return fetch(...args).then((res) => res.text()) as Promise<T>;
-}
-
-function PluginPage(): JSX.Element {
-  const location = useLocation();
-
-  const plugin = PLUGINS_LIST.find((p) => p.href === location.pathname);
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data, error, isLoading } = useSWR(plugin?.githubUrl, fetcher<string>);
-
-  if (isLoading) {
-    return <div className="flex items-center justify-center flex-1">Loading...</div>;
-  }
-
-  if (error || !data) {
-    return <div className="flex items-center justify-center flex-1">Plugin not found!</div>;
-  }
-
-  return (
-    <main className="container my-4">
-      <div className="flex flex-col sm:flex-row mb-4">
-        <img src={plugin?.icon} alt={plugin?.title} className="h-32 w-auto sm:mr-4" />
-        <div className="flex-1">
-          <h1>{plugin.title}</h1>
-          <p>{plugin.description}</p>
-        </div>
-        <div>
-          <Link to={plugin.npmUrl}>NPM</Link>
-        </div>
-      </div>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{data}</ReactMarkdown>
-    </main>
-  );
-}
-
 export default function Plugins(): JSX.Element {
   return (
     <Layout title="Plugins" description="Description will go into a meta tag in <head />">
-      <Switch>
-        <Route path="/plugins/:id" component={PluginPage} />
-        <Route path="/plugins" component={PluginsPage} />
-      </Switch>
+      <PluginsPage />
     </Layout>
   );
 }

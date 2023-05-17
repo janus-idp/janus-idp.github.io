@@ -19,11 +19,49 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const dotenv = require('dotenv');
+/** @type {import('ui/types').Plugin[]} */
+// @ts-ignore
+const PLUGINS_LIST = require('./content/plugin-list');
 
 dotenv.config();
 dotenv.config({ path: `.env.local`, override: true });
 
 const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`;
+
+const linkRegex = /!\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
+const remoteContent = PLUGINS_LIST.map((plugin) => {
+  const filenameIndex = plugin.githubUrl.lastIndexOf('/') + 1;
+  const sourceBaseUrl = plugin.githubUrl.slice(0, Math.max(0, filenameIndex));
+  const filename = plugin.githubUrl.slice(Math.max(0, filenameIndex));
+
+  return [
+    'docusaurus-plugin-remote-content',
+    {
+      name: `${plugin.title}-content`,
+      sourceBaseUrl,
+      outDir: `src/pages/${plugin.href}`,
+      documents: [filename],
+      modifyContent: (fname, content) => {
+        if (fname.includes('README')) {
+          return {
+            filename: 'index.mdx',
+            content: `---
+title: ${plugin.title}
+description: ${plugin.description}
+---
+import { PluginHeader } from 'ui/components';
+
+<PluginHeader plugin={{${Object.entries(plugin)
+              .map(([key, value]) => `${key}:"${value}"`)
+              .join(',')}}} />
+
+${content.replace(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
+          };
+        }
+      },
+    },
+  ];
+});
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -162,21 +200,7 @@ const config = {
       },
     }),
 
-  plugins: [
-    'docusaurus-plugin-tailwind',
-    [
-      'docusaurus-plugin-dynamic-routes',
-      {
-        routes: [
-          {
-            path: '/plugins',
-            exact: false,
-            component: '../src/pages/plugins',
-          },
-        ],
-      },
-    ],
-  ],
+  plugins: ['docusaurus-plugin-tailwind', ...remoteContent],
 };
 
 module.exports = config;
