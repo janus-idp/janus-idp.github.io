@@ -29,7 +29,7 @@ const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights 
 const config = {
   title: 'Janus',
   // TODO: add tagline
-  tagline: 'what are we saying here',
+  tagline: 'A Red Hat sponsored community for building developer portals, built on Backstage',
   favicon: '/images/favicon/favicon.ico',
   url: 'https://janus-idp.io',
   baseUrl: '/',
