@@ -47,7 +47,7 @@ export const PLUGINS_LIST: Feature[] = [
   },
   {
     title: 'Container Image Registry for JFrog Artifactory',
-    icon: '/images/plugins/oci-jfrog.svg',
+    icon: '/images/plugins/jfrog-artifactory.svg',
     description: 'View container image details from Quay in Backstage.',
     href: '/plugins/jfrog-artifactory',
     githubUrl:
@@ -56,7 +56,7 @@ export const PLUGINS_LIST: Feature[] = [
   },
   {
     title: 'Container Image Registry for Quay',
-    icon: '/images/plugins/oci-quay.svg',
+    icon: '/images/plugins/quay.svg',
     description: 'View container image details from Quay in Backstage.',
     href: '/plugins/quay',
     githubUrl:
