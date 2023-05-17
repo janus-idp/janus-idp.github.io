@@ -20,7 +20,7 @@ export const PLUGINS_LIST: Feature[] = [
   {
     title: '3scale',
     icon: '/images/plugins/3scale.svg',
-    description: 'Need description',
+    description: 'Synchronize 3scale content into the Backstage catalog.',
     href: '/plugins/3scale',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/3scale-backend/README.md',
