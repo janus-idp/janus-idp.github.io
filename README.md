@@ -1,78 +1,45 @@
 # janus-idp.github.io
 
-This is an monorepo that automatically deploys to [janus-idp.io](janus-idp.io).
+This is a monorepo that contains the source code of the community website and automatically deploys to [janus-idp.io](http://www.janus-idp.io).
 
-## What's inside?
+## Prerequisite
 
-This turborepo uses [pnpm](https://pnpm.io) as a package manager. It includes the following packages/apps:
+* pnpm package manager. [Installation instructions](https://pnpm.io/installation)
 
-### Apps and Packages
 
-- [`landing-page`](https://github.com/janus-idp/janus-idp.github.io/tree/main/apps/landing-page): The [Next.js](https://nextjs.org/) app for [janus-idp.io](janus-idp.io)
-- [`ui`](https://github.com/janus-idp/janus-idp.github.io/tree/main/packages/ui): a stub React component library shared any applications in `/apps`
-- [`eslint-config-custom`](https://github.com/janus-idp/janus-idp.github.io/tree/main/packages/eslint-config-custom): `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- [`tsconfig`](https://github.com/janus-idp/janus-idp.github.io/tree/main/packages/tsconfig): `tsconfig.json`s used throughout the monorepo
+## How to run the website locally
 
-### Install dependencies
+### Install the dependencies
 
-To install the dependencies, run the following command:
+After getting the latest website version with `git pull`, you need to install the required dependencies with the following command:
 
 ```bash
-pnpm install
+pnpm i
 ```
 
-### Develop
+### Start the website locally
 
-To develop all apps and packages, run the following command:
+Run the following command to start the web server:
 
 ```bash
-pnpm run dev
+pnpm dev --filter=website
 ```
 
-### Lint
+## How to update the website
 
-To lint all apps and packages, run the following command:
+Go to the `apps/website` folder
 
-```bash
-pnpm run lint
-```
+### Blog
+To add or update a blog, you need to go to the `blog` sub folder. The blog must be in Markdown format (MDX).
 
-### Build
+### Plugins
+To add or update a plugin, you need to edit the `content/plugin-list.ts` file. The content of the plugin page is coming from the README of the plugin itself in the [plugin repo](https://github.com/janus-idp/backstage-plugins/tree/main/plugins).
 
-To build all apps and packages, run the following command:
+### Documentation
+To add or update documentation, you need to go to the `docs` sub folder. The documentation must be in Markdown format (MD).
 
-```bash
-pnpm run build
-```
+## How to deploy the website
 
-### Fix dependency mismatches
+The deployment is automated as soon as a PR is merged. The build takes 2 to 3 minutes to build and deploy.
 
-To fix the dependency mismatches between workspaces, run the following command:
-
-```bash
-pnpm check-dependency-version-consistency . --fix
-```
-
-### Delete `node_modules` folders
-
-To delete all the `node_modules` folders in the workspace, run the following command:
-
-```bash
-npx npkill
-```
-
-## Useful Links
-
-Learn more about pnpm:
-
-- [Installation](https://pnpm.io/installation)
-- [Filtering packages](https://pnpm.io/filtering)
-
-Learn more about Turborepo:
-
-- [Pipelines](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+If you do not see your changes, please refresh the page in your browser.
