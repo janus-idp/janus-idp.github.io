@@ -39,6 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WRITE_KEY: semVJB1hXAeudvf1VExo0gdJcJQheGBZ
+      G_TAG: ${{ vars.G_TAG }}
 
     steps:
       - name: Checkout
