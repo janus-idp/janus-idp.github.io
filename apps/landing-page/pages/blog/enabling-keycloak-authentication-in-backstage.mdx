@@ -37,7 +37,7 @@ Similar to the other authentication providers that are included with Backstage, 
 
 First, update the Backstage frontend by enabling the `ProxiedSignInPage` by making the following changes in the `packages/app/src/App.tsx` file:
 
-```tsx filename="packages/app/src/App.tsx" {1,5-7}
+```tsx title="packages/app/src/App.tsx" {1,5-7}
 import { ProxiedSignInPage } from '@backstage/core-components';
 
 const app = createApp({
@@ -50,7 +50,7 @@ const app = createApp({
 
 Next, add the `oauth2Proxy` to the list of authentication providers within the Backstage `app-config.yaml` configuration file:
 
-```yaml filename="app-config.yaml"
+```yaml title="app-config.yaml"
 auth:
   providers:
     oauth2Proxy: {}
@@ -59,7 +59,7 @@ auth:
 The final required configuration within backstage is to set up an [Identity Resolver](https://backstage.io/docs/auth/identity-resolver) which will translate the parameters (headers) that are received from the OAuth2 proxy and translate them into an authenticated backstage user.
 Update the `packages/backend/src/plugins/auth.ts` file with the following content:
 
-```ts filename="packages/backend/src/plugins/auth.ts" {1,9-40}
+```ts title="packages/backend/src/plugins/auth.ts" {1,9-40}
 import { DEFAULT_NAMESPACE, stringifyEntityRef } from '@backstage/catalog-model';
 
 export default async function createPlugin(env: PluginEnvironment): Promise<Router> {
@@ -167,7 +167,7 @@ The OAuth2 proxy that bridges the integration between Backstage and Keycloak is 
 
 Create a new file called `values-backstage-keycloak.yaml` with the following content.
 
-```yaml filename="values-backstage-keycloak.yaml"
+```yaml title="values-backstage-keycloak.yaml"
 upstream:
   backstage:
     image:

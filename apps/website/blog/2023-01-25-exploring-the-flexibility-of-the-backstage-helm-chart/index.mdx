@@ -34,7 +34,7 @@ On OSX machines, a tunnel can be created for which connectivity can be achieved 
 
 To configure Backstage to expose an Ingress through the newly created ingress controller, update the content of the values that are used for the Backstage Helm chart by creating a new values file called `values-minikube-ingress.yaml` with the following content:
 
-```yaml filename="values-minikube-ingress.yaml"
+```yaml title="values-minikube-ingress.yaml"
 backstage:
   extraEnvVars:
     - name: 'APP_CONFIG_app_baseUrl'
@@ -81,7 +81,7 @@ PostgreSQL is the database backend that is used by Backstage store data persiste
 
 Create a new values file called `values-minikube-persistent.yaml` with the following content:
 
-```yaml filename="values-minikube-persistent.yaml"
+```yaml title="values-minikube-persistent.yaml"
 backstage:
   extraEnvVars:
     - name: 'APP_CONFIG_app_baseUrl'

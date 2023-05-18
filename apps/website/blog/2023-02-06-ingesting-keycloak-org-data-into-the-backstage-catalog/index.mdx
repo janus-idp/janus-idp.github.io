@@ -1,16 +1,16 @@
 ---
 title: Ingesting Keycloak Organizational Data into the Backstage Catalog
 authors: [sabre1041]
-tags: [Keycloak,plugin]
+tags: [Keycloak, plugin]
 description: Ingesting Keycloak Organizational Data into the Backstage Catalog
 ---
 
 # Ingesting Keycloak Organizational Data into the Backstage Catalog
 
 :::note
-  This article is a followup to the article [Enabling Keycloak Authentication in
-  Backstage](/blog/2023-01-17-enabling-keycloak-authentication-in-backstage/index.mdx). It is important that the steps
-  outlined within this article are completed prior as described prior to starting this article.
+This article is a followup to the article [Enabling Keycloak Authentication in
+Backstage](/blog/2023-01-17-enabling-keycloak-authentication-in-backstage/index.mdx). It is important that the steps
+outlined within this article are completed prior as described prior to starting this article.
 :::
 
 A directory service is a common component found in organizations big and small as it includes a facility for maintaining key assets including users, groups and their relationships. The Backstage catalog provides similar capabilities to assemble not only identity records, but other resources related to various software components. Items are added to the catalog manually or they are sourced from external locations. Several plugins associated with external providers including Azure, GitHub, GitLab and LDAP, support ingesting organizational data (Users and Groups) directly into the Backstage catalog.
@@ -33,7 +33,7 @@ yarn --cwd packages/backend add @janus-idp/backstage-plugin-keycloak-backend
 
 Now that the plugin has been installed, register the plugin by adding the following content to the `packages/backend/src/plugins/catalog.ts` file.
 
-```ts filename="packages/backend/src/plugins/catalog.ts" {2,7-17}
+```ts title="packages/backend/src/plugins/catalog.ts" {2,7-17}
 // ..
 import { KeycloakOrgEntityProvider } from '@janus-idp/backstage-plugin-keycloak-backend';
 
@@ -98,7 +98,7 @@ Once again the versatility of the Backstage Helm charts allows for a wide range 
 
 Create a new file called `values-backstage-keycloak-plugin.yaml` containing the Helm values that will be used to enable the Keycloak backend plugin with the following content:
 
-```yaml filename="values-backstage-keycloak-plugin.yaml"
+```yaml title="values-backstage-keycloak-plugin.yaml"
 backstage:
   image:
     registry: quay.io
@@ -193,8 +193,8 @@ backstage/backstage -f values-backstage-keycloak-plugin.yaml
 ```
 
 :::note
-  If the Backstage Helm chart was previously installed with persistence enabled using a random
-  password generation strategy, the chart must be uninstalled first.
+If the Backstage Helm chart was previously installed with persistence enabled using a random
+password generation strategy, the chart must be uninstalled first.
 :::
 
 Once the release is complete, the Backstage user interface can be accessed via the created Ingress and continues to be governed by Keycloak based OAuth authentication. However, if the log from the Backstage container is inspected, the Keycloak backend plugin can be seen in action.

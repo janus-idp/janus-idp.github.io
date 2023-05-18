@@ -33,7 +33,7 @@ Similar to the other authentication providers that are included with Backstage, 
 
 First, update the Backstage frontend by enabling the `ProxiedSignInPage` by making the following changes in the `packages/app/src/App.tsx` file:
 
-```tsx filename="packages/app/src/App.tsx" {1,5-7}
+```tsx title="packages/app/src/App.tsx" {1,5-7}
 import { ProxiedSignInPage } from '@backstage/core-components';
 
 const app = createApp({
@@ -46,7 +46,7 @@ const app = createApp({
 
 Next, add the `oauth2Proxy` to the list of authentication providers within the Backstage `app-config.yaml` configuration file:
 
-```yaml filename="app-config.yaml"
+```yaml title="app-config.yaml"
 auth:
   providers:
     oauth2Proxy: {}
@@ -55,7 +55,7 @@ auth:
 The final required configuration within backstage is to set up an [Identity Resolver](https://backstage.io/docs/auth/identity-resolver) which will translate the parameters (headers) that are received from the OAuth2 proxy and translate them into an authenticated backstage user.
 Update the `packages/backend/src/plugins/auth.ts` file with the following content:
 
-```ts filename="packages/backend/src/plugins/auth.ts" {1,9-40}
+```ts title="packages/backend/src/plugins/auth.ts" {1,9-40}
 import { DEFAULT_NAMESPACE, stringifyEntityRef } from '@backstage/catalog-model';
 
 export default async function createPlugin(env: PluginEnvironment): Promise<Router> {
@@ -119,8 +119,8 @@ Now that Backstage has been configured to support OAuth based authentication, th
 After authenticating to Keycloak, either create a new Realm called **backstage** or select the name of an existing Realm that will be reused.
 
 :::note
-  If you choose to leverage a realm with a name other than backstage, be sure to substitute the name
-  appropriately throughout the remainder of the article.
+If you choose to leverage a realm with a name other than backstage, be sure to substitute the name
+appropriately throughout the remainder of the article.
 :::
 
 In order to demonstrate users authenticating against Backstage, several users and groups will be created within the Realm. First select **Groups** on the left hand navigation pane and then enter the names of the two groups that should be created:
@@ -163,7 +163,7 @@ The OAuth2 proxy that bridges the integration between Backstage and Keycloak is 
 
 Create a new file called `values-backstage-keycloak.yaml` with the following content.
 
-```yaml filename="values-backstage-keycloak.yaml"
+```yaml title="values-backstage-keycloak.yaml"
 backstage:
   image:
     registry: quay.io
@@ -220,12 +220,12 @@ keycloak:
 ```
 
 :::note
-  The specific configurations provided within this Values file defines a minimum amount of
-  parameters needed to enable the integration between Backstage and Keycloak. It is recommended that
-  the configurations of the OAuth2 proxy be hardened to increase the overall level of security. See
-  the [OAuth2 proxy
-  documentation](https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/oauth_provider) for
-  the full set of supported options available.
+The specific configurations provided within this Values file defines a minimum amount of
+parameters needed to enable the integration between Backstage and Keycloak. It is recommended that
+the configurations of the OAuth2 proxy be hardened to increase the overall level of security. See
+the [OAuth2 proxy
+documentation](https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/oauth_provider) for
+the full set of supported options available.
 :::
 
 Before installing the Helm chart into the Kubernetes cluster, let’s review the contents of the Values file for the significance of certain parameters. The `backstage.extraContainers` parameter includes the definition of the OAuth2 Proxy and configurations are provided through a combination of container arguments and environment variables.
@@ -241,10 +241,10 @@ Update the `keycloak.clientId` and `keycloak.clientSecret` parameters with the v
 Next, specify the hostname of the backstage instance by updating the `ingress.host` parameter.
 
 :::note
-  An [Ingress
-  Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) must be
-  present within the cluster in order to properly serve requests destined for Backstage from sources
-  originating outside the cluster.
+An [Ingress
+Controller](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) must be
+present within the cluster in order to properly serve requests destined for Backstage from sources
+originating outside the cluster.
 :::
 
 Finally, if there was a desire to make use of a custom Backstage image that was built previously instead of the provided image, update the set of parameters underneath the `backstage.image parameter`.

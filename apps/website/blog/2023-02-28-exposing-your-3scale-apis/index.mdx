@@ -25,7 +25,7 @@ yarn workspace backend add @janus-idp/backstage-plugin-3scale-backend
 
 The 3scale Backstage plugin allows configuration of one or many providers using the `app-config.yaml` configuration file. Use a `threeScaleApiEntity` marker to start configuring them:
 
-```yaml filename="app-config.yaml" {2-11}
+```yaml title="app-config.yaml" {2-11}
 catalog:
   providers:
     threeScaleApiEntity:
@@ -41,7 +41,7 @@ catalog:
 
 Add the 3scale entity provider to the catalog builder at `packages/backend/src/plugins/catalog.ts`, once done, the catalog plugin should be able to load 3scale products as entities in the Backstage catalog:
 
-```tsx filename="packages/backend/src/plugins/catalog.ts" {1,7-12}
+```tsx title="packages/backend/src/plugins/catalog.ts" {1,7-12}
 import { ThreeScaleApiEntityProvider } from '@janus-idp/backstage-plugin-3scale-backend';
 
 / ..
@@ -67,4 +67,4 @@ Now your API entities will be available in the Backstage catalog.
 
 ## Next steps
 
-To contribute to this plugin, report issues, or provide feedback, visit our [GitHub repository](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/3scale-backend) or contact us on the [Janus IDP Slack](https://join.slack.com/t/janus-idp/shared_invite/zt-1pxtehxom-fCFtF9rRe3vFqUiFFeAkmg).  Learn more about other Backstage plugins in the Janus community [here](https://github.com/janus-idp/backstage-plugins).
+To contribute to this plugin, report issues, or provide feedback, visit our [GitHub repository](https://github.com/janus-idp/backstage-plugins/tree/main/plugins/3scale-backend) or contact us on the [Janus IDP Slack](https://join.slack.com/t/janus-idp/shared_invite/zt-1pxtehxom-fCFtF9rRe3vFqUiFFeAkmg). Learn more about other Backstage plugins in the Janus community [here](https://github.com/janus-idp/backstage-plugins).

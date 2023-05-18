@@ -17,11 +17,14 @@
 // @ts-check
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const dotenv = require('dotenv');
 /** @type {import('ui/types').Plugin[]} */
 // @ts-ignore
 const PLUGINS_LIST = require('./content/plugin-list');
+
+// @ts-ignore
+darkCodeTheme.plain.backgroundColor = '#232323';
 
 dotenv.config();
 dotenv.config({ path: `.env.local`, override: true });
@@ -196,6 +199,27 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        magicComments: [
+          // Extend the default highlight class name
+          {
+            className: 'code-block-highlight-line',
+            line: 'highlight-next-line',
+            block: { start: 'highlight-start', end: 'highlight-end' },
+          },
+          {
+            className: 'code-block-add-line',
+            line: 'highlight-add-next-line',
+            block: { start: 'highlight-add-start', end: 'highlight-add-end' },
+          },
+          {
+            className: 'code-block-remove-line',
+            line: 'highlight-remove-next-line',
+            block: {
+              start: 'highlight-remove-start',
+              end: 'highlight-remove-end',
+            },
+          },
+        ],
       },
     }),
 
