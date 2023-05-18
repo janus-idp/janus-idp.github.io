@@ -60,6 +60,7 @@ export function AnalyticsProvider(props: PropsWithChildren<AnalyticsProviderProp
       const options = { ...PII_OPTIONS, location: { country } };
 
       await analytics.page(
+        pathname,
         {
           path: pathname,
         },
