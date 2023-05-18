@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-export * from './authors/authors';
-export * from './contribute/contribute-plugin';
-export * from './footer/footer';
 export * from './homepage-grid/homepage-grid';
-export * from './janus-logo/janus-logo';
 export * from './plugin-grid/plugin-grid';
 export * from './plugin-header/plugin-header';
-export * from './social/social';
-export * from './social/social-links';
