@@ -37,13 +37,18 @@ Go to the `apps/website` folder
 
 To add or update a blog, you need to go to the `blog` sub folder. The blog must be in Markdown format (MDX).
 
+### Documentation
+
+To add or update documentation, you need to go to the `docs` sub folder. The documentation must be in Markdown format (MD).
+
 ### Plugins
 
 To add or update a plugin, you need to edit the `content/plugin-list.ts` file. The content of the plugin page is coming from the README of the plugin itself in the [plugin repo](https://github.com/janus-idp/backstage-plugins/tree/main/plugins).
 
-### Documentation
-
-To add or update documentation, you need to go to the `docs` sub folder. The documentation must be in Markdown format (MD).
+If you need to change the page template for plugins, you may need to update these files:
+* apps/website/docusaurus.config.js
+* packages/ui/components/plugin-header/plugin-header.tsx
+* packages/ui/types/index.ts
 
 ## How to deploy the website
 
