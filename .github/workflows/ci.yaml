@@ -50,9 +50,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --prefer-offline --frozen-lockfile
 
-      # FIXME: replace playwright with cypress
-      # - name: Install playwright browsers
-      #   run: pnpx playwright install-deps
-
       - name: Run CI
         run: pnpm run ci

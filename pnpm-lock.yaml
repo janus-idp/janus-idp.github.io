@@ -31,9 +31,6 @@ importers:
       '@docusaurus/core':
         specifier: 2.4.1
         version: 2.4.1(@docusaurus/types@2.4.1)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.4)
-      '@docusaurus/plugin-google-gtag':
-        specifier: ^2.4.1
-        version: 2.4.1(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.4)
       '@docusaurus/preset-classic':
         specifier: 2.4.1
         version: 2.4.1(@algolia/client-search@4.17.0)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.4)
