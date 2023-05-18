@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { Feature } from 'ui/types';
-
-export const HOMEPAGE_LIST: Feature[] = [
+/** @type {import('ui/types').Homepage[]} */
+const HOMEPAGE_LIST = [
   {
     title: 'Golden Path Templates',
     icon: '/images/icon.svg',
@@ -36,3 +35,5 @@ export const HOMEPAGE_LIST: Feature[] = [
     href: '/docs/plugins',
   },
 ];
+
+module.exports = HOMEPAGE_LIST;

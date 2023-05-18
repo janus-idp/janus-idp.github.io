@@ -30,7 +30,7 @@ yarn workspace app add @janus-idp/backstage-plugin-quay
 
 The plugin leverages the Backstage native proxy capabilities to query the Quay API; therefore, configurations need to be made to the `app-config.yaml`. In order to connect the Backstage instance to the public hosted Quay.io environment, the following configuration can be used:
 
-```yaml filename="app-config.yaml"
+```yaml title="app-config.yaml"
 proxy:
   '/quay/api':
     target: 'https://quay.io'
@@ -41,7 +41,7 @@ proxy:
 
 When accessing private Quay repositories, it may be necessary to extend this configuration with an `Authorization` header and Quay API token. This token can be obtained by creating a Quay Application using the [steps outlined in this documentation](https://docs.quay.io/api/#applications-and-tokens). Once a token is obtained, the header can be set by extending the `app-config.yaml` setup above with an additional header:
 
-```yaml {7} filename="app-config.yaml"
+```yaml {7} title="app-config.yaml"
 proxy:
   '/quay/api':
     target: 'https://quay.io'
@@ -55,7 +55,7 @@ Be aware that the `QUAY_TOKEN` is an environment variable that has to be availab
 
 Another popular option is to be able to target a self-hosted Quay deployment. This can be achieved by simply changing the `target` property in the settings above with the location of the Quay instance. In addition, if the self-hosted Quay registry is also deployed with a certificate that is not in the certificate chain of trust for the Backstage instance, the `secure` option has to be unset.
 
-```yaml {3,8} filename="app-config.yaml"
+```yaml {3,8} title="app-config.yaml"
 proxy:
   '/quay/api':
     target: '<SELF_HOSTED_QUAY_ENDPOINT>'
@@ -70,7 +70,7 @@ More details on available Backstage proxy settings can be found in the [upstream
 
 This plugin conforms to the pattern used by many other Backstage plugins that use the Backstage proxy and provides a mechanism to change the default proxy path `/quay/api` via the following `app-config.yaml` settings, if needed:
 
-```yaml filename="app-config.yaml"
+```yaml title="app-config.yaml"
 quay:
   proxyPath: /custom/quay/path
 ```
@@ -79,7 +79,7 @@ quay:
 
 Now that the plugin is configured to access the desired Quay registry, enable the UI by enabling an additional view in the frontend application.(`packages/app/src/components/catalog/EntityPage.tsx` file in the bootstrap application)
 
-```tsx filename="packages/app/src/components/catalog/EntityPage.tsx"
+```tsx title="packages/app/src/components/catalog/EntityPage.tsx"
 import { QuayPage, isQuayAvailable } from '@janus-idp/backstage-plugin-quay';
 
 const serviceEntityPage = (

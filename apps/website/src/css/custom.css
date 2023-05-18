@@ -41,3 +41,46 @@ svg.lightToggleIcon_node_modules-\@docusaurus-theme-classic-lib-next-theme-Color
     font-size: 1.5rem !important;
   }
 }
+
+/* prism magic comments https://docusaurus.io/docs/markdown-features/code-blocks#custom-magic-comments */
+
+.code-block-add-line {
+  background-color: rgba(0, 215, 0, 0.15);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid rgba(0, 215, 0);
+}
+
+.code-block-remove-line {
+  background-color: rgba(255, 0, 0, 0.15);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid rgba(255, 0, 0);
+}
+
+.code-block-highlight-line {
+  background-color: rgba(0, 0, 0, 0.075);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid rgb(0, 0, 0, 0.5);
+}
+
+[data-theme='dark'] .code-block-add-line {
+  background-color: rgba(0, 255, 0, 0.1);
+  border-left: 3px solid rgba(0, 255, 0, 0.5);
+}
+
+[data-theme='dark'] .code-block-remove-line {
+  background-color: rgba(255, 0, 0, 0.1);
+  border-left: 3px solid rgba(255, 0, 0, 0.5);
+}
+
+[data-theme='dark'] .code-block-highlight-line {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid rgb(255, 255, 255, 0.5);
+}
+
+/* #endregion */

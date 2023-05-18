@@ -110,9 +110,9 @@ importers:
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
-      docusaurus-plugin-dynamic-routes:
-        specifier: workspace:*
-        version: link:../../packages/docusaurus-plugin-dynamic-routes
+      docusaurus-plugin-remote-content:
+        specifier: ^3.1.0
+        version: 3.1.0(@docusaurus/core@2.4.1)
       docusaurus-plugin-tailwind:
         specifier: workspace:*
         version: link:../../packages/docusaurus-plugin-tailwind
@@ -125,18 +125,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-markdown:
-        specifier: ^8.0.7
-        version: 8.0.7(@types/react@18.2.6)(react@18.2.0)
-      react-router:
-        specifier: 5.3.4
-        version: 5.3.4(react@18.2.0)
-      remark-gfm:
-        specifier: ^3.0.1
-        version: 3.0.1
-      swr:
-        specifier: ^2.1.5
-        version: 2.1.5(react@18.2.0)
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
@@ -176,33 +164,6 @@ importers:
         version: 3.2.4(postcss@8.4.20)
       typescript:
         specifier: ^4.7.4
-        version: 4.9.4
-
-  packages/docusaurus-plugin-dynamic-routes:
-    devDependencies:
-      '@docusaurus/types':
-        specifier: ^2.4.1
-        version: 2.4.1(react-dom@17.0.2)(react@17.0.2)
-      '@types/node':
-        specifier: ^18.11.14
-        version: 18.11.14
-      autoprefixer:
-        specifier: ^10.4.13
-        version: 10.4.13(postcss@8.4.23)
-      eslint:
-        specifier: ^8.29.0
-        version: 8.29.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      tailwindcss:
-        specifier: ^3.2.4
-        version: 3.2.4(postcss@8.4.23)
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: ^4.9.4
         version: 4.9.4
 
   packages/docusaurus-plugin-tailwind:
@@ -5465,7 +5426,15 @@ packages:
   /axios@0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.2(debug@4.3.4)
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /axios@0.26.1:
+    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
+    dependencies:
+      follow-redirects: 1.15.2(debug@4.3.4)
     transitivePeerDependencies:
       - debug
     dev: false
@@ -6706,6 +6675,21 @@ packages:
     dependencies:
       esutils: 2.0.3
 
+  /docusaurus-plugin-remote-content@3.1.0(@docusaurus/core@2.4.1):
+    resolution: {integrity: sha512-859WYmC75l9hRYa1f/2FNF+FLcKbkHCM/0dehN1Wl1fIuoFzEPf3tcWs4jcEobRHYnoMjyupqAhmu0q5j3JoIg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@docusaurus/core': 2.x
+    dependencies:
+      '@docusaurus/core': 2.4.1(@docusaurus/types@2.4.1)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.4)
+      axios: 0.26.1
+      picocolors: 1.0.0
+      pretty-ms: 7.0.1
+      rimraf: 3.0.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /dom-converter@0.2.0:
     resolution: {integrity: sha512-gd3ypIPfOMr9h5jIKq8E3sHOTCjeirnl0WK5ZdS1AW0Odt0b1PaWaHdJ4Qk4klv+YB9aJBS7mESXjFoDQPu6DA==}
     dependencies:
@@ -7835,16 +7819,6 @@ packages:
     resolution: {integrity: sha512-Rwix9pBtC1Nuy5wysTmKy+UjbDJpIfg8eHjw0rjZ1mX4GNLz1Bmd16uDpI3Gk1i70Fgcs8Csg2lPm8HULFg9DQ==}
     dev: false
 
-  /follow-redirects@1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: false
-
   /follow-redirects@1.15.2(debug@4.3.4):
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -8575,7 +8549,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.2(debug@4.3.4)
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -10750,6 +10724,11 @@ packages:
       lines-and-columns: 1.2.4
     dev: false
 
+  /parse-ms@2.1.0:
+    resolution: {integrity: sha512-kHt7kzLoS9VBZfUsiKjv43mr91ea+U05EyKkEtqp7vNbHxmaVuEqN7XxeEVnGrMtYOAxGrDElSi96K7EgO1zCA==}
+    engines: {node: '>=6'}
+    dev: false
+
   /parse-numeric-range@1.3.0:
     resolution: {integrity: sha512-twN+njEipszzlMJd4ONUYgSfZPDxgHhT9Ahed5uTigpQn90FggW4SA/AIPq/6a149fTbE9qBEcSwE3FAEp6wQQ==}
     dev: false
@@ -11473,6 +11452,13 @@ packages:
       renderkid: 3.0.0
     dev: false
 
+  /pretty-ms@7.0.1:
+    resolution: {integrity: sha512-973driJZvxiGOQ5ONsFhOF/DtzPMOMtgC11kCpUrPGMTgqp2q/1gwzCquocrN33is0VZ5GFHXZYMM9l6h67v2Q==}
+    engines: {node: '>=10'}
+    dependencies:
+      parse-ms: 2.1.0
+    dev: false
+
   /pretty-time@1.1.0:
     resolution: {integrity: sha512-28iF6xPQrP8Oa6uxE6a1biz+lWeTOAPKggvjB8HAs6nVMKZwf5bG++632Dx614hIWgUPkgivRfG+a8uAXGTIbA==}
     engines: {node: '>=4'}
@@ -11764,10 +11750,6 @@ packages:
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  /react-is@18.2.0:
-    resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
-    dev: false
-
   /react-json-view@1.21.3(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-13p8IREj9/x/Ye4WI/JpjhoIwuzEgUAtgJZNBJckfzJt1qyh24BdTm6UQNGnyTq9dapQdrqvquZTo3dz1X6Cjw==}
     peerDependencies:
@@ -11799,33 +11781,6 @@ packages:
       '@babel/runtime': 7.21.5
       react-loadable: /@docusaurus/react-loadable@5.5.2(react@18.2.0)
       webpack: 5.82.1
-    dev: false
-
-  /react-markdown@8.0.7(@types/react@18.2.6)(react@18.2.0):
-    resolution: {integrity: sha512-bvWbzG4MtOU62XqBx3Xx+zB2raaFFsq4mYiAzfjXJMEz2sixgeAfraA3tvzULF02ZdOMUOKTBFFaZJDDrq+BJQ==}
-    peerDependencies:
-      '@types/react': '>=16'
-      react: '>=16'
-    dependencies:
-      '@types/hast': 2.3.4
-      '@types/prop-types': 15.7.5
-      '@types/react': 18.2.6
-      '@types/unist': 2.0.6
-      comma-separated-tokens: 2.0.3
-      hast-util-whitespace: 2.0.1
-      prop-types: 15.8.1
-      property-information: 6.2.0
-      react: 18.2.0
-      react-is: 18.2.0
-      remark-parse: 10.0.1
-      remark-rehype: 10.1.0
-      space-separated-tokens: 2.0.2
-      style-to-object: 0.4.1
-      unified: 10.1.2
-      unist-util-visit: 4.1.1
-      vfile: 5.3.6
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /react-router-config@5.1.1(react-router@5.3.4)(react@18.2.0):
@@ -13071,15 +13026,6 @@ packages:
       csso: 4.2.0
       picocolors: 1.0.0
       stable: 0.1.8
-    dev: false
-
-  /swr@2.1.5(react@18.2.0):
-    resolution: {integrity: sha512-/OhfZMcEpuz77KavXST5q6XE9nrOBOVcBLWjMT+oAE/kQHyE3PASrevXCtQDZ8aamntOfFkbVJp7Il9tNBQWrw==}
-    peerDependencies:
-      react: ^16.11.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
   /synckit@0.8.4:

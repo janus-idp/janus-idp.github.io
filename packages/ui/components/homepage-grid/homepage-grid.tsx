@@ -15,9 +15,9 @@
  */
 
 import React from 'react';
-import { Feature } from '../../types';
+import { Homepage } from '../../types';
 
-type HomepageTileProps = Feature;
+type HomepageTileProps = Homepage;
 
 function HomepageTile({ icon, title, description }: HomepageTileProps): JSX.Element {
   return (
@@ -34,7 +34,7 @@ function HomepageTile({ icon, title, description }: HomepageTileProps): JSX.Elem
 }
 
 type HomepageFeaturesProps = {
-  homepageList: Feature[];
+  homepageList: Homepage[];
 };
 
 export function HomepageGrid({ homepageList }: HomepageFeaturesProps): JSX.Element {

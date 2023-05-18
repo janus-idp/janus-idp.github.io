@@ -17,18 +17,58 @@
 // @ts-check
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const dotenv = require('dotenv');
+/** @type {import('ui/types').Plugin[]} */
+// @ts-ignore
+const PLUGINS_LIST = require('./content/plugin-list');
+
+// @ts-ignore
+darkCodeTheme.plain.backgroundColor = '#232323';
 
 dotenv.config();
 dotenv.config({ path: `.env.local`, override: true });
 
 const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`;
 
+const linkRegex = /!\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
+const remoteContent = PLUGINS_LIST.map((plugin) => {
+  const filenameIndex = plugin.githubUrl.lastIndexOf('/') + 1;
+  const sourceBaseUrl = plugin.githubUrl.slice(0, Math.max(0, filenameIndex));
+  const filename = plugin.githubUrl.slice(Math.max(0, filenameIndex));
+
+  return [
+    'docusaurus-plugin-remote-content',
+    {
+      name: `${plugin.title}-content`,
+      sourceBaseUrl,
+      outDir: `src/pages/${plugin.href}`,
+      documents: [filename],
+      modifyContent: (fname, content) => {
+        if (fname.includes('README')) {
+          return {
+            filename: 'index.mdx',
+            content: `---
+title: ${plugin.title}
+description: ${plugin.description}
+---
+import { PluginHeader } from 'ui/components';
+
+<PluginHeader plugin={{${Object.entries(plugin)
+              .map(([key, value]) => `${key}:"${value}"`)
+              .join(',')}}} />
+
+${content.replace(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
+          };
+        }
+      },
+    },
+  ];
+});
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Janus',
-  // TODO: add tagline
   tagline: 'A Red Hat sponsored community for building developer portals, built on Backstage',
   favicon: '/images/favicon/favicon.ico',
   url: 'https://janus-idp.io',
@@ -163,24 +203,31 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-      },
-    }),
-
-  plugins: [
-    'docusaurus-plugin-tailwind',
-    [
-      'docusaurus-plugin-dynamic-routes',
-      {
-        routes: [
+        magicComments: [
+          // Extend the default highlight class name
           {
-            path: '/plugins',
-            exact: false,
-            component: '../src/pages/plugins',
+            className: 'code-block-highlight-line',
+            line: 'highlight-next-line',
+            block: { start: 'highlight-start', end: 'highlight-end' },
+          },
+          {
+            className: 'code-block-add-line',
+            line: 'highlight-add-next-line',
+            block: { start: 'highlight-add-start', end: 'highlight-add-end' },
+          },
+          {
+            className: 'code-block-remove-line',
+            line: 'highlight-remove-next-line',
+            block: {
+              start: 'highlight-remove-start',
+              end: 'highlight-remove-end',
+            },
           },
         ],
       },
-    ],
-  ],
+    }),
+
+  plugins: ['docusaurus-plugin-tailwind', ...remoteContent],
 };
 
 module.exports = config;

@@ -22,7 +22,7 @@
       "persistent": true
     },
     "website#dev": {
-      "dependsOn": ["docusaurus-plugin-tailwind#build", "docusaurus-plugin-dynamic-routes#build"],
+      "dependsOn": ["docusaurus-plugin-tailwind#build"],
       "cache": false,
       "persistent": true
     }

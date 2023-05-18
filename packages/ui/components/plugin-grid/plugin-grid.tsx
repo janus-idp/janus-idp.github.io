@@ -17,9 +17,9 @@
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import React, { useCallback, useContext } from 'react';
 import { EnvironmentContext } from '../../contexts';
-import { Feature } from '../../types';
+import { Plugin } from '../../types';
 
-type PluginTileProps = Feature;
+type PluginTileProps = Plugin;
 
 function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.Element {
   const { Link } = useContext(EnvironmentContext);
@@ -66,7 +66,7 @@ function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.El
 }
 
 type PluginsFeaturesProps = {
-  pluginsList: Feature[];
+  pluginsList: Plugin[];
 };
 
 export function PluginsGrid({ pluginsList }: PluginsFeaturesProps): JSX.Element {

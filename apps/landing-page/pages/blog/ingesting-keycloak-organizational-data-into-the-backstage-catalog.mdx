@@ -37,7 +37,7 @@ yarn --cwd packages/backend add @janus-idp/backstage-plugin-keycloak-backend
 
 Now that the plugin has been installed, register the plugin by adding the following content to the `packages/backend/src/plugins/catalog.ts` file.
 
-```ts filename="packages/backend/src/plugins/catalog.ts" {2,7-17}
+```ts title="packages/backend/src/plugins/catalog.ts" {2,7-17}
 // ..
 import { KeycloakOrgEntityProvider } from '@janus-idp/backstage-plugin-keycloak-backend';
 
@@ -102,7 +102,7 @@ Once again the versatility of the Backstage Helm charts allows for a wide range 
 
 Create a new file called `values-backstage-keycloak-plugin.yaml` containing the Helm values that will be used to enable the Keycloak backend plugin with the following content:
 
-```yaml filename="values-backstage-keycloak-plugin.yaml"
+```yaml title="values-backstage-keycloak-plugin.yaml"
 upstream:
   backstage:
     image:
@@ -176,7 +176,7 @@ global:
 
 The Keycloak backend plugin is enabled by declaring environment variables with the prefix `APP_CONFIG_catalog_providers_keycloakOrg_default_*` and when rendered at runtime take a form similar to the following:
 
-```yaml filename="app-config.yaml"
+```yaml title="app-config.yaml"
 catalog:
   providers:
     keycloakOrg:

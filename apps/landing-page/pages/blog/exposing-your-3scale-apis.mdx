@@ -28,7 +28,7 @@ yarn workspace backend add @janus-idp/backstage-plugin-3scale-backend
 
 The 3scale Backstage plugin allows configuration of one or many providers using the `app-config.yaml` configuration file. Use a `threeScaleApiEntity` marker to start configuring them:
 
-```yaml filename="app-config.yaml" {2-11}
+```yaml title="app-config.yaml" {2-11}
 catalog:
   providers:
     threeScaleApiEntity:
@@ -44,7 +44,7 @@ catalog:
 
 Add the 3scale entity provider to the catalog builder at `packages/backend/src/plugins/catalog.ts`, once done, the catalog plugin should be able to load 3scale products as entities in the Backstage catalog:
 
-```tsx filename="packages/backend/src/plugins/catalog.ts" {1,7-12}
+```tsx title="packages/backend/src/plugins/catalog.ts" {1,7-12}
 import { ThreeScaleApiEntityProvider } from '@janus-idp/backstage-plugin-3scale-backend';
 
 / ..

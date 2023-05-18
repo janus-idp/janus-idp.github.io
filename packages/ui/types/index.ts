@@ -18,7 +18,12 @@ export type Feature = {
   icon: string;
   title: string;
   description: string;
-  href: string;
-  githubUrl?: string;
-  npmUrl?: string;
 };
+
+export type Plugin = Feature & {
+  href: string;
+  githubUrl: string;
+  npmUrl: string;
+};
+
+export type Homepage = Feature;
