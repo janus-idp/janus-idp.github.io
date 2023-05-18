@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NEXT_PUBLIC_ANALYTICS_WRITE_KEY", "SITE_URL", "WRITE_KEY"],
+  "globalEnv": ["NEXT_PUBLIC_ANALYTICS_WRITE_KEY", "SITE_URL", "WRITE_KEY", "G_TAG"],
   "globalDependencies": ["packages/eslint-config-custom/index.js"],
   "pipeline": {
     "build": {
