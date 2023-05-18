@@ -15,6 +15,10 @@
 name: Deploy the Website to Pages
 
 on:
+  # Runs on pushes targeting the default branch of janus-idp/backstage-plugins
+  repository_dispatch:
+    types: [deploy-website]
+
   # Runs on pushes targeting the default branch
   push:
     branches: [main]
@@ -79,3 +83,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+        with:
+          token: ${{ secrets.PAT }}
