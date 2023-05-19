@@ -72,7 +72,7 @@ type PluginsFeaturesProps = {
 export function PluginsGrid({ pluginsList }: PluginsFeaturesProps): JSX.Element {
   return (
     <section className="flex w-full container p-8">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {pluginsList.map((plugin) => (
           <PluginTile key={plugin.title} {...plugin} />
         ))}
