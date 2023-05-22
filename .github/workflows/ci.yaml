@@ -47,6 +47,9 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
+      - name: Test
+        run: echo ${{ github.repository }}
+
       - name: Install dependencies
         run: pnpm install --prefer-offline --frozen-lockfile
 
