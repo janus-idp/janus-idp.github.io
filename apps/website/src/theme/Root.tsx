@@ -18,6 +18,8 @@ import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import React from 'react';
+import { CookiesProvider } from 'react-cookie';
+import { Banner } from 'ui/components';
 import { AnalyticsProvider } from 'ui/providers';
 import { EnvironmentProvider } from '../lib/providers/environment-provider';
 import { CustomFields } from '../lib/types';
@@ -36,7 +38,10 @@ export default function Root({ children }: { children: React.ReactNode }): JSX.E
         pathname={location.pathname}
         isSSR={!isBrowser}
       >
-        {children}
+        <CookiesProvider>
+          <Banner />
+          {children}
+        </CookiesProvider>
       </AnalyticsProvider>
     </EnvironmentProvider>
   );
