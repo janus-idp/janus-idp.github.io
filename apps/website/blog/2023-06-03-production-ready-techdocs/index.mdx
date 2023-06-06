@@ -1,15 +1,15 @@
 ---
-title: Production Ready TechDocs in Janus
+title: Recommended Approach to Configuring TechDocs for Backstage on OpenShift
 authors: [jayfray12]
 tags: [techdocs]
-description: Production Ready TechDocs in Janus using GitHub Actions and OpenShift Data Foundation
+description: Recommended Approach to Configuring Tech Docs for Backstage on OpenShift with GitHub Actions and OpenShift Data Foundation
 ---
 
-# Production Ready TechDocs using OpenShift Data Foundation
+# Recommended Approach to Configuring Tech Docs for Backstage on OpenShift
 
 Backstage includes a built-in techdocs builder that can be used to generate static HTML documentation from your codebase. However, the default basic setup of the "local" builder is not intended for production. This is because the local builder requires that you have a running instance of Backstage and the techdocs plugin installed on your local machine, as well as the use of local storage.
 
-In this blog post, we will show you how to set up an external techdocs builder and publisher using GitHub Actions and the OpenShift Data Foundations operator to create an `ObjectBucketClaim` to mimic an AWS S3 Bucket. This will allow you to generate static HTML documentation from your codebase in a production-ready environment.
+In this blog post, we will show you the recommended approach to streamlining the configuration of TechDocs for Backstage on OpenShift. We will show you how to set up a fully-automated process for building and publishing techdocs using GitHub Actions and the OpenShift Data Foundations operator. This will allow you to create an `ObjectBucketClaim` that mimics an AWS S3 Bucket, which can then be used to store and serve your techdocs.
 
 ## OpenShift Data Foundation (ODF) Installation
 
@@ -70,11 +70,11 @@ Once you have completed the steps, your `ObjectBucketClaim` will be ready for us
 
 ![ObjectBucketClaim Data](./obc-claimdata.png)
 
-## Configuring Janus
-Once the ODF Operator is installed and an `ObjectBucketClaim` is created, Janus can be configured to use the `ObjectBucketClaim` as the TechDocs publisher.
+## Configuring Backstage
+Once the ODF Operator is installed and an `ObjectBucketClaim` is created, Backstage can be configured to use the `ObjectBucketClaim` as the TechDocs publisher.
 
 ### Deployment
-Update the Janus `Deployment` to include the following:
+Update the Backstage `Deployment` to include the following:
 ```yaml
 envFrom:
   - configMapRef:
@@ -115,10 +115,16 @@ techdocs:
       credentials:
         accessKeyId: ${AWS_ACCESS_KEY_ID}
         secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
+```
+:::note
+If you are using Janus Backstage Showcase image, you will also need add the following to the `app-config.yaml` file:
 
+```yaml title="app-config.yaml"
 enabled:
   techdocs: true
 ```
+
+:::
 
 ## TechDocs Builder
 To generate the static files that will be published to our `ObjectBucketClaim`, we will need to set up a builder that utilizes the techdocs-cli. We can do this by creating a GitHub Action similar to the one found below. As you can see, this will run anytime the `mkdocs.yaml` file is modified or any file in the `docs` folder is modified. This will regenerate the static content, so that users always have access to the latest documentation.
@@ -186,4 +192,5 @@ Although the default basic setup of the "local" builder in Backstage is a valuab
 ## Resources
 * Complete [ODF Operator](https://red-hat-storage.github.io/ocs-training/training/ocs4/odf.html#labexercises) configuration and installation
 * Backstage.io [TechDocs](https://backstage.io/docs/features/techdocs/) documentation
-* [Janus Backstage Images](/blog/2023-03-01-janus-backstage-images-on-quay/index.mdx)
+* [Deploying Backstage onto OpenShift Using Helm](blog/2023-02-17-deploying-backstage-onto-openshift-using-helm/index.mdx)
+* [Janus Backstage Images](blog/2023-03-01-janus-backstage-images-on-quay/index.mdx)
