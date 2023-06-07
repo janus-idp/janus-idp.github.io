@@ -24,6 +24,9 @@ import { AnalyticsProvider } from 'ui/providers';
 import { EnvironmentProvider } from '../lib/providers/environment-provider';
 import { CustomFields } from '../lib/types';
 
+const BANNER_MESSAGE =
+  'Our Janus Showcase application is currently unavailable. We anticipate it being back up and running by Tuesday, June 20th. We apologize for the inconvenience.' as const;
+
 export default function Root({ children }: { children: React.ReactNode }): JSX.Element {
   const location = useLocation();
   const {
@@ -39,7 +42,7 @@ export default function Root({ children }: { children: React.ReactNode }): JSX.E
         isSSR={!isBrowser}
       >
         <CookiesProvider>
-          <Banner />
+          <Banner message={BANNER_MESSAGE} />
           {children}
         </CookiesProvider>
       </AnalyticsProvider>

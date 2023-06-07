@@ -21,10 +21,11 @@ import { useCookies } from 'react-cookie';
 
 export type BannerProps = {
   debug?: boolean;
+  message: string;
 };
 
 export function Banner(props: BannerProps): JSX.Element {
-  const { debug } = props;
+  const { debug, message } = props;
 
   const [cookies, setCookie] = useCookies(['banner-state']);
 
@@ -46,10 +47,7 @@ export function Banner(props: BannerProps): JSX.Element {
       <div className="hidden 2xl:block" />
       <div className="text-pf-red-300 max-w-screen-2x font-semibold text-sm flex">
         <ExclamationCircleIcon className="text-pf-red-100 h-5 w-5 mr-2 flex-none" />
-        <div>
-          Our Janus Showcase application is currently unavailable. We anticipate it back up and
-          running by Tuesday, June 20th at the latest. We apologize for the inconvenience.
-        </div>
+        <div>{message}</div>
       </div>
 
       <button
