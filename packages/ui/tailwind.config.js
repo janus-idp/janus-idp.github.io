@@ -18,7 +18,23 @@ module.exports = {
   content: ['./components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: [`"Inter"`, 'sans-serif'],
+        'space-grotesk': ['Space Grotesk', 'monospace'],
+        mono: [
+          'Menlo',
+          'Monaco',
+          'Lucida Console',
+          'Liberation Mono',
+          'DejaVu Sans Mono',
+          'Bitstream Vera Sans Mono',
+          'Courier New',
+          'monospace',
+        ],
+      },
       colors: {
+        'janus-blue': 'rgb(0, 149, 150, <alpha-value>)',
+        'nextra-blue': 'rgb(0, 138, 230, <alpha-value>)',
         'pf-black': {
           100: '#FAFAFA',
           150: '#F5F5F5',
@@ -123,4 +139,5 @@ module.exports = {
     },
   },
   plugins: [],
+  darkMode: 'class',
 };
