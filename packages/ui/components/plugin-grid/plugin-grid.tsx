@@ -39,7 +39,7 @@ function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.El
 
   return (
     <Link
-      className="dark:shadow-2xl hover:no-underline group relative max-w-md rounded-xl border border-white/10 dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 p-4 shadow flex flex-col items-center justify-between text-center"
+      className="dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 group relative flex max-w-md flex-col items-center justify-between rounded-xl border border-white/10 p-4 text-center shadow hover:no-underline dark:shadow-2xl"
       href={href}
       onMouseMove={handleMouseMove}
     >
@@ -56,7 +56,7 @@ function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.El
         }}
       />
       <div>
-        <img className="h-[75px] w-[75px] mb-2" src={icon} alt={`${title} icon`} />
+        <img className="mb-2 h-[75px] w-[75px]" src={icon} alt={`${title} icon`} />
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
@@ -71,8 +71,8 @@ type PluginsFeaturesProps = {
 
 export function PluginsGrid({ pluginsList }: PluginsFeaturesProps): JSX.Element {
   return (
-    <section className="flex w-full container p-8">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+    <section className="container flex w-full p-8">
+      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {pluginsList.map((plugin) => (
           <PluginTile key={plugin.title} {...plugin} />
         ))}

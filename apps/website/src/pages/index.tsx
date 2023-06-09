@@ -25,7 +25,7 @@ function HomepageHeader(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className="hero hero--primary text-center relative overflow-hidden px-0 py-16">
+    <header className="hero hero--primary relative overflow-hidden px-0 py-16 text-center">
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
