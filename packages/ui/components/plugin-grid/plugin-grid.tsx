@@ -15,13 +15,16 @@
  */
 
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
-import React, { useCallback, useContext } from 'react';
+import type Fuse from 'fuse.js';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { StringParam, useQueryParams } from 'use-query-params';
 import { EnvironmentContext } from '../../contexts';
 import { Plugin } from '../../types';
+import { PLUGIN_CATEGORIES, PluginSearchbar } from '../plugin-searchbar/plugin-searchbar';
 
 type PluginTileProps = Plugin;
 
-function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.Element {
+function PluginTile({ icon, title, description, href, category }: PluginTileProps): JSX.Element {
   const { Link } = useContext(EnvironmentContext);
 
   const mouseX = useMotionValue(0);
@@ -39,7 +42,7 @@ function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.El
 
   return (
     <Link
-      className="dark:shadow-2xl hover:no-underline group relative max-w-md rounded-xl border border-white/10 dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 p-4 shadow flex flex-col items-center justify-between text-center"
+      className="dark:border-pf-cyan-300/30 border-pf-cyan-300/20 dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 dark:shadow-2x ring-pf-cyan-300 group relative flex flex-col items-center justify-between rounded-xl border border-solid py-4 px-8 shadow shadow-black/20 outline-0 transition-shadow hover:no-underline hover:shadow-md focus:ring-1 dark:shadow-black/50"
       href={href}
       onMouseMove={handleMouseMove}
     >
@@ -55,25 +58,59 @@ function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.El
           `,
         }}
       />
-      <div>
-        <img className="h-[75px] w-[75px] mb-2" src={icon} alt={`${title} icon`} />
-        <h3>{title}</h3>
-        <p>{description}</p>
+      <div className="flex h-full flex-col justify-between">
+        <div>
+          <img className="mb-4 h-[75px] w-[75px]" src={icon} alt={`${title} icon`} />
+          <h3>{title}</h3>
+          <p className="line-clamp-3">{description}</p>
+        </div>
+        <div className="bg-pf-cyan-300 w-fit rounded px-2 py-1 text-sm text-white">{category}</div>
       </div>
-      <div className="flex items-center justify-center pb-4">Learn more!</div>
     </Link>
   );
 }
 
 type PluginsFeaturesProps = {
+  pluginsFuse: Fuse<Plugin>;
   pluginsList: Plugin[];
 };
 
-export function PluginsGrid({ pluginsList }: PluginsFeaturesProps): JSX.Element {
+export function PluginsGrid({ pluginsFuse, pluginsList }: PluginsFeaturesProps): JSX.Element {
+  // search state cannot be lifted to query params because docusaurus uses react router v5
+  // which does not support a shallow updates. i.e. every time the state changes, the page
+  // will lose focus on the input field.
+  const [queryParams, setQueryParams] = useQueryParams({
+    category: StringParam,
+  });
+  const [search, setSearch] = useState('');
+
+  const pluginCategory =
+    PLUGIN_CATEGORIES.find(({ slug }) => slug === queryParams.category) || PLUGIN_CATEGORIES[0];
+
+  const plugins = useMemo(() => {
+    let p = pluginsList;
+
+    if (search !== '') {
+      p = pluginsFuse.search(search).map(({ item }) => item);
+    }
+
+    if (pluginCategory.name !== 'All plugins') {
+      p = p.filter(({ category }) => category === pluginCategory.name);
+    }
+
+    return p;
+  }, [pluginCategory.name, pluginsFuse, pluginsList, search]);
+
   return (
-    <section className="flex w-full container p-8">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-        {pluginsList.map((plugin) => (
+    <section className="container flex w-full flex-col p-8">
+      <PluginSearchbar
+        search={search}
+        setSearch={setSearch}
+        setQueryParams={setQueryParams}
+        pluginCategory={pluginCategory}
+      />
+      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {plugins.map((plugin) => (
           <PluginTile key={plugin.title} {...plugin} />
         ))}
       </div>

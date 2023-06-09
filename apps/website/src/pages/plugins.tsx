@@ -16,13 +16,20 @@
 
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import Fuse from 'fuse.js';
 import React from 'react';
-import { PluginsGrid } from 'ui/components/plugin-grid/plugin-grid';
+import { PluginsGrid } from 'ui/components';
 import PLUGINS_LIST from '../../content/plugin-list';
+
+const pluginsFuse = new Fuse(PLUGINS_LIST, {
+  threshold: 0.25,
+  ignoreLocation: true,
+  keys: [{ name: 'title', weight: 2 }, 'description'],
+});
 
 function PluginsHeader(): JSX.Element {
   return (
-    <header className="hero hero--primary text-center relative overflow-hidden px-0 py-16">
+    <header className="hero hero--primary relative overflow-hidden px-0 py-16 text-center">
       <div className="container">
         <h1 className="hero__title">Janus Plugins</h1>
         <p className="hero__subtitle">Have a plugin idea?</p>
@@ -39,21 +46,13 @@ function PluginsHeader(): JSX.Element {
   );
 }
 
-function PluginsPage(): JSX.Element {
-  return (
-    <>
-      <PluginsHeader />
-      <main>
-        <PluginsGrid pluginsList={PLUGINS_LIST} />
-      </main>
-    </>
-  );
-}
-
 export default function Plugins(): JSX.Element {
   return (
     <Layout title="Plugins" description="Description will go into a meta tag in <head />">
-      <PluginsPage />
+      <PluginsHeader />
+      <main>
+        <PluginsGrid pluginsFuse={pluginsFuse} pluginsList={PLUGINS_LIST} />
+      </main>
     </Layout>
   );
 }

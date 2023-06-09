@@ -24,6 +24,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/3scale-backend/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-3scale-backend',
+    category: 'Backend',
   },
   {
     title: 'Authentication and Authorization with Keycloak',
@@ -34,6 +35,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/keycloak-backend/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-keycloak-backend',
+    category: 'Backend',
   },
   {
     title: 'Container Image Registry for ACR',
@@ -43,6 +45,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/openshift-image-registry/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-openshift-image-registry',
+    category: 'Frontend',
   },
   {
     title: 'Container Image Registry for JFrog Artifactory',
@@ -52,6 +55,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/jfrog-artifactory/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-jfrog-artifactory',
+    category: 'Frontend',
   },
   {
     title: 'Container Image Registry for Quay',
@@ -61,6 +65,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/quay/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-quay',
+    category: 'Frontend',
   },
   {
     title: 'Multi Cluster View with OCM',
@@ -70,6 +75,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/ocm/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-ocm',
+    category: 'Frontend',
   },
   {
     title: 'Application Topology for Kubernetes',
@@ -80,6 +86,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/topology/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-topology',
+    category: 'Frontend',
   },
   {
     title: 'Pipelines with Tekton',
@@ -89,6 +96,7 @@ const PLUGINS_LIST = [
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/tekton/README.md',
     npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-tekton',
+    category: 'Frontend',
   },
 ];
 

@@ -21,9 +21,9 @@ helm repo add backstage https://backstage.github.io/charts
 ```
 
 :::note
-  The Backstage Helm chart is also available as an OCI artifact. However, the steps described in
-  this article will focus on the installation from a Helm Chart repository. Instructions on how to
-  leverage the chart from an OCI registry can be found on the chart GitHub project repository.
+The Backstage Helm chart is also available as an OCI artifact. However, the steps described in
+this article will focus on the installation from a Helm Chart repository. Instructions on how to
+leverage the chart from an OCI registry can be found on the chart GitHub project repository.
 :::
 
 ## Deploying to Kubernetes
@@ -37,10 +37,10 @@ minikube start
 ```
 
 :::note
-  The Kubernetes CLI (kubectl) may be desired in order to perform commands against the minikube
-  instance. By default, it is not installed when minikube is installed. Follow [these
-  steps](https://minikube.sigs.k8s.io/docs/handbook/kubectl/) to configure kubectl on the local
-  machine.
+The Kubernetes CLI (kubectl) may be desired in order to perform commands against the minikube
+instance. By default, it is not installed when minikube is installed. Follow [these
+steps](https://minikube.sigs.k8s.io/docs/handbook/kubectl/) to configure kubectl on the local
+machine.
 :::
 
 Now that the minikube instance is up running, the next step is to deploy the Backstage Helm chart to Kubernetes. Regardless of the operating environment that is used for Backstage, there are a few configuration details that need to be specified, particularly the baseUrl that will be used to access the platform. Backstage configuration properties can be provided in several ways and the Backstage Helm chart (thanks to both Helm’s templating capabilities along with the ability to specify parameterized values) includes support for many of the most common types, including as environment variables, additional configuration files that are contained within ConfigMaps, and as inline configuration files that are transformed into ConfigMaps.
