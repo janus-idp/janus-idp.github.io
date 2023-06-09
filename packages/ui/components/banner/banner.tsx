@@ -40,25 +40,25 @@ export function Banner(props: BannerProps): JSX.Element {
   return (
     <div
       className={clsx(
-        'border-solid border-x-0 border-t-2 border-b-[1px] border-b-pf-black-300 border-t-pf-red-100 flex justify-between gap-x-6 bg-pf-red-50 px-6 py-2.5 sm:px-3.5',
+        'border-b-pf-black-300 border-t-pf-red-100 bg-pf-red-50 flex justify-between gap-x-6 border-x-0 border-t-2 border-b-[1px] border-solid px-6 py-2.5 sm:px-3.5',
         cookies['banner-state'] === 'closed' && 'hidden',
       )}
     >
       <div className="hidden 2xl:block" />
-      <div className="text-pf-red-300 max-w-screen-2x font-semibold text-sm flex">
-        <ExclamationCircleIcon className="text-pf-red-100 h-5 w-5 mr-2 flex-none" />
+      <div className="text-pf-red-300 max-w-screen-2x flex text-sm font-semibold">
+        <ExclamationCircleIcon className="text-pf-red-100 mr-2 h-5 w-5 flex-none" />
         <div>{message}</div>
       </div>
 
       <button
         type="button"
-        className="border-none bg-inherit cursor-pointer"
+        className="cursor-pointer border-none bg-inherit"
         onClick={(): void => {
           setCookie('banner-state', 'closed');
         }}
       >
         <span className="sr-only">Dismiss</span>
-        <XMarkIcon className="h-5 w-5 text-pf-black-600" aria-hidden="true" />
+        <XMarkIcon className="text-pf-black-600 h-5 w-5" aria-hidden="true" />
       </button>
     </div>
   );
