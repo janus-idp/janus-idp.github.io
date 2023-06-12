@@ -39,7 +39,7 @@ type HomepageFeaturesProps = {
 
 export function HomepageGrid({ homepageList }: HomepageFeaturesProps): JSX.Element {
   return (
-    <section className="flex items-center container px-0 py-8">
+    <section className="container flex items-center px-0 py-8">
       <div className="grid grid-cols-3 gap-4">
         {homepageList.map((plugin) => (
           <HomepageTile key={plugin.title} {...plugin} />

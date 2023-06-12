@@ -22,7 +22,7 @@ import PLUGINS_LIST from '../../content/plugin-list';
 
 function PluginsHeader(): JSX.Element {
   return (
-    <header className="hero hero--primary text-center relative overflow-hidden px-0 py-16">
+    <header className="hero hero--primary relative overflow-hidden px-0 py-16 text-center">
       <div className="container">
         <h1 className="hero__title">Janus Plugins</h1>
         <p className="hero__subtitle">Have a plugin idea?</p>

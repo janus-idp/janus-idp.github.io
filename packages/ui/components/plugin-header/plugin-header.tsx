@@ -28,7 +28,7 @@ export function PluginHeader(props: PluginHeaderProps): JSX.Element {
   const { Link } = useContext(EnvironmentContext);
 
   return (
-    <div className="flex flex-col sm:flex-row mb-4">
+    <div className="mb-4 flex flex-col sm:flex-row">
       <img src={plugin?.icon} alt={plugin?.title} className="h-32 w-auto sm:mr-4" />
       <div className="flex-1">
         <h1>{plugin.title}</h1>
