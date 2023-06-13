@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+import { Cog8ToothIcon } from '@heroicons/react/20/solid';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import type Fuse from 'fuse.js';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { EnvironmentContext } from '../../contexts';
+import { NodejsIcon, ReactIcon } from '../../icons';
 import { Plugin } from '../../types';
 import { PLUGIN_CATEGORIES, PluginSearchbar } from '../plugin-searchbar/plugin-searchbar';
 
@@ -64,7 +66,18 @@ function PluginTile({ icon, title, description, href, category }: PluginTileProp
           <h3>{title}</h3>
           <p className="line-clamp-3">{description}</p>
         </div>
-        <div className="bg-pf-cyan-300 w-fit rounded px-2 py-1 text-sm text-white">{category}</div>
+        <div className="flex flex-row-reverse">
+          {/* Node.js brand guidelines require us to use a white icon on a dark background and vice versa */}
+          {category === 'Backend' && (
+            <NodejsIcon className="h-8 w-auto text-black dark:text-white" />
+          )}
+          {category === 'Frontend' && (
+            <ReactIcon className="h-8 w-auto text-black dark:text-white" />
+          )}
+          {category === 'Custom Actions' && (
+            <Cog8ToothIcon className="h-8 w-auto text-black dark:text-white" />
+          )}
+        </div>
       </div>
     </Link>
   );
