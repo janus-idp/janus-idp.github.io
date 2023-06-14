@@ -1,0 +1,6 @@
+{
+  "extends": ["config:js-app", ":gitSignOff", "group:linters", "group:test"],
+  "npm": {
+    "minimumReleaseAge": "1 day"
+  }
+}
