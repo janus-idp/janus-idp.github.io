@@ -16,13 +16,13 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "check-dependency-version-consistency": "^3.0.3",
+    "check-dependency-version-consistency": "3.0.3",
     "eslint-config-custom": "workspace:*",
-    "husky": "^8.0.2",
+    "husky": "8.0.2",
     "prettier": "^2.8.1",
-    "prettier-plugin-tailwindcss": "^0.2.1",
+    "prettier-plugin-tailwindcss": "0.2.1",
     "tsconfig": "workspace:*",
-    "turbo": "^1.9.3"
+    "turbo": "1.9.3"
   },
   "engines": {
     "node": ">=14.0.0"
