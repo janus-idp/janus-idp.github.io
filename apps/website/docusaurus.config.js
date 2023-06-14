@@ -116,7 +116,7 @@ const config = {
           editUrl: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/website/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./src/css/tailwind.css'),
         },
       }),
     ],
