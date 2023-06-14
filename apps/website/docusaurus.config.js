@@ -55,8 +55,8 @@ description: ${plugin.description}
 import { PluginHeader } from 'ui/components';
 
 <PluginHeader plugin={{${Object.entries(plugin)
-              .map(([key, value]) => `${key}:"${value}"`)
-              .join(',')}}} />
+                .map(([key, value]) => `${key}:"${value}"`)
+                .join(',')}}} />
 
 ${content.replace(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
           };
@@ -182,6 +182,15 @@ const config = {
                 label: 'Twitter',
                 href: 'https://twitter.com/JanusIDP',
               },
+
+              {
+                label: "Mailing List",
+                href: "https://www.youtube.com/@januscommunity"
+              },
+              {
+                label: "Google Calender",
+                href: "https://twitter.com/JanusIDP"
+              }
             ],
           },
           {
