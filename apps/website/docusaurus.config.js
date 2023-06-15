@@ -188,7 +188,7 @@ const config = {
                 href: "https://groups.google.com/g/janus-idp-community"
               },
               {
-                label: "Google Calender",
+                label: "Calendar",
                 href: "https://calendar.google.com/calendar/u/0?cid=amFudXMuaWRwLmNvbW11bml0eUBnbWFpbC5jb20"
               }
             ],
