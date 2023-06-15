@@ -88,8 +88,8 @@ importers:
         specifier: 18.2.5
         version: 18.2.5
       autoprefixer:
-        specifier: 10.4.13
-        version: 10.4.13(postcss@8.4.20)
+        specifier: 10.4.14
+        version: 10.4.14(postcss@8.4.20)
       deepmerge:
         specifier: 4.2.2
         version: 4.2.2
@@ -115,8 +115,8 @@ importers:
         specifier: 18.11.14
         version: 18.11.14
       autoprefixer:
-        specifier: 10.4.13
-        version: 10.4.13(postcss@8.4.20)
+        specifier: 10.4.14
+        version: 10.4.14(postcss@8.4.20)
       eslint:
         specifier: 8.29.0
         version: 8.29.0
@@ -233,8 +233,8 @@ importers:
         specifier: 18.2.5
         version: 18.2.5
       autoprefixer:
-        specifier: 10.4.13
-        version: 10.4.13(postcss@8.4.20)
+        specifier: 10.4.14
+        version: 10.4.14(postcss@8.4.20)
       eslint:
         specifier: 8.29.0
         version: 8.29.0
@@ -1820,7 +1820,7 @@ packages:
       '@docusaurus/utils-validation': 2.4.1(@docusaurus/types@2.4.1)
       '@slorber/static-site-generator-webpack-plugin': 4.0.7
       '@svgr/webpack': 6.5.1
-      autoprefixer: 10.4.13(postcss@8.4.20)
+      autoprefixer: 10.4.14(postcss@8.4.20)
       babel-loader: 8.3.0(@babel/core@7.21.8)(webpack@5.82.1)
       babel-plugin-dynamic-import-node: 2.3.3
       boxen: 6.2.1
@@ -4858,8 +4858,8 @@ packages:
     engines: {node: '>= 4.0.0'}
     dev: false
 
-  /autoprefixer@10.4.13(postcss@8.4.20):
-    resolution: {integrity: sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==}
+  /autoprefixer@10.4.14(postcss@8.4.20):
+    resolution: {integrity: sha512-FQzyfOsTlwVzjHxKEqRIAdJx9niO6VCBCoEwax/VLSoQF29ggECcPuBqUMZ+u8jCZOPSy8b8/8KnuFbp0SaFZQ==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -5686,7 +5686,7 @@ packages:
     peerDependencies:
       postcss: ^8.2.15
     dependencies:
-      autoprefixer: 10.4.13(postcss@8.4.20)
+      autoprefixer: 10.4.14(postcss@8.4.20)
       cssnano-preset-default: 5.2.14(postcss@8.4.20)
       postcss: 8.4.20
       postcss-discard-unused: 5.1.0(postcss@8.4.20)
