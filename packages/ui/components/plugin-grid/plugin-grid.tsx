@@ -23,6 +23,7 @@ import { EnvironmentContext } from '../../contexts';
 import { NodejsIcon, ReactIcon } from '../../icons';
 import { Plugin } from '../../types';
 import { PLUGIN_CATEGORIES, PluginSearchbar } from '../plugin-searchbar/plugin-searchbar';
+import { Tooltip } from '../tooltip/tooltip';
 
 type PluginTileProps = Plugin;
 
@@ -69,13 +70,22 @@ function PluginTile({ icon, title, description, href, category }: PluginTileProp
         <div className="flex flex-row-reverse">
           {/* Node.js brand guidelines require us to use a white icon on a dark background and vice versa */}
           {category === 'Backend' && (
-            <NodejsIcon className="h-8 w-auto text-black dark:text-white" />
+            <Tooltip
+              buttonContent={<NodejsIcon className="h-8 w-auto text-black dark:text-white" />}
+              popupContent={category}
+            />
           )}
           {category === 'Frontend' && (
-            <ReactIcon className="h-8 w-auto text-black dark:text-white" />
+            <Tooltip
+              buttonContent={<ReactIcon className="h-8 w-auto text-black dark:text-white" />}
+              popupContent={category}
+            />
           )}
           {category === 'Custom Actions' && (
-            <Cog8ToothIcon className="h-8 w-auto text-black dark:text-white" />
+            <Tooltip
+              buttonContent={<Cog8ToothIcon className="h-8 w-auto text-black dark:text-white" />}
+              popupContent={category}
+            />
           )}
         </div>
       </div>

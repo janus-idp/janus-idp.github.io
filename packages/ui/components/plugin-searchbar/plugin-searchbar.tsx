@@ -47,16 +47,16 @@ export type PluginSearchbarProps = {
 export function PluginSearchbar(props: PluginSearchbarProps): JSX.Element {
   const { search, setSearch, setQueryParams, pluginCategory } = props;
 
+  const searchRef = useRef<HTMLInputElement | null>(null);
+  const [open, setOpen] = useState(false);
+  const controls = useAnimationControls();
+
   useEffect(() => {
     searchRef.current?.focus();
     setQueryParams({ category: pluginCategory.slug });
     /// run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const searchRef = useRef<HTMLInputElement | null>(null);
-  const [open, setOpen] = useState(false);
-  const controls = useAnimationControls();
 
   useEffect(() => {
     if (open) {
@@ -89,7 +89,7 @@ export function PluginSearchbar(props: PluginSearchbarProps): JSX.Element {
               <DropdownMenu.Portal forceMount>
                 <DropdownMenu.Content
                   asChild
-                  className="rounded-lg shadow shadow-black/20 backdrop-blur dark:bg-[#1B1B1D] dark:shadow-black/50"
+                  className="rounded-lg shadow shadow-black/20 dark:bg-[#1B1B1D] dark:shadow-black/50"
                   sideOffset={8}
                 >
                   <motion.div
