@@ -1,5 +1,6 @@
 {
-  "extends": ["config:js-app", ":gitSignOff", "group:linters", "group:test"],
+  "extends": ["config:js-app", ":gitSignOff", ":rebaseStalePrs", "group:linters", "group:test"],
+  "labels": ["kind/dependency upgrade"],
   "npm": {
     "minimumReleaseAge": "1 day"
   }
