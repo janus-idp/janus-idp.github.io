@@ -185,11 +185,11 @@ const config = {
 
               {
                 label: "Mailing List",
-                href: "https://www.youtube.com/@januscommunity"
+                href: "https://groups.google.com/g/janus-idp-community"
               },
               {
                 label: "Google Calender",
-                href: "https://twitter.com/JanusIDP"
+                href: "https://calendar.google.com/calendar/u/0?cid=amFudXMuaWRwLmNvbW11bml0eUBnbWFpbC5jb20"
               }
             ],
           },
