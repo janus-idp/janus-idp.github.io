@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       check-dependency-version-consistency:
-        specifier: 3.0.3
-        version: 3.0.3
+        specifier: 3.3.0
+        version: 3.3.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:packages/eslint-config-custom
@@ -4189,6 +4189,10 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: false
 
+  /@types/js-yaml@4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
+    dev: true
+
   /@types/json-schema@7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
 
@@ -5214,15 +5218,17 @@ packages:
     resolution: {integrity: sha512-iBZ4F4wRbyORVsu0jPV7gXkOsGYjGHPmAyv+HiHG8gi5PtC9KI2j1+v8/tlibRvjoWX027ypmG/n0HtO5t7unw==}
     dev: false
 
-  /check-dependency-version-consistency@3.0.3:
-    resolution: {integrity: sha512-BmCr4v9xBGCPBTUoJwqaSJV9VqWXxAR983BogbEMU/y3NqwbvFkgpUBNW9YTP79Kv9FIy8X+G/5TU79HpI8C6Q==}
+  /check-dependency-version-consistency@3.3.0:
+    resolution: {integrity: sha512-oIqdqC5kLjMP3EIqxmWNq4JcuWLkFBrR0TQyLAQhk3y+zmIaxIFp5ABSFyyf0eNc7H6LeG8vZ1K0V0jSEKSP2g==}
     engines: {node: ^12.20.0 || ^14.14.0 || >=16.0.0}
     hasBin: true
     dependencies:
+      '@types/js-yaml': 4.0.5
       chalk: 5.2.0
       commander: 9.4.1
       edit-json-file: 1.7.0
       globby: 13.1.4
+      js-yaml: 4.1.0
       semver: 7.5.1
       table: 6.8.1
       type-fest: 2.19.0
