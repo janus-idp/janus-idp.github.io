@@ -22,7 +22,7 @@
     "@heroicons/react": "2.0.18",
     "@segment/analytics-next": "1.49.2",
     "clsx": "1.2.1",
-    "deepmerge": "4.2.2",
+    "deepmerge": "4.3.1",
     "encoding": "0.1.13",
     "feed": "4.2.2",
     "framer-motion": "10.12.16",
