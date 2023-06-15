@@ -22,7 +22,7 @@
     "prettier": "2.8.1",
     "prettier-plugin-tailwindcss": "0.3.0",
     "tsconfig": "workspace:*",
-    "turbo": "1.9.3"
+    "turbo": "1.10.3"
   },
   "engines": {
     "node": ">=14.0.0"
