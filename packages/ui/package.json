@@ -11,7 +11,7 @@
     "autoprefixer": "10.4.14",
     "eslint": "8.29.0",
     "eslint-config-custom": "workspace:*",
-    "postcss": "8.4.20",
+    "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
@@ -22,11 +22,11 @@
     "@heroicons/react": "2.0.18",
     "@segment/analytics-next": "1.49.2",
     "clsx": "1.2.1",
-    "deepmerge": "4.2.2",
+    "deepmerge": "4.3.1",
     "encoding": "0.1.13",
     "feed": "4.2.2",
-    "framer-motion": "10.12.10",
+    "framer-motion": "10.12.16",
     "react-cookie": "4.1.1",
-    "react-icons": "4.8.0"
+    "react-icons": "4.9.0"
   }
 }
