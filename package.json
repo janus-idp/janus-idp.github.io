@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "check-dependency-version-consistency": "3.3.0",
+    "check-dependency-version-consistency": "4.1.0",
     "eslint-config-custom": "workspace:*",
     "husky": "8.0.3",
     "prettier": "2.8.1",
