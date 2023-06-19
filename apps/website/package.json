@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.4.1",
-    "@docusaurus/theme-classic": "^2.4.1",
+    "@docusaurus/theme-classic": "2.4.1",
     "@docusaurus/types": "2.4.1",
     "@tsconfig/docusaurus": "1.0.7",
     "@types/node": "18.11.14",
