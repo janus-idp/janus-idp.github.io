@@ -17,7 +17,7 @@
 // ImageProps line complains
 /* eslint-disable @typescript-eslint/indent */
 
-import React, { createContext, type ComponentProps } from 'react';
+import React, { createContext, type ComponentProps, type FunctionComponent } from 'react';
 
 export type LinkProps = Omit<ComponentProps<'a'>, 'href'> &
   Pick<Required<ComponentProps<'a'>>, 'href'>;
@@ -27,8 +27,8 @@ export type ImageProps = Omit<ComponentProps<'img'>, 'src' | 'alt'> &
   Pick<Required<ComponentProps<'img'>>, 'src' | 'alt'>;
 
 export const EnvironmentContext = createContext<{
-  Link?: React.FunctionComponent<ComponentProps<'a'>>;
-  Image?: React.FunctionComponent<ImageProps>;
+  Link: FunctionComponent<ComponentProps<'a'>>;
+  Image: FunctionComponent<ImageProps>;
 }>({
   // children will always exist
   // eslint-disable-next-line jsx-a11y/anchor-has-content
