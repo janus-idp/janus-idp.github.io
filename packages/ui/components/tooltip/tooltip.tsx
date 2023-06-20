@@ -50,7 +50,7 @@ export function Tooltip(props: TooltipProps): JSX.Element {
               <RadixTooltip.Content
                 asChild
                 sideOffset={5}
-                className="rounded bg-white py-1 px-2 text-black shadow shadow-black/20 dark:bg-[#1B1B1D] dark:text-white"
+                className="rounded bg-white px-2 py-1 text-black shadow shadow-black/20 dark:bg-[#1B1B1D] dark:text-white"
               >
                 <motion.div
                   initial="closed"

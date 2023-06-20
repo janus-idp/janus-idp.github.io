@@ -40,7 +40,7 @@ export function Banner(props: BannerProps): JSX.Element {
   return (
     <div
       className={clsx(
-        'border-b-pf-black-300 border-t-pf-red-100 bg-pf-red-50 flex justify-between gap-x-6 border-x-0 border-t-2 border-b-[1px] border-solid px-6 py-2.5 sm:px-3.5',
+        'border-b-pf-black-300 border-t-pf-red-100 bg-pf-red-50 flex justify-between gap-x-6 border-x-0 border-b-[1px] border-t-2 border-solid px-6 py-2.5 sm:px-3.5',
         cookies['banner-state'] === 'closed' && 'hidden',
       )}
     >

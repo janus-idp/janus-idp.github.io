@@ -27,8 +27,8 @@ export type ImageProps = Omit<ComponentProps<'img'>, 'src' | 'alt'> &
   Pick<Required<ComponentProps<'img'>>, 'src' | 'alt'>;
 
 export const EnvironmentContext = createContext<{
-  Link: React.FunctionComponent<ComponentProps<'a'>>;
-  Image: React.FunctionComponent<ImageProps>;
+  Link?: React.FunctionComponent<ComponentProps<'a'>>;
+  Image?: React.FunctionComponent<ImageProps>;
 }>({
   // children will always exist
   // eslint-disable-next-line jsx-a11y/anchor-has-content

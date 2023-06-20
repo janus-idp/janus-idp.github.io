@@ -76,7 +76,7 @@ export function PluginSearchbar(props: PluginSearchbarProps): JSX.Element {
           <DropdownMenu.Trigger asChild>
             <button
               aria-label="Select plugin category"
-              className="dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 dark:border-pf-cyan-300/30 border-pf-cyan-300/20 text-pf-cyan-300 ring-pf-cyan-300 z-10 flex flex-shrink-0 cursor-pointer items-center justify-between rounded-l-lg border border-solid py-2.5 px-4 text-center text-sm font-medium outline-0 focus:ring-1 sm:w-40"
+              className="dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 dark:border-pf-cyan-300/30 border-pf-cyan-300/20 text-pf-cyan-300 ring-pf-cyan-300 z-10 flex flex-shrink-0 cursor-pointer items-center justify-between rounded-l-lg border border-solid px-4 py-2.5 text-center text-sm font-medium outline-0 focus:ring-1 sm:w-40"
               type="button"
             >
               <span className="hidden sm:inline-block">{pluginCategory.name} </span>
@@ -138,7 +138,7 @@ export function PluginSearchbar(props: PluginSearchbarProps): JSX.Element {
             placeholder="Search plugins..."
             required
           />
-          <div className="border-pf-cyan-300 bg-pf-cyan-300 absolute top-0 right-0 h-[42px] rounded-r-lg border border-solid p-2 text-sm font-medium text-white shadow shadow-black/20 dark:shadow-black/50">
+          <div className="border-pf-cyan-300 bg-pf-cyan-300 absolute right-0 top-0 h-[42px] rounded-r-lg border border-solid p-2 text-sm font-medium text-white shadow shadow-black/20 dark:shadow-black/50">
             <MagnifyingGlassIcon className="h-5 w-5" />
             <span className="sr-only">Search</span>
           </div>

@@ -182,6 +182,15 @@ const config = {
                 label: 'Twitter',
                 href: 'https://twitter.com/JanusIDP',
               },
+
+              {
+                label: 'Mailing List',
+                href: 'https://groups.google.com/g/janus-idp-community',
+              },
+              {
+                label: 'Calendar',
+                href: 'https://calendar.google.com/calendar/u/0?cid=amFudXMuaWRwLmNvbW11bml0eUBnbWFpbC5jb20',
+              },
             ],
           },
           {

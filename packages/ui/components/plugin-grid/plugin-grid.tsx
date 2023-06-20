@@ -45,7 +45,7 @@ function PluginTile({ icon, title, description, href, category }: PluginTileProp
 
   return (
     <Link
-      className="dark:border-pf-cyan-300/30 border-pf-cyan-300/20 dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 dark:shadow-2x ring-pf-cyan-300 group relative flex flex-col items-center justify-between rounded-xl border border-solid py-4 px-8 shadow shadow-black/20 outline-0 transition-shadow hover:no-underline hover:shadow-md focus:ring-1 dark:shadow-black/50"
+      className="dark:border-pf-cyan-300/30 border-pf-cyan-300/20 dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 dark:shadow-2x ring-pf-cyan-300 group relative flex flex-col items-center justify-between rounded-xl border border-solid px-8 py-4 shadow shadow-black/20 outline-0 transition-shadow hover:no-underline hover:shadow-md focus:ring-1 dark:shadow-black/50"
       href={href}
       onMouseMove={handleMouseMove}
     >

@@ -19,15 +19,11 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import React from 'react';
 import { CookiesProvider } from 'react-cookie';
-import { Banner } from 'ui/components';
 import { AnalyticsProvider } from 'ui/providers';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
 import { EnvironmentProvider } from '../lib/providers/environment-provider';
 import { CustomFields } from '../lib/types';
-
-const BANNER_MESSAGE =
-  'Our Janus Showcase application is currently unavailable. We anticipate it being back up and running by Tuesday, June 20th. We apologize for the inconvenience.' as const;
 
 export default function Root({ children }: { children: React.ReactNode }): JSX.Element {
   const location = useLocation();
@@ -44,10 +40,7 @@ export default function Root({ children }: { children: React.ReactNode }): JSX.E
         isSSR={!isBrowser}
       >
         <CookiesProvider>
-          <QueryParamProvider adapter={ReactRouter5Adapter}>
-            <Banner message={BANNER_MESSAGE} />
-            {children}
-          </QueryParamProvider>
+          <QueryParamProvider adapter={ReactRouter5Adapter}>{children}</QueryParamProvider>
         </CookiesProvider>
       </AnalyticsProvider>
     </EnvironmentProvider>
