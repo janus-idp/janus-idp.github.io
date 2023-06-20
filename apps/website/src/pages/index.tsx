@@ -31,7 +31,11 @@ function HomepageHeader(): JSX.Element {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className="flex items-center justify-center">
           <Link className="button button--secondary button--lg" to="/plugins">
-            Checkout our plugins for Backstage! 🔌
+
+          <span className="wrapped-link">
+               Checkout our plugins for Backstage! 🔌
+            </span>
+           
           </Link>
         </div>
       </div>
