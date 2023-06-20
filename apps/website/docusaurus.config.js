@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-// @ts-check
-
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 const dotenv = require('dotenv');
 /** @type {import('ui/types').Plugin[]} */
-// @ts-ignore
 const PLUGINS_LIST = require('./content/plugin-list');
 
-// @ts-ignore
 darkCodeTheme.plain.backgroundColor = '#232323';
 
 dotenv.config();
@@ -58,7 +54,7 @@ import { PluginHeader } from 'ui/components';
               .map(([key, value]) => `${key}:"${value}"`)
               .join(',')}}} />
 
-${content.replace(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
+${content.replaceAll(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
           };
         }
       },
