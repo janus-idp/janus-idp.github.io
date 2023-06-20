@@ -202,8 +202,8 @@ importers:
         specifier: 2.0.18
         version: 2.0.18(react@18.2.0)
       '@segment/analytics-next':
-        specifier: 1.49.2
-        version: 1.49.2(encoding@0.1.13)
+        specifier: 1.53.0
+        version: 1.53.0(encoding@0.1.13)
       clsx:
         specifier: 1.2.1
         version: 1.2.1
@@ -2353,7 +2353,7 @@ packages:
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.13
+      '@types/react': 18.2.12
       commander: 5.1.0
       joi: 17.9.2
       react: 18.2.0
@@ -2636,22 +2636,22 @@ packages:
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
 
-  /@segment/analytics-core@1.2.1:
-    resolution: {integrity: sha512-FaKE7uIBXsclO4GcA7cEgb4iyQ23aFHRcxqLpxaCGeB5nqIdVQHigmGgL3hAjCZeBqtojLEV6as27ozXHQXCkg==}
+  /@segment/analytics-core@1.3.0:
+    resolution: {integrity: sha512-ujScWZH49NK1hYlp2/EMw45nOPEh+pmTydAnR6gSkRNucZD4fuinvpPL03rmFCw8ibaMuKLAdgPJfQ0gkLKZ5A==}
     dependencies:
       '@lukeed/uuid': 2.0.0
       dset: 3.1.2
       tslib: 2.5.0
     dev: false
 
-  /@segment/analytics-next@1.49.2(encoding@0.1.13):
-    resolution: {integrity: sha512-i1Z5OfapDQQkielF9Cz9q8PeLvRTgBMPxHn5SoIx3SZJEzWTzFkvrmg/v98P8TcyjzbSa6hsVySm4E0tVdj8mA==}
+  /@segment/analytics-next@1.53.0(encoding@0.1.13):
+    resolution: {integrity: sha512-7bzUjxGuccQpDx7CrteAx4yM2eDosjheQLySLBi6cz25EwPbBPb2X+ZzBUZIfLA0V0Co0zWaE6xXzVw8X5zSpQ==}
     dependencies:
       '@lukeed/uuid': 2.0.0
-      '@segment/analytics-core': 1.2.1
+      '@segment/analytics-core': 1.3.0
       '@segment/analytics.js-video-plugins': 0.2.1
       '@segment/facade': 3.4.10
-      '@segment/tsub': 1.0.1
+      '@segment/tsub': 2.0.0
       dset: 3.1.2
       js-cookie: 3.0.1
       node-fetch: 2.6.11(encoding@0.1.13)
@@ -2688,8 +2688,8 @@ packages:
     resolution: {integrity: sha512-BtanDuvJqnACFkeeYje7pWULVv8RgZaqKHWwGFnL/g/TH/CcZjkIVTfGDp/MAxmilYHUkrX70SqwnYSTNEaN7A==}
     dev: false
 
-  /@segment/tsub@1.0.1:
-    resolution: {integrity: sha512-rUpvlj/rRfOolk5rjwyrsbl0qzGLsaYgFNEiOSrwrWDryDPq1ZGdo+3Eb+E8+EC0yZOAO4F1DjJfLtaSifpx7w==}
+  /@segment/tsub@2.0.0:
+    resolution: {integrity: sha512-NzkBK8GwPsyQ74AceLjENbUoaFrObnzEKOX4ko2wZDuIyK+DnDm3B//8xZYI2LCKt+wUD55l6ygfjCoVs8RMWw==}
     hasBin: true
     dependencies:
       '@stdlib/math-base-special-ldexp': 0.0.5
@@ -4106,7 +4106,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.1
-    dev: true
 
   /@types/react@18.2.13:
     resolution: {integrity: sha512-vJ+zElvi/Zn9cVXB5slX2xL8PZodPCwPRDpittQdw43JR2AJ5k3vKdgJJyneV/cYgIbLQUwXa9JVDvUZXGba+Q==}

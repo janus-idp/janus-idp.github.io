@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@heroicons/react": "2.0.18",
-    "@segment/analytics-next": "1.49.2",
+    "@segment/analytics-next": "1.53.0",
     "clsx": "1.2.1",
     "deepmerge": "4.3.1",
     "encoding": "0.1.13",
