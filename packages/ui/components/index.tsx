@@ -18,3 +18,5 @@ export * from './banner/banner';
 export * from './homepage-grid/homepage-grid';
 export * from './plugin-grid/plugin-grid';
 export * from './plugin-header/plugin-header';
+export * from './plugin-searchbar/plugin-searchbar';
+export * from './tooltip/tooltip';

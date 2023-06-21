@@ -20,6 +20,8 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import React from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { AnalyticsProvider } from 'ui/providers';
+import { QueryParamProvider } from 'use-query-params';
+import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
 import { EnvironmentProvider } from '../lib/providers/environment-provider';
 import { CustomFields } from '../lib/types';
 
@@ -37,7 +39,9 @@ export default function Root({ children }: { children: React.ReactNode }): JSX.E
         pathname={location.pathname}
         isSSR={!isBrowser}
       >
-        <CookiesProvider>{children}</CookiesProvider>
+        <CookiesProvider>
+          <QueryParamProvider adapter={ReactRouter5Adapter}>{children}</QueryParamProvider>
+        </CookiesProvider>
       </AnalyticsProvider>
     </EnvironmentProvider>
   );

@@ -19,11 +19,13 @@ export type Feature = {
   title: string;
   description: string;
 };
+export type PluginCategoryKind = 'Frontend' | 'Backend' | 'Custom Actions';
 
 export type Plugin = Feature & {
   href: string;
   githubUrl: string;
   npmUrl: string;
+  category: PluginCategoryKind;
 };
 
 export type Homepage = Feature;
