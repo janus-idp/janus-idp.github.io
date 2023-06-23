@@ -12,6 +12,8 @@ Currently, the plugin is read-only, allowing you to view and analyze the workloa
 
 The intuitive graphical representation provides an at-a-glance understanding of the workload distribution across clusters, enabling you to spot issues or imbalances quickly. Whether it's Deployments, Jobs, Daemonsets, Statefulsets, CronJobs, or Pods, this plugin lets you gain insights into the components powering your applications or services.
 
+![Topology plugin intro](./topology-plugin-intro.png)
+
 We introduced the plugin in the previous [blog](https://janus-idp.io/blog/2023/03/06/topology) so in this blog post, we will explore the unique features, installation, and usage of the Topology plugin in Backstage.
 
 The Backstage Topology Plugin provides a lot of powerful features going beyond the graphical visualization of Kubernetes workloads. Let's explore the various features that make this plugin outstanding:
@@ -20,9 +22,9 @@ The Backstage Topology Plugin provides a lot of powerful features going beyond t
 
 The plugin empowers you to visualize the workloads of a specific cluster when your workloads are spread across multiple clusters. This functionality allows you to focus on a particular environment or segment of your application infrastructure. This targeted filtering capability makes issue troubleshooting easier and can help with the optimization of resources.
 
-### Access the application in a single click
+![Filter workloads by cluster](./filter-by-cluster.png)
 
-The Topology Plugin simplifies access to the running application associated with your workloads. With a single click, you can easily navigate to the relevant application, saving time and effort.
+![Minikube topology](./minikube-topology.png)
 
 ### Group workloads
 
@@ -35,6 +37,8 @@ labels:
   app.kubernetes.io/part-of: <GROUP_NAME>
 ```
 
+![Group workloads](./group-workloads.png)
+
 ### Establish node Connections and Relationships
 
 The plugin facilitates the establishment of connections between nodes to represent their relationships. This feature enhances your understanding of the dependencies and interactions between different workloads, fostering a comprehensive view of your infrastructure.
@@ -46,9 +50,27 @@ annotations:
   app.openshift.io/connects-to: '[{"apiVersion": <RESOURCE_APIVERSION>,"kind": <RESOURCE_KIND>,"name": <RESOURCE_NAME>}]'
 ```
 
+![Establish node Connections and Relationships](./visual-connector.png)
+
+### Access the application in a single click
+
+The Topology Plugin simplifies access to the running application associated with your workloads. With a single click, you can easily navigate to the relevant application, saving time and effort.
+
+![Access the application in a single click](./ingress-decorator.png)
+
+![Application](./showcase-website.png)
+
 ### Get workload insights using the side panel
 
 The plugin also provides a side panel that opens up on selecting a workload. The side panel shows the details of the workload and its connected resources. This level of granularity helps troubleshoot issues, find bottlenecks and fine-tune your workload configurations.
+
+![Sidepanel Details tab](./sidepanel-details1.png)
+
+![Sidepanel Details tab](./sidepanel-details2.png)
+
+![Sidepanel Resources tab](./sidepanel-resources1.png)
+
+![Sidepanel Resources tab](./sidepanel-resources2.png)
 
 ## Installation and configuration
 
@@ -89,7 +111,7 @@ To start leveraging the capabilities of the Backstage Topology Plugin, follow th
    **Note:** When using the label selector, ensure that the mentioned labels are present on the resource.
 
 7. Install the Topology plugin using the following command:
-   ```yaml
+   ```console
    yarn workspace app add @janus-idp/backstage-plugin-topology
    ```
 
