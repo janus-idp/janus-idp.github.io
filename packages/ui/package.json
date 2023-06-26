@@ -29,7 +29,7 @@
     "framer-motion": "10.12.16",
     "fuse.js": "6.6.2",
     "react-cookie": "4.1.1",
-    "react-icons": "4.9.0",
+    "react-icons": "4.10.1",
     "use-query-params": "2.2.1"
   }
 }
