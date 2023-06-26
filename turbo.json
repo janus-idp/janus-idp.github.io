@@ -15,6 +15,7 @@
     "clean": {},
     "tsc": {},
     "dev": {
+      "dependsOn": ["build"],
       "cache": false,
       "persistent": true
     },
