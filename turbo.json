@@ -15,7 +15,11 @@
     "clean": {},
     "tsc": {},
     "dev": {
-      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "website#dev": {
+      "dependsOn": ["docusaurus-plugin-tailwind#build"],
       "cache": false,
       "persistent": true
     },
