@@ -28,4 +28,9 @@ export type Plugin = Feature & {
   category: PluginCategoryKind;
 };
 
+export type GPT = Omit<Feature, 'icon'> & {
+  href: string;
+  githubURL: string;
+};
+
 export type Homepage = Feature;

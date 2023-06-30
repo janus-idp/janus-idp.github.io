@@ -19,6 +19,7 @@ const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 const dotenv = require('dotenv');
 /** @type {import('ui/types').Plugin[]} */
 const PLUGINS_LIST = require('./content/plugin-list');
+const GPTS_LIST = require('./content/gpts-list');
 
 darkCodeTheme.plain.backgroundColor = '#232323';
 
@@ -139,6 +140,7 @@ const config = {
           { to: '/blog', label: 'Blog', position: 'left' },
           { to: '/community', label: 'Community', position: 'left' },
           { to: '/plugins', label: 'Plugins', position: 'left' },
+          { to: '/gpts', label: 'GPTs', position: 'left' },
           {
             href: 'https://showcase.janus-idp.io/',
             label: 'Showcase',
