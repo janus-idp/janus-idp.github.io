@@ -29,7 +29,7 @@ dotenv.config({ path: `.env.local`, override: true });
 const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`;
 
 const linkRegex = /!\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
-const remoteContent = PLUGINS_LIST.map((plugin) => {
+const pluginsContent = PLUGINS_LIST.map((plugin) => {
   const filenameIndex = plugin.githubUrl.lastIndexOf('/') + 1;
   const sourceBaseUrl = plugin.githubUrl.slice(0, Math.max(0, filenameIndex));
   const filename = plugin.githubUrl.slice(Math.max(0, filenameIndex));
@@ -52,6 +52,40 @@ description: ${plugin.description}
 import { PluginHeader } from 'ui/components';
 
 <PluginHeader plugin={{${Object.entries(plugin)
+              .map(([key, value]) => `${key}:"${value}"`)
+              .join(',')}}} />
+
+${content.replaceAll(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
+          };
+        }
+      },
+    },
+  ];
+});
+
+const gptsContent = GPTS_LIST.map((gpt) => {
+  const filenameIndex = gpt.rawGithubUrl.lastIndexOf('/') + 1;
+  const sourceBaseUrl = gpt.rawGithubUrl.slice(0, Math.max(0, filenameIndex));
+  const filename = gpt.rawGithubUrl.slice(Math.max(0, filenameIndex));
+
+  return [
+    'docusaurus-plugin-remote-content',
+    {
+      name: `${gpt.title}-content`,
+      sourceBaseUrl,
+      outDir: `src/pages/${gpt.href}`,
+      documents: [filename],
+      modifyContent: (fname, content) => {
+        if (fname.includes('README')) {
+          return {
+            filename: 'index.mdx',
+            content: `---
+title: ${gpt.title}
+description: ${gpt.description}
+---
+import { GPTHeader } from 'ui/components';
+
+<GPTHeader gpt={{${Object.entries(gpt)
               .map(([key, value]) => `${key}:"${value}"`)
               .join(',')}}} />
 
@@ -234,7 +268,7 @@ const config = {
       },
     }),
 
-  plugins: ['docusaurus-plugin-tailwind', ...remoteContent],
+  plugins: ['docusaurus-plugin-tailwind', ...pluginsContent, ...gptsContent],
 };
 
 module.exports = config;

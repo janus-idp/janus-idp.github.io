@@ -20,5 +20,6 @@ export * from './plugin-grid/plugin-grid';
 export * from './plugin-header/plugin-header';
 export * from './plugin-searchbar/plugin-searchbar';
 export * from './tooltip/tooltip';
-export * from './gpts-grid/gpts-grid';
-export * from './gpts-searchbar/gpts-searchbar';
+export * from './gpt-grid/gpt-grid';
+export * from './gpt-searchbar/gpt-searchbar';
+export * from './gpt-header/gpt-header';

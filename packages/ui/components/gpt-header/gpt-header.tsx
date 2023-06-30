@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-export type Feature = {
-  icon: string;
-  title: string;
-  description: string;
-};
-export type PluginCategoryKind = 'Frontend' | 'Backend' | 'Custom Actions';
+import React, { useContext } from 'react';
+import { EnvironmentContext } from '../../contexts';
+import { GPT } from '../../types';
 
-export type Plugin = Feature & {
-  href: string;
-  githubUrl: string;
-  npmUrl: string;
-  category: PluginCategoryKind;
+export type GPTHeaderProps = {
+  gpt: GPT;
 };
 
-export type GPT = Omit<Feature, 'icon'> & {
-  href: string;
-  rawGithubUrl: string; // This links to the raw README file that is loaded
-  githubUrl: string; // This links to the Github repo that contains this template
-};
+export function GPTHeader(props: GPTHeaderProps): JSX.Element {
+  const { gpt } = props;
+  const { Link } = useContext(EnvironmentContext);
 
-export type Homepage = Feature;
+  return (
+    <div className="mb-4 flex flex-col sm:flex-row">
+      <div className="flex-1">
+        <h1>{gpt.title}</h1>
+        <p>{gpt.description}</p>
+      </div>
+      <div>
+        <Link href={gpt.githubUrl}>Github Repo</Link>
+      </div>
+    </div>
+  );
+}

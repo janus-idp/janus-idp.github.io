@@ -19,7 +19,7 @@ import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { GPT } from '../../types';
 import { EnvironmentContext } from '../../contexts';
-import { GPTSearchbar } from '../gpts-searchbar/gpts-searchbar';
+import { GPTSearchbar } from '../gpt-searchbar/gpt-searchbar';
 
 type GPTTileProps = GPT;
 
