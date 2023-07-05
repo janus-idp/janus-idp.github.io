@@ -34,10 +34,9 @@ function GPTsHeader(): JSX.Element {
         <h1 className="hero__title">Janus Golden Path Templates</h1>
         <p className="hero__subtitle">Have a GPT idea?</p>
         <div className="flex items-center justify-center">
-          {/* TODO: change link to janus software-templates GPT issue template after it is created */}
           <Link
             className="button button--secondary button--lg"
-            to="https://github.com/Zaperex/software-templates/issues/new?assignees=&labels=template&projects=&template=gpts.yaml&title=GPT%3A+"
+            to="https://github.com/janus-idp/software-templates/issues/new?assignees=&labels=template&projects=&template=gpts.yaml&title=GPT%3A+"
           >
             Submit a proposal for a GPT!
           </Link>

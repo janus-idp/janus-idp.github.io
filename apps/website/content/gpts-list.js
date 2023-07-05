@@ -16,14 +16,13 @@
 
 /** @type {import('ui/types').GPT[]} */
 
-// TODO: Change githubUrl links to janus-idp/software-templates entries once they're all created
 const GPTS_LIST = [
   {
     title: 'Ansible Job',
     description: 'Launch an Ansible Job within Ansible Automation Platform',
     href: 'gpts/ansible_job',
     rawGithubUrl:
-      'https://raw.githubusercontent.com/Zaperex/software-templates/main/scaffolder-templates/ansible-job/README.md',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/ansible-job/README.md',
     githubUrl:
       'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/ansible-job',
   },
@@ -32,7 +31,7 @@ const GPTS_LIST = [
     description: 'Create a simple microservice using Quarkus with ArgoCD and a Tekton Pipeline',
     href: `gpts/quarkus`,
     rawGithubUrl:
-      'https://raw.githubusercontent.com/Zaperex/software-templates/main/scaffolder-templates/quarkus-web-template/README.md',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/quarkus-web-template/README.md',
     githubUrl:
       'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/quarkus-web-template',
   },
@@ -41,7 +40,7 @@ const GPTS_LIST = [
     description: 'Create a techdocs sample',
     href: 'gpts/techdocs',
     rawGithubUrl:
-      'https://raw.githubusercontent.com/Zaperex/software-templates/main/scaffolder-templates/documentation-template/README.md',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/documentation-template/README.md',
     githubUrl:
       'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/documentation-template',
   },
