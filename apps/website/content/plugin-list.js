@@ -23,7 +23,7 @@ const PLUGINS_LIST = [
     href: '/plugins/3scale',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/3scale-backend/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-3scale-backend',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-3scale-backend',
     category: 'Backend',
   },
   {
@@ -34,7 +34,7 @@ const PLUGINS_LIST = [
     href: '/plugins/keycloak',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/keycloak-backend/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-keycloak-backend',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-keycloak-backend',
     category: 'Backend',
   },
   {
@@ -44,7 +44,7 @@ const PLUGINS_LIST = [
     href: '/plugins/acr',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/openshift-image-registry/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-openshift-image-registry',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-openshift-image-registry',
     category: 'Frontend',
   },
   {
@@ -54,7 +54,7 @@ const PLUGINS_LIST = [
     href: '/plugins/jfrog-artifactory',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/jfrog-artifactory/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-jfrog-artifactory',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-jfrog-artifactory',
     category: 'Frontend',
   },
   {
@@ -64,7 +64,7 @@ const PLUGINS_LIST = [
     href: '/plugins/quay',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/quay/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-quay',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-quay',
     category: 'Frontend',
   },
   {
@@ -74,7 +74,7 @@ const PLUGINS_LIST = [
     href: '/plugins/ocm',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/ocm/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-ocm',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-ocm',
     category: 'Frontend',
   },
   {
@@ -85,7 +85,7 @@ const PLUGINS_LIST = [
     href: '/plugins/topology',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/topology/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-topology',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-topology',
     category: 'Frontend',
   },
   {
@@ -95,9 +95,9 @@ const PLUGINS_LIST = [
     href: '/plugins/tekton',
     githubUrl:
       'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/tekton/README.md',
-    npmUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-tekton',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-tekton',
     category: 'Frontend',
   },
 ];
 
-module.exports = PLUGINS_LIST;
+module.exports = { PLUGINS_LIST };

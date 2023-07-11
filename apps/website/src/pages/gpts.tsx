@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
+import Link from '@docusaurus/Link';
+import { GPT_LIST } from '@site/content/gpts-list';
+import Layout from '@theme/Layout';
 import Fuse from 'fuse.js';
 import React from 'react';
-import GPTS_LIST from '@site/content/gpts-list';
-import Link from '@docusaurus/Link';
-import Layout from '@theme/Layout';
 import { GPTsGrid } from 'ui/components';
+import { GPT } from 'ui/types';
 
-const gptsFuse = new Fuse(GPTS_LIST, {
+const GPT_FUSE = new Fuse(GPT_LIST as GPT[], {
   threshold: 0.25,
   ignoreLocation: true,
   keys: [{ name: 'title', weight: 2 }, 'description'],
@@ -51,7 +52,7 @@ export default function Plugins(): JSX.Element {
     <Layout title="GPTs" description="Description will go into a meta tag in <head />">
       <GPTsHeader />
       <main>
-        <GPTsGrid gptsFuse={gptsFuse} gptsList={GPTS_LIST} />
+        <GPTsGrid GPT_FUSE={GPT_FUSE} GPT_LIST={GPT_LIST as GPT[]} />
       </main>
     </Layout>
   );

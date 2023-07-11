@@ -15,23 +15,36 @@
  */
 
 export type Feature = {
-  icon: string;
   title: string;
   description: string;
 };
-export type PluginCategoryKind = 'Frontend' | 'Backend' | 'Custom Actions';
 
-export type Plugin = Feature & {
+export type RemoteContent<T = undefined> = Feature & {
   href: string;
   githubUrl: string;
-  npmUrl: string;
-  category: PluginCategoryKind;
+  sourceUrl: string;
+  category?: T;
 };
 
-export type GPT = Omit<Feature, 'icon'> & {
-  href: string;
-  rawGithubUrl: string; // This links to the raw README file that is loaded
-  githubUrl: string; // This links to the Github repo that contains this template
+export type PluginCategoryKind = 'Frontend' | 'Backend' | 'Custom Actions';
+
+export type Plugin = RemoteContent<PluginCategoryKind> & {
+  icon: string;
 };
 
-export type Homepage = Feature;
+export type GPT = RemoteContent;
+
+export type Homepage = Feature & {
+  icon: string;
+};
+
+export type DocusaurusRemoteContent = [
+  string,
+  {
+    name: string;
+    sourceBaseUrl: string;
+    outDir: string;
+    documents: string[] | Promise<string[]>;
+    modifyContent: (filename: string, content: string) => { filename?: string; content?: string };
+  },
+];
