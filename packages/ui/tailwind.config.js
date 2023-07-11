@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable global-require */
+
 module.exports = {
   content: ['./components/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -122,5 +124,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/container-queries')],
 };

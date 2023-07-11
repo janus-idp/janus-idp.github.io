@@ -15,31 +15,31 @@
  */
 
 import Link from '@docusaurus/Link';
-import { PLUGINS_LIST } from '@site/content/plugin-list';
+import { GPT_LIST } from '@site/content/gpts-list';
 import Layout from '@theme/Layout';
 import Fuse from 'fuse.js';
 import React from 'react';
-import { PluginsGrid } from 'ui/components';
-import { Plugin } from 'ui/types';
+import { GPTsGrid } from 'ui/components';
+import { GPT } from 'ui/types';
 
-const PLUGIN_FUSE = new Fuse(PLUGINS_LIST as Plugin[], {
+const GPT_FUSE = new Fuse(GPT_LIST as GPT[], {
   threshold: 0.25,
   ignoreLocation: true,
   keys: [{ name: 'title', weight: 2 }, 'description'],
 });
 
-function PluginsHeader(): JSX.Element {
+function GPTsHeader(): JSX.Element {
   return (
     <header className="hero hero--primary relative overflow-hidden px-0 py-16 text-center">
       <div className="container">
-        <h1 className="hero__title">Janus Plugins</h1>
-        <p className="hero__subtitle">Have a plugin idea?</p>
+        <h1 className="hero__title">Janus Golden Path Templates</h1>
+        <p className="hero__subtitle">Have a GPT idea?</p>
         <div className="flex items-center justify-center">
           <Link
             className="button button--secondary button--lg"
-            to="https://github.com/janus-idp/backstage-plugins/issues/new?assignees=&labels=plugin&projects=&template=plugin.yaml&title=%F0%9F%94%8C+Plugin%3A+ins"
+            to="https://github.com/janus-idp/software-templates/issues/new?assignees=&labels=template&projects=&template=gpts.yaml&title=GPT%3A+"
           >
-            Submit a proposal for a plugin!
+            Submit a proposal for a GPT!
           </Link>
         </div>
       </div>
@@ -49,10 +49,10 @@ function PluginsHeader(): JSX.Element {
 
 export default function Plugins(): JSX.Element {
   return (
-    <Layout title="Plugins" description="Description will go into a meta tag in <head />">
-      <PluginsHeader />
+    <Layout title="GPTs" description="Description will go into a meta tag in <head />">
+      <GPTsHeader />
       <main>
-        <PluginsGrid PLUGIN_FUSE={PLUGIN_FUSE} PLUGIN_LIST={PLUGINS_LIST as Plugin[]} />
+        <GPTsGrid GPT_FUSE={GPT_FUSE} GPT_LIST={GPT_LIST as GPT[]} />
       </main>
     </Layout>
   );

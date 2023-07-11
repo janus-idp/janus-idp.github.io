@@ -3,6 +3,7 @@
   "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "checkJs": true
+    "checkJs": true,
+    "lib": ["DOM", "ESNext"]
   }
 }

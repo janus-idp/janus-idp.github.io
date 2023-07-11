@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-export * from './banner/banner';
-export * from './gpt-grid/gpt-grid';
-export * from './gpt-header/gpt-header';
-export * from './homepage-grid/homepage-grid';
-export * from './plugin-grid/plugin-grid';
-export * from './plugin-header/plugin-header';
-export * from './searchbar/searchbar';
-export * from './searchbar/types';
-export * from './tile/tile';
-export * from './tooltip/tooltip';
+import { PluginCategoryKind } from '../../types';
+
+export type PluginCategory = {
+  name: PluginCategoryKind | 'All plugins';
+  slug: string | null;
+};
+
+export const PLUGIN_CATEGORIES: PluginCategory[] = [
+  { name: 'All plugins', slug: null },
+  { name: 'Frontend', slug: 'frontend' },
+  { name: 'Backend', slug: 'backend' },
+  { name: 'Custom Actions', slug: 'custom-actions' },
+];
+
+export type CategoryOptions = PluginCategory;

@@ -16,26 +16,24 @@
 
 import React, { useContext } from 'react';
 import { EnvironmentContext } from '../../contexts';
-import { Plugin } from '../../types';
+import { GPT } from '../../types';
 
-export type PluginHeaderProps = {
-  remoteContent: Plugin;
+export type GPTHeaderProps = {
+  remoteContent: GPT;
 };
 
-export function PluginHeader(props: PluginHeaderProps): JSX.Element {
+export function GPTHeader(props: GPTHeaderProps): JSX.Element {
   const { remoteContent } = props;
-
   const { Link } = useContext(EnvironmentContext);
 
   return (
     <div className="mb-4 flex flex-col sm:flex-row">
-      <img src={remoteContent.icon} alt={remoteContent.title} className="h-32 w-auto sm:mr-4" />
       <div className="flex-1">
         <h1>{remoteContent.title}</h1>
         <p>{remoteContent.description}</p>
       </div>
       <div>
-        <Link href={remoteContent.sourceUrl}>NPM</Link>
+        <Link href={remoteContent.sourceUrl}>Github Repo</Link>
       </div>
     </div>
   );
