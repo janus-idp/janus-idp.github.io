@@ -17,9 +17,9 @@
 const lightCodeTheme = require('prism-react-renderer').themes.github;
 const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 const dotenv = require('dotenv');
-/** @type {import('ui/types').Plugin[]} */
-const PLUGINS_LIST = require('./content/plugin-list');
-const GPTS_LIST = require('./content/gpts-list');
+const { PLUGINS_LIST } = require('./content/plugin-list');
+const { GPT_LIST } = require('./content/gpts-list');
+const { fetchRemoteContent } = require('./src/lib/utils/fetch-remote-content');
 
 darkCodeTheme.plain.backgroundColor = '#232323';
 
@@ -27,75 +27,6 @@ dotenv.config();
 dotenv.config({ path: `.env.local`, override: true });
 
 const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`;
-
-const linkRegex = /!\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
-const pluginsContent = PLUGINS_LIST.map((plugin) => {
-  const filenameIndex = plugin.githubUrl.lastIndexOf('/') + 1;
-  const sourceBaseUrl = plugin.githubUrl.slice(0, Math.max(0, filenameIndex));
-  const filename = plugin.githubUrl.slice(Math.max(0, filenameIndex));
-
-  return [
-    'docusaurus-plugin-remote-content',
-    {
-      name: `${plugin.title}-content`,
-      sourceBaseUrl,
-      outDir: `src/pages/${plugin.href}`,
-      documents: [filename],
-      modifyContent: (fname, content) => {
-        if (fname.includes('README')) {
-          return {
-            filename: 'index.mdx',
-            content: `---
-title: ${plugin.title}
-description: ${plugin.description}
----
-import { PluginHeader } from 'ui/components';
-
-<PluginHeader plugin={{${Object.entries(plugin)
-              .map(([key, value]) => `${key}:"${value}"`)
-              .join(',')}}} />
-
-${content.replaceAll(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
-          };
-        }
-      },
-    },
-  ];
-});
-
-const gptsContent = GPTS_LIST.map((gpt) => {
-  const filenameIndex = gpt.rawGithubUrl.lastIndexOf('/') + 1;
-  const sourceBaseUrl = gpt.rawGithubUrl.slice(0, Math.max(0, filenameIndex));
-  const filename = gpt.rawGithubUrl.slice(Math.max(0, filenameIndex));
-
-  return [
-    'docusaurus-plugin-remote-content',
-    {
-      name: `${gpt.title}-content`,
-      sourceBaseUrl,
-      outDir: `src/pages/${gpt.href}`,
-      documents: [filename],
-      modifyContent: (fname, content) => {
-        if (fname.includes('README')) {
-          return {
-            filename: 'index.mdx',
-            content: `---
-title: ${gpt.title}
-description: ${gpt.description}
----
-import { GPTHeader } from 'ui/components';
-
-<GPTHeader gpt={{${Object.entries(gpt)
-              .map(([key, value]) => `${key}:"${value}"`)
-              .join(',')}}} />
-
-${content.replaceAll(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
-          };
-        }
-      },
-    },
-  ];
-});
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -268,7 +199,11 @@ const config = {
       },
     }),
 
-  plugins: ['docusaurus-plugin-tailwind', ...pluginsContent, ...gptsContent],
+  plugins: [
+    'docusaurus-plugin-tailwind',
+    ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader'),
+    ...fetchRemoteContent(GPT_LIST, 'GPTHeader'),
+  ],
 };
 
 module.exports = config;

@@ -15,78 +15,43 @@
  */
 
 import Fuse from 'fuse.js';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import React from 'react';
+import { useSearch } from '../../hooks';
 import { GPT } from '../../types';
-import { EnvironmentContext } from '../../contexts';
-import { GPTSearchbar } from '../gpt-searchbar/gpt-searchbar';
+import { Searchbar } from '../searchbar/searchbar';
+import { Tile } from '../tile/tile';
 
 type GPTTileProps = GPT;
 
-type GPTsFeaturesProps = {
-  gptsFuse: Fuse<GPT>;
-  gptsList: GPT[];
-};
-
-function GPTtile({ title, description, href }: GPTTileProps): JSX.Element {
-  const { Link } = useContext(EnvironmentContext);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = useCallback(
-    ({ currentTarget, clientX, clientY }: React.MouseEvent) => {
-      const { left, top } = currentTarget.getBoundingClientRect();
-
-      mouseX.set(clientX - left);
-      mouseY.set(clientY - top);
-    },
-    [mouseX, mouseY],
-  );
+function GPTTile({ title, description, href }: GPTTileProps): JSX.Element {
   return (
-    <Link
-      className="dark:border-pf-cyan-300/30 border-pf-cyan-300/20 dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 dark:shadow-2x ring-pf-cyan-300 group relative flex flex-col items-center justify-between rounded-xl border border-solid px-8 py-4 shadow shadow-black/20 outline-0 transition-shadow hover:no-underline hover:shadow-md focus:ring-1 dark:shadow-black/50"
-      href={href}
-      onMouseMove={handleMouseMove}
-    >
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(0, 149, 150, 0.2),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-      <div className="flex h-full flex-col justify-between">
-        <div>
-          <h3>{title}</h3>
-          <p className="line-clamp-3">{description}</p>
-        </div>
+    <Tile href={href}>
+      <div>
+        <h3>{title}</h3>
+        <p className="line-clamp-3">{description}</p>
       </div>
-    </Link>
+    </Tile>
   );
 }
 
-export function GPTsGrid({ gptsFuse, gptsList }: GPTsFeaturesProps): JSX.Element {
-  const [search, setSearch] = useState('');
-  const gpts = useMemo(() => {
-    let gl = gptsList;
+type GPTsFeaturesProps = {
+  GPT_FUSE: Fuse<GPT>;
+  GPT_LIST: GPT[];
+};
 
-    if (search !== '') {
-      gl = gptsFuse.search(search).map(({ item }) => item);
-    }
-    return gl;
-  }, [gptsFuse, gptsList, search]);
+export function GPTsGrid({ GPT_FUSE, GPT_LIST }: GPTsFeaturesProps): JSX.Element {
+  const {
+    content: gpts,
+    search,
+    setSearch,
+  } = useSearch({ CONTENT_FUSE: GPT_FUSE, CONTENT_LIST: GPT_LIST });
+
   return (
     <section className="container flex w-full flex-col p-8">
-      <GPTSearchbar search={search} setSearch={setSearch} />
+      <Searchbar search={search} setSearch={setSearch} id="GPT" />
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {gpts.map((gpt) => (
-          <GPTtile key={gpt.title} {...gpt} />
+          <GPTTile key={gpt.title} {...gpt} />
         ))}
       </div>
     </section>

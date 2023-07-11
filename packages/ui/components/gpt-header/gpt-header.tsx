@@ -19,21 +19,21 @@ import { EnvironmentContext } from '../../contexts';
 import { GPT } from '../../types';
 
 export type GPTHeaderProps = {
-  gpt: GPT;
+  remoteContent: GPT;
 };
 
 export function GPTHeader(props: GPTHeaderProps): JSX.Element {
-  const { gpt } = props;
+  const { remoteContent } = props;
   const { Link } = useContext(EnvironmentContext);
 
   return (
     <div className="mb-4 flex flex-col sm:flex-row">
       <div className="flex-1">
-        <h1>{gpt.title}</h1>
-        <p>{gpt.description}</p>
+        <h1>{remoteContent.title}</h1>
+        <p>{remoteContent.description}</p>
       </div>
       <div>
-        <Link href={gpt.githubUrl}>Github Repo</Link>
+        <Link href={remoteContent.sourceUrl}>Github Repo</Link>
       </div>
     </div>
   );

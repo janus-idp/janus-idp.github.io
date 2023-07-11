@@ -19,23 +19,23 @@ import { EnvironmentContext } from '../../contexts';
 import { Plugin } from '../../types';
 
 export type PluginHeaderProps = {
-  plugin: Plugin;
+  remoteContent: Plugin;
 };
 
 export function PluginHeader(props: PluginHeaderProps): JSX.Element {
-  const { plugin } = props;
+  const { remoteContent } = props;
 
   const { Link } = useContext(EnvironmentContext);
 
   return (
     <div className="mb-4 flex flex-col sm:flex-row">
-      <img src={plugin?.icon} alt={plugin?.title} className="h-32 w-auto sm:mr-4" />
+      <img src={remoteContent.icon} alt={remoteContent.title} className="h-32 w-auto sm:mr-4" />
       <div className="flex-1">
-        <h1>{plugin.title}</h1>
-        <p>{plugin.description}</p>
+        <h1>{remoteContent.title}</h1>
+        <p>{remoteContent.description}</p>
       </div>
       <div>
-        <Link href={plugin.npmUrl}>NPM</Link>
+        <Link href={remoteContent.sourceUrl}>NPM</Link>
       </div>
     </div>
   );
