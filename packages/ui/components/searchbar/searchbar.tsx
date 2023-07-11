@@ -59,7 +59,7 @@ function hasCategories(
 
 export function Searchbar<T extends CategoryOptions | undefined>(
   props: SearchbarProps<T>,
-): JSX.Element | null {
+): JSX.Element {
   const { search, setSearch, id } = props;
 
   const searchRef = useRef<HTMLInputElement | null>(null);
