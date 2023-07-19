@@ -24,7 +24,7 @@
     "prettier": "2.8.8",
     "prettier-plugin-tailwindcss": "0.3.0",
     "tsconfig": "workspace:*",
-    "turbo": "1.10.6"
+    "turbo": "1.10.8"
   },
   "engines": {
     "node": ">=14.0.0"
