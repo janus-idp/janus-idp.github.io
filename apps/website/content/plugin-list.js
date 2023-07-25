@@ -89,6 +89,16 @@ const PLUGINS_LIST = [
     category: 'Frontend',
   },
   {
+    title: 'Kiali Service Mesh',
+    icon: '/images/plugins/kiali.svg',
+    description: 'Configure, visualize, validate and troubleshoot your mesh',
+    href: '/plugins/kiali',
+    githubUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/kiali/README.md',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-kiali',
+    category: 'Frontend',
+  },
+  {
     title: 'Pipelines with Tekton',
     icon: '/images/plugins/tekton.svg',
     description: 'Easily view Tekton PipelineRun status for your services in Backstage.',
