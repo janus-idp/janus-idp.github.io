@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import type { AxiosRequestConfig } from 'axios';
+
 export type Feature = {
   title: string;
   description: string;
@@ -21,7 +23,8 @@ export type Feature = {
 
 export type RemoteContent<T = undefined> = Feature & {
   href: string;
-  githubUrl: string;
+  docUrl: string;
+  rawDocUrl: string;
   sourceUrl: string;
   category?: T;
 };
@@ -45,6 +48,9 @@ export type DocusaurusRemoteContent = [
     sourceBaseUrl: string;
     outDir: string;
     documents: string[] | Promise<string[]>;
-    modifyContent: (filename: string, content: string) => { filename?: string; content?: string };
+    performCleanup?: boolean;
+    noRuntimeDownloads?: boolean;
+    requestConfig?: AxiosRequestConfig;
+    modifyContent?: (filename: string, content: string) => { filename?: string; content?: string };
   },
 ];
