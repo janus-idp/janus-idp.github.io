@@ -14,7 +14,50 @@
  * limitations under the License.
  */
 
-const linkRegex = /!\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
+const linkRegex = /(!?)\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
+
+/**
+ * @param {{ entity: import('ui/types').RemoteContent, component: string }} args
+ *
+ * @returns {import('ui/types').DocusaurusRemoteContent}
+ */
+function transformContent(args) {
+  const { entity, component } = args;
+
+  return [
+    'docusaurus-plugin-remote-content',
+    {
+      name: `${entity.title}-content`,
+      sourceBaseUrl: entity.rawDocUrl,
+      outDir: `src/pages/${entity.href}`,
+      documents: ['README.md'],
+      modifyContent: (fname, content) => {
+        // Replace relative links with absolute links
+        const newContent = content.replaceAll(linkRegex, (...match) => {
+          // images require the rawDocUrl
+          return `${match[1]}[${match[2]}](${match[1] === '!' ? entity.rawDocUrl : entity.docUrl}/${
+            match[3]
+          })`;
+        });
+
+        return {
+          filename: 'index.mdx',
+          content: `---
+title: ${entity.title}
+description: ${entity.description}
+---
+import { ${component} } from 'ui/components';
+
+<${component} remoteContent={{${Object.entries(entity)
+            .map(([key, value]) => `${key}:"${value}"`)
+            .join(',')}}} />
+
+${newContent}`,
+        };
+      },
+    },
+  ];
+}
 
 /**
  * @param {import('ui/types').RemoteContent[]} remoteContent
@@ -23,39 +66,7 @@ const linkRegex = /!\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
  * @returns {import('ui/types').DocusaurusRemoteContent[]}
  */
 function fetchRemoteContent(remoteContent, component) {
-  return remoteContent.map((plugin) => {
-    const filenameIndex = plugin.githubUrl.lastIndexOf('/') + 1;
-    const sourceBaseUrl = plugin.githubUrl.slice(0, Math.max(0, filenameIndex));
-    const filename = plugin.githubUrl.slice(Math.max(0, filenameIndex));
-
-    return [
-      'docusaurus-plugin-remote-content',
-      {
-        name: `${plugin.title}-content`,
-        sourceBaseUrl,
-        outDir: `src/pages/${plugin.href}`,
-        documents: [filename],
-        modifyContent: (fname, content) => {
-          if (fname.includes('README')) {
-            return {
-              filename: 'index.mdx',
-              content: `---
-title: ${plugin.title}
-description: ${plugin.description}
----
-import { ${component} } from 'ui/components';
-
-<${component} remoteContent={{${Object.entries(plugin)
-                .map(([key, value]) => `${key}:"${value}"`)
-                .join(',')}}} />
-
-${content.replaceAll(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
-            };
-          }
-        },
-      },
-    ];
-  });
+  return remoteContent.map((entity) => transformContent({ entity, component }));
 }
 
 module.exports = { fetchRemoteContent };
