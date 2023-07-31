@@ -217,8 +217,8 @@ importers:
         specifier: 1.0.6
         version: 1.0.6(@types/react-dom@18.2.7)(@types/react@18.2.17)(react-dom@18.2.0)(react@18.2.0)
       '@segment/analytics-next':
-        specifier: 1.53.1
-        version: 1.53.1
+        specifier: 1.53.2
+        version: 1.53.2
       '@tailwindcss/container-queries':
         specifier: 0.1.1
         version: 0.1.1(tailwindcss@3.3.3)
@@ -229,8 +229,8 @@ importers:
         specifier: 4.3.1
         version: 4.3.1
       framer-motion:
-        specifier: 10.13.1
-        version: 10.13.1(react-dom@18.2.0)(react@18.2.0)
+        specifier: 10.15.0
+        version: 10.15.0(react-dom@18.2.0)(react@18.2.0)
       fuse.js:
         specifier: 6.6.2
         version: 6.6.2
@@ -3317,8 +3317,8 @@ packages:
       tslib: 2.5.3
     dev: false
 
-  /@segment/analytics-next@1.53.1:
-    resolution: {integrity: sha512-Tf5suyN00Qq2irdUP6q2KJje1reFTN5vCrh4mi/E/gTma2by9j5jYYsbHavMaOGM51aYVbWkf6a3HOyTqWOm1A==}
+  /@segment/analytics-next@1.53.2:
+    resolution: {integrity: sha512-Slq9353wH0roLLpt+bKELGPuzaBRwV1SsIN2nMkYep35yudiAok4tLcKw895IogI3UllVmeve6i0l3YKmnwmHg==}
     dependencies:
       '@lukeed/uuid': 2.0.0
       '@segment/analytics-core': 1.3.0
@@ -7503,8 +7503,8 @@ packages:
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
 
-  /framer-motion@10.13.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-uiKsaLEoySeln3eOPy8wUB3FkNtRRiVga5xJOkgs7C0sHVyvpJajXJFSoabt+emBojgnMQY0epnjl0ppoYPxkQ==}
+  /framer-motion@10.15.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-HDjWrYWgbO5orKuhnXETLFzk7UUvwWur2HFs2elAZ8lVpI49ClHql31DNTVvVBcOrSHfAOS4eBDBedIvOx634w==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
