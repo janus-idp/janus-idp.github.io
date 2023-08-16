@@ -15,10 +15,18 @@
  */
 
 import Link from '@docusaurus/Link';
+import { PLUGINS_LIST } from '@site/content/plugin-list';
 import Layout from '@theme/Layout';
+import Fuse from 'fuse.js';
 import React from 'react';
-import { PluginsGrid } from 'ui/components/plugin-grid/plugin-grid';
-import PLUGINS_LIST from '../../content/plugin-list';
+import { PluginsGrid } from 'ui/components';
+import { Plugin } from 'ui/types';
+
+const PLUGIN_FUSE = new Fuse(PLUGINS_LIST as Plugin[], {
+  threshold: 0.25,
+  ignoreLocation: true,
+  keys: [{ name: 'title', weight: 2 }, 'description'],
+});
 
 function PluginsHeader(): JSX.Element {
   return (
@@ -39,21 +47,13 @@ function PluginsHeader(): JSX.Element {
   );
 }
 
-function PluginsPage(): JSX.Element {
-  return (
-    <>
-      <PluginsHeader />
-      <main>
-        <PluginsGrid pluginsList={PLUGINS_LIST} />
-      </main>
-    </>
-  );
-}
-
 export default function Plugins(): JSX.Element {
   return (
     <Layout title="Plugins" description="Description will go into a meta tag in <head />">
-      <PluginsPage />
+      <PluginsHeader />
+      <main>
+        <PluginsGrid PLUGIN_FUSE={PLUGIN_FUSE} PLUGIN_LIST={PLUGINS_LIST as Plugin[]} />
+      </main>
     </Layout>
   );
 }

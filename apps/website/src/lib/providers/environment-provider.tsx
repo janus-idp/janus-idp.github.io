@@ -16,13 +16,18 @@
 
 import Link from '@docusaurus/Link';
 import React, { memo, type ComponentProps } from 'react';
-import { EnvironmentContext } from 'ui/contexts';
+import { EnvironmentContext, type ImageProps } from 'ui/contexts';
 
 const LinkWrapper = memo((props: ComponentProps<'a'>) => {
   const { href, ...rest } = props;
 
   return <Link {...rest} to={href} />;
 });
+
+const ImageWrapper = memo((props: ImageProps) => (
+  // eslint-disable-next-line jsx-a11y/alt-text
+  <img {...props} />
+));
 
 export function EnvironmentProvider({ children }: { children: React.ReactNode }): JSX.Element {
   return (
@@ -31,6 +36,7 @@ export function EnvironmentProvider({ children }: { children: React.ReactNode })
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         Link: LinkWrapper,
+        Image: ImageWrapper,
       }}
     >
       {children}

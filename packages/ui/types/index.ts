@@ -14,16 +14,43 @@
  * limitations under the License.
  */
 
+import type { AxiosRequestConfig } from 'axios';
+
 export type Feature = {
-  icon: string;
   title: string;
   description: string;
 };
 
-export type Plugin = Feature & {
+export type RemoteContent<T = undefined> = Feature & {
   href: string;
-  githubUrl: string;
-  npmUrl: string;
+  docUrl: string;
+  rawDocUrl: string;
+  sourceUrl: string;
+  category?: T;
 };
 
-export type Homepage = Feature;
+export type PluginCategoryKind = 'Frontend' | 'Backend' | 'Custom Actions';
+
+export type Plugin = RemoteContent<PluginCategoryKind> & {
+  icon: string;
+};
+
+export type GPT = RemoteContent;
+
+export type Homepage = Feature & {
+  icon: string;
+};
+
+export type DocusaurusRemoteContent = [
+  string,
+  {
+    name: string;
+    sourceBaseUrl: string;
+    outDir: string;
+    documents: string[] | Promise<string[]>;
+    performCleanup?: boolean;
+    noRuntimeDownloads?: boolean;
+    requestConfig?: AxiosRequestConfig;
+    modifyContent?: (filename: string, content: string) => { filename?: string; content?: string };
+  },
+];

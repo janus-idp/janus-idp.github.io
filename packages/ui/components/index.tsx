@@ -15,6 +15,12 @@
  */
 
 export * from './banner/banner';
+export * from './gpt-grid/gpt-grid';
+export * from './gpt-header/gpt-header';
 export * from './homepage-grid/homepage-grid';
 export * from './plugin-grid/plugin-grid';
 export * from './plugin-header/plugin-header';
+export * from './searchbar/searchbar';
+export * from './searchbar/types';
+export * from './tile/tile';
+export * from './tooltip/tooltip';

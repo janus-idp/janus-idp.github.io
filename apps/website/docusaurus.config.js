@@ -14,57 +14,19 @@
  * limitations under the License.
  */
 
-// @ts-check
-
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
+const lightCodeTheme = require('prism-react-renderer').themes.github;
+const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 const dotenv = require('dotenv');
-/** @type {import('ui/types').Plugin[]} */
-// @ts-ignore
-const PLUGINS_LIST = require('./content/plugin-list');
+const { PLUGINS_LIST } = require('./content/plugin-list');
+const { GPT_LIST } = require('./content/gpts-list');
+const { fetchRemoteContent } = require('./src/lib/utils/fetch-remote-content');
 
-// @ts-ignore
 darkCodeTheme.plain.backgroundColor = '#232323';
 
 dotenv.config();
 dotenv.config({ path: `.env.local`, override: true });
 
 const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`;
-
-const linkRegex = /!\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
-const remoteContent = PLUGINS_LIST.map((plugin) => {
-  const filenameIndex = plugin.githubUrl.lastIndexOf('/') + 1;
-  const sourceBaseUrl = plugin.githubUrl.slice(0, Math.max(0, filenameIndex));
-  const filename = plugin.githubUrl.slice(Math.max(0, filenameIndex));
-
-  return [
-    'docusaurus-plugin-remote-content',
-    {
-      name: `${plugin.title}-content`,
-      sourceBaseUrl,
-      outDir: `src/pages/${plugin.href}`,
-      documents: [filename],
-      modifyContent: (fname, content) => {
-        if (fname.includes('README')) {
-          return {
-            filename: 'index.mdx',
-            content: `---
-title: ${plugin.title}
-description: ${plugin.description}
----
-import { PluginHeader } from 'ui/components';
-
-<PluginHeader plugin={{${Object.entries(plugin)
-                .map(([key, value]) => `${key}:"${value}"`)
-                .join(',')}}} />
-
-${content.replace(linkRegex, `![$1](${sourceBaseUrl}$2)`)}`,
-          };
-        }
-      },
-    },
-  ];
-});
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -143,6 +105,7 @@ const config = {
           { to: '/blog', label: 'Blog', position: 'left' },
           { to: '/community', label: 'Community', position: 'left' },
           { to: '/plugins', label: 'Plugins', position: 'left' },
+          { to: '/gpts', label: 'GPTs', position: 'left' },
           {
             href: 'https://showcase.janus-idp.io/',
             label: 'Showcase',
@@ -184,13 +147,13 @@ const config = {
               },
 
               {
-                label: "Mailing List",
-                href: "https://groups.google.com/g/janus-idp-community"
+                label: 'Mailing List',
+                href: 'https://groups.google.com/g/janus-idp-community',
               },
               {
-                label: "Calendar",
-                href: "https://calendar.google.com/calendar/u/0?cid=amFudXMuaWRwLmNvbW11bml0eUBnbWFpbC5jb20"
-              }
+                label: 'Calendar',
+                href: 'https://calendar.google.com/calendar/u/0?cid=amFudXMuaWRwLmNvbW11bml0eUBnbWFpbC5jb20',
+              },
             ],
           },
           {
@@ -236,7 +199,11 @@ const config = {
       },
     }),
 
-  plugins: ['docusaurus-plugin-tailwind', ...remoteContent],
+  plugins: [
+    'docusaurus-plugin-tailwind',
+    ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader'),
+    ...fetchRemoteContent(GPT_LIST, 'GPTHeader'),
+  ],
 };
 
 module.exports = config;

@@ -20,19 +20,16 @@ const HOMEPAGE_LIST = [
     title: 'Golden Path Templates',
     icon: '/images/janus-gpt-image.png',
     description: 'Provide your developers with Self Service via Golden Path Templates',
-    href: '/docs/golden-path-templates',
   },
   {
     title: 'Plugins',
     icon: '/images/janus-plugin.png',
     description: 'Extend your developer portal with plugins for backstage',
-    href: '/docs/plugins',
   },
   {
     title: 'Service Catalog',
     icon: '/images/janus-hero-image.png',
     description: 'Service catalog',
-    href: '/docs/service-catalog',
   },
 ];
 

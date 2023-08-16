@@ -14,66 +14,88 @@
  * limitations under the License.
  */
 
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
-import React, { useCallback, useContext } from 'react';
-import { EnvironmentContext } from '../../contexts';
+import { Cog8ToothIcon } from '@heroicons/react/20/solid';
+import type Fuse from 'fuse.js';
+import React from 'react';
+import { FaNodeJs as NodejsIcon, FaReact as ReactIcon } from 'react-icons/fa';
+import { useSearch } from '../../hooks';
 import { Plugin } from '../../types';
+import { Searchbar } from '../searchbar/searchbar';
+import { PLUGIN_CATEGORIES } from '../searchbar/types';
+import { Tile } from '../tile/tile';
+import { Tooltip } from '../tooltip/tooltip';
 
 type PluginTileProps = Plugin;
 
-function PluginTile({ icon, title, description, href }: PluginTileProps): JSX.Element {
-  const { Link } = useContext(EnvironmentContext);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = useCallback(
-    ({ currentTarget, clientX, clientY }: React.MouseEvent) => {
-      const { left, top } = currentTarget.getBoundingClientRect();
-
-      mouseX.set(clientX - left);
-      mouseY.set(clientY - top);
-    },
-    [mouseX, mouseY],
-  );
-
+function PluginTile({ icon, title, description, href, category }: PluginTileProps): JSX.Element {
   return (
-    <Link
-      className="dark:bg-pf-cyan-300/[0.15] bg-pf-cyan-50 group relative flex max-w-md flex-col items-center justify-between rounded-xl border border-white/10 p-4 text-center shadow hover:no-underline dark:shadow-2xl"
-      href={href}
-      onMouseMove={handleMouseMove}
-    >
-      <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(0, 149, 150, 0.2),
-              transparent 80%
-            )
-          `,
-        }}
-      />
+    <Tile href={href}>
       <div>
-        <img className="mb-2 h-[75px] w-[75px]" src={icon} alt={`${title} icon`} />
+        <img className="mb-4 h-[75px] w-[75px]" src={icon} alt={`${title} icon`} />
         <h3>{title}</h3>
-        <p>{description}</p>
+        <p className="line-clamp-3">{description}</p>
       </div>
-      <div className="flex items-center justify-center pb-4">Learn more!</div>
-    </Link>
+      <div className="flex flex-row-reverse">
+        {/* Node.js brand guidelines require us to use a white icon on a dark background and vice versa */}
+        {category === 'Backend' && (
+          <Tooltip
+            buttonContent={
+              <NodejsIcon className="h-8 w-auto cursor-help text-black dark:text-white" />
+            }
+            popupContent={category}
+          />
+        )}
+        {category === 'Frontend' && (
+          <Tooltip
+            buttonContent={
+              <ReactIcon className="h-8 w-auto cursor-help text-black dark:text-white" />
+            }
+            popupContent={category}
+          />
+        )}
+        {category === 'Custom Actions' && (
+          <Tooltip
+            buttonContent={
+              <Cog8ToothIcon className="h-8 w-auto cursor-help text-black dark:text-white" />
+            }
+            popupContent={category}
+          />
+        )}
+      </div>
+    </Tile>
   );
 }
 
 type PluginsFeaturesProps = {
-  pluginsList: Plugin[];
+  PLUGIN_FUSE: Fuse<Plugin>;
+  PLUGIN_LIST: Plugin[];
 };
 
-export function PluginsGrid({ pluginsList }: PluginsFeaturesProps): JSX.Element {
+export function PluginsGrid({ PLUGIN_FUSE, PLUGIN_LIST }: PluginsFeaturesProps): JSX.Element {
+  const {
+    content: plugins,
+    category,
+    search,
+    setSearch,
+    setQueryParams,
+  } = useSearch({
+    CATEGORIES: PLUGIN_CATEGORIES,
+    CONTENT_FUSE: PLUGIN_FUSE,
+    CONTENT_LIST: PLUGIN_LIST,
+  });
+
   return (
-    <section className="container flex w-full p-8">
+    <section className="container flex w-full flex-col p-8">
+      <Searchbar
+        search={search}
+        setSearch={setSearch}
+        setQueryParams={setQueryParams}
+        category={category}
+        CATEGORIES={PLUGIN_CATEGORIES}
+        id="plugin"
+      />
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {pluginsList.map((plugin) => (
+        {plugins.map((plugin) => (
           <PluginTile key={plugin.title} {...plugin} />
         ))}
       </div>

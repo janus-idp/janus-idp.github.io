@@ -1,28 +1,30 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NEXT_PUBLIC_ANALYTICS_WRITE_KEY", "SITE_URL", "WRITE_KEY", "G_TAG"],
+  "globalEnv": ["WRITE_KEY", "G_TAG"],
   "globalDependencies": ["packages/eslint-config-custom/index.js"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**"]
-    },
-    "export": {
-      "dependsOn": ["build"],
-      "outputs": ["out/**", "build/**"]
+      "outputs": ["dist/**", "build/**"]
     },
     "test:e2e": {
-      "dependsOn": ["build"]
+      "dependsOn": ["^build"]
     },
     "test:unit": {},
     "lint": {},
     "clean": {},
+    "tsc": {},
     "dev": {
       "cache": false,
       "persistent": true
     },
     "website#dev": {
       "dependsOn": ["docusaurus-plugin-tailwind#build"],
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "dependsOn": ["build"],
       "cache": false,
       "persistent": true
     }
