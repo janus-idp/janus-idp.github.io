@@ -38,11 +38,6 @@ svg.lightToggleIcon_node_modules-\@docusaurus-theme-classic-lib-next-theme-Color
 }
 
 /* prism magic comments https://docusaurus.io/docs/markdown-features/code-blocks#custom-magic-comments */
-.wrapped-link {
-  white-space: normal;
-  word-wrap: break-word;
-}
-
 
 .code-block-add-line {
   background-color: rgba(0, 215, 0, 0.15);

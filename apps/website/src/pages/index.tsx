@@ -32,7 +32,7 @@ function HomepageHeader(): JSX.Element {
         <div className="flex items-center justify-center">
           <Link className="button button--secondary button--lg" to="/plugins">
 
-          <span className="wrapped-link">
+          <span class="wrapped-link mt-8 mb-4">
                Checkout our plugins for Backstage! 🔌
             </span>
            
