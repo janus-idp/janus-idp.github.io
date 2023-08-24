@@ -1,19 +1,19 @@
 ---
-title: Creating your first Backstage Backend plugin 
+title: Creating your first Backstage Backend plugin
 authors: [relessawy]
 tags: [Backend Plugins]
 description: Dive into creating a Backstage backend plugin and exploring its core structure.
 ---
 
-# Creating your first Backstage Backend plugin 
+# Creating your first Backstage Backend plugin
 
 ## Introduction
 
-Plugins are the heart and soul of Backstage. They are the building blocks that make up the functionality of a Backstage app.  Whether you want to integrate with your favorite tools or create new features, plugins allow you to create a personalized experience in Backstage.
+Plugins are the heart and soul of Backstage. They are the building blocks that make up the functionality of a Backstage app. Whether you want to integrate with your favorite tools or create new features, plugins allow you to create a personalized experience in Backstage.
 
 Backend plugins are crucial in providing the necessary data and performing backend operations. They typically expose a REST API that frontend plugins can call, and they might also interact with databases, external APIs, or other resources. They are essential for enabling the full functionality of a Backstage app, allowing frontend plugins to be more than just static pages - they can be dynamic, interactive, and integrated with your existing infrastructure.
 
-In this blog post, we'll guide you through creating a backend plugin for Backstage. We'll lay the groundwork for a **Local System Information** plugin, creating a backend plugin that fetches information about the local system, like CPU usage, memory usage, and disk space.  In the second part of this blog, we'll build upon this foundation and create the frontend plugin to interact with it. Let's get started!
+In this blog post, we'll guide you through creating a backend plugin for Backstage. We'll lay the groundwork for a **Local System Information** plugin, creating a backend plugin that fetches information about the local system, like CPU usage, memory usage, and disk space. In the second part of this blog, we'll build upon this foundation and create the frontend plugin to interact with it. Let's get started!
 
 ## Understanding Backstage Backend
 
@@ -30,7 +30,6 @@ The backend is structured around a core backend package, `@backstage/backend-com
 The backend router is responsible for routing incoming HTTP requests to the appropriate backend plugin. Each backend plugin is essentially an Express router that gets mounted onto the main Express app.
 
 When you create a new backend plugin, you define a new Express router. This router defines the API endpoints for your plugin, and it's where you implement the logic for handling incoming requests.
-
 
 ### Role of NodeJS and Express in the Backstage Backend
 
@@ -49,41 +48,51 @@ We need to set up our development environment before we can start creating our b
 The first step is to install Node.js and Yarn. Node.js is the JavaScript runtime the Backstage backend runs on, and Yarn is the package manager Backstage uses.
 
 You can download Node.js from the [official website](https://nodejs.org/). Backstage requires Node.js version 14 or later. After installing Node.js, you can install Yarn by running the following command in your terminal.
+
 ```bash
 npm install -g yarn
-``` 
+```
 
 ### Step 2: Clone the Janus-Showcase Repository
 
 In this tutorial, we will use Red Hat’s [Project Janus](https://janus-idp.io/) to explain the steps for building our backend plugin. So the next step is to clone the Janus-Showcase repository. To clone the repository, run the following command in your terminal.
+
 ```bash
 git clone https://github.com/janus-idp/backstage-showcase
-``` 
- Then, navigate into the cloned repository by running 
+```
+
+Then, navigate into the cloned repository by running
+
 ```bash
 cd backstage-showcase
-``` 
+```
 
-### Step 3:  Start the Janus IDP Backend
+### Step 3: Start the Janus IDP Backend
 
 Once you've cloned the repository, you need to install its dependencies. You can do this by running the following command in your terminal.
+
 ```bash
 yarn install
-```  
+```
 
-When writing this blog, Janus IDP requires yarn version 1; check your current version using the command 
+When writing this blog, Janus IDP requires yarn version 1; check your current version using the command
+
 ```bash
 yarn --version
-```  
-If needed set the yarn version using this command 
+```
+
+If needed set the yarn version using this command
+
 ```bash
 yarn set version 1.22.19
-```  
+```
 
 Finally, you can start the Janus-Showcase application. To do this, navigate into the folder you cloned (backstage-showcase), then run the start command in iyour terminal.
+
 ```bash
 yarn start
-```   
+```
+
 This will start the Janus-Showcase backend running at http://localhost:3000/
 
 ![Janus IDP - Home](./janus_home.png)
@@ -97,9 +106,10 @@ Now that we've set up our development environment, we can start creating our bac
 ### Creating a Backend Plugin Using the Backstage CLI
 
 The Backstage CLI provides a command for creating a new backend plugin. To create a new backend plugin, navigate to the directory backstage-showcase, and in your terminal, run the following command:
+
 ```bash
 yarn new --select backend-plugin
-``` 
+```
 
 You'll be asked to supply a name for the plugin. This is an identifier that will be part of the NPM package name; you might choose an ID like **local-system-info**.
 
@@ -107,15 +117,15 @@ You'll be asked to supply a name for the plugin. This is an identifier that will
 
 ### Structure of the Newly Created Plugin
 
-When you create a new backend plugin using the `yarn new --select backend-plugin` command, the Backstage CLI does a few things behind the scenes to wire up the plugin to your Backstage app. 
+When you create a new backend plugin using the `yarn new --select backend-plugin` command, the Backstage CLI does a few things behind the scenes to wire up the plugin to your Backstage app.
 
 The CLI adds a new entry to the dependencies section of the **package.json** file in the `packages/backend` directory. This entry points to your new plugin, effectively installing it as a dependency of your Backstage app.
 
 The CLI also creates a new directory for your plugin under the `plugins/` directory. In our example, the CLI creates the directory `backstage-showcase/plugins/local-system-info-backend` containing the code for your plugin. Here's a brief overview of the structure of a newly created backend plugin:
 
-- `src/`: This directory contains the source code for your plugin. It includes an `index.ts` file, which is the entry point for your plugin and exports a function that creates an instance of your plugin's router. This function  is called by the Backstage backend when it starts up.
+- `src/`: This directory contains the source code for your plugin. It includes an `index.ts` file, which is the entry point for your plugin and exports a function that creates an instance of your plugin's router. This function is called by the Backstage backend when it starts up.
 
-- `src/service/`: This directory contains the `router.ts` file, which defines the router for your plugin and the `router.test.ts` file. This file contains a sample test for your plugin's router. 
+- `src/service/`: This directory contains the `router.ts` file, which defines the router for your plugin and the `router.test.ts` file. This file contains a sample test for your plugin's router.
 
 - `package.json`: This file defines the metadata and dependencies for your plugin. It includes the name of your plugin, its version, dependencies, and various configuration options. The `main` field points to the `src/index.ts` file, which is the entry point for your plugin.
 
@@ -173,7 +183,7 @@ After implementing the API for your plugin, testing it to ensure it works as exp
 A backend plugin can be started in a standalone mode. You can do a first-light test of your service:
 
 ```bash
-cd plugins/local-system-info-backend/ 
+cd plugins/local-system-info-backend/
 yarn start
 ```
 
@@ -213,10 +223,12 @@ describe('router', () => {
 In this example, we're using the supertest library to send a GET request to our `/system-info` endpoint, and then we're using Jest's expect function to assert that the response has a status of 200 and includes the expected properties.
 
 Now, you can run your test using the the following command from the directory `/plugins/local-system-info-backend`.
+
 ```bash
-yarn test 
+yarn test
 ```
-This will run Jest, which will find and run all tests in your router.test.ts file. 
+
+This will run Jest, which will find and run all tests in your router.test.ts file.
 
 ![Jest Test Result](./jest_test.png)
 
@@ -226,6 +238,6 @@ Testing your plugin is an important step in the development process. It helps en
 
 Congratulations! You've just created your first Backstage backend plugin. You've learned about the structure of the Backstage backend. You've also walked through creating a backend plugin using the Backstage CLI and implemented a REST API for your plugin.
 
-In this tutorial, we've created a **Local System Information** plugin that fetches and provides system information. This is a simple yet powerful example of what you can achieve with Backstage backend plugins. 
+In this tutorial, we've created a **Local System Information** plugin that fetches and provides system information. This is a simple yet powerful example of what you can achieve with Backstage backend plugins.
 
 Remember, the power of Backstage comes from its extensibility. With plugins, you can integrate your existing tools and services or create entirely new features tailored to your needs. Don't be afraid to experiment and create your own plugins!
