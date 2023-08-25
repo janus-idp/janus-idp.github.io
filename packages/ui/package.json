@@ -30,7 +30,7 @@
     "deepmerge": "4.3.1",
     "framer-motion": "10.15.1",
     "fuse.js": "6.6.2",
-    "react-cookie": "5.0.0",
+    "react-cookie": "6.1.0",
     "react-icons": "4.10.1",
     "use-query-params": "2.2.1"
   }
