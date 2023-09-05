@@ -41,11 +41,11 @@ const GPT_LIST = [
     description: 'Create a starter .NET frontend application with a CI pipeline',
     href: 'gpts/dotnet-frontend',
     docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/templates/github/dotnet-frontend',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/azure/dotnet-frontend',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/dotnet-frontend',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/azure/dotnet-frontend',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/templates/github/dotnet-frontend',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/azure/dotnet-frontend',
   },
   {
     title: 'Go Backend application',
