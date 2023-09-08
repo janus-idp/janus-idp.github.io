@@ -63,8 +63,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
       react-cookie:
-        specifier: 6.1.0
-        version: 6.1.0(react@18.2.0)
+        specifier: 6.1.1
+        version: 6.1.1(react@18.2.0)
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
@@ -232,17 +232,17 @@ importers:
         specifier: 4.3.1
         version: 4.3.1
       framer-motion:
-        specifier: 10.16.3
-        version: 10.16.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: 10.16.4
+        version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
       fuse.js:
         specifier: 6.6.2
         version: 6.6.2
       react-cookie:
-        specifier: 6.1.0
-        version: 6.1.0(react@18.2.0)
+        specifier: 6.1.1
+        version: 6.1.1(react@18.2.0)
       react-icons:
-        specifier: 4.10.1
-        version: 4.10.1(react@18.2.0)
+        specifier: 4.11.0
+        version: 4.11.0(react@18.2.0)
       use-query-params:
         specifier: 2.2.1
         version: 2.2.1(react-dom@18.2.0)(react@18.2.0)
@@ -7638,8 +7638,8 @@ packages:
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
 
-  /framer-motion@10.16.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-1OMs6wY964hX8YjiCeYQlgrZDbkKvZztnynTUgUZjdzq2au6PZUsodmUY6GAudUgImrWqTrtpSwMbi1ETmIx4A==}
+  /framer-motion@10.16.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-p9V9nGomS3m6/CALXqv6nFGMuFOxbWsmaOrdmhyQimMIlLl3LC7h7l86wge/Js/8cRu5ktutS/zlzgR7eBOtFA==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -10679,8 +10679,8 @@ packages:
       pure-color: 1.3.0
     dev: false
 
-  /react-cookie@6.1.0(react@18.2.0):
-    resolution: {integrity: sha512-j/q0kf4f8kK7zXyTdGEebtZ3IKhVCPZVL3pf6y9/KlfFThxRjb+xvgdKAvRB2VrdkXyu9Qbrb/VuiFUNK6/3+g==}
+  /react-cookie@6.1.1(react@18.2.0):
+    resolution: {integrity: sha512-fuFRpf8LH6SfmVMowDUIRywJF5jAUDUWrm0EI5VdXfTl5bPcJ7B0zWbuYpT0Tvikx7Gs18MlvAT+P+744dUz2g==}
     peerDependencies:
       react: '>= 16.3.0'
     dependencies:
@@ -10786,8 +10786,8 @@ packages:
       react-fast-compare: 3.2.1
       shallowequal: 1.1.0
 
-  /react-icons@4.10.1(react@18.2.0):
-    resolution: {integrity: sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==}
+  /react-icons@4.11.0(react@18.2.0):
+    resolution: {integrity: sha512-V+4khzYcE5EBk/BvcuYRq6V/osf11ODUM2J8hg2FDSswRrGvqiYUYPRy4OdrWaQOBj4NcpJfmHZLNaD+VH0TyA==}
     peerDependencies:
       react: '*'
     dependencies:
