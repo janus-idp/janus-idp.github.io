@@ -21,66 +21,63 @@ const GPT_LIST = [
     description: 'Launch an Ansible Job within Ansible Automation Platform',
     href: 'gpts/ansible-job',
     docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/ansible-job',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/launch-ansible-job',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/ansible-job',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/launch-ansible-job',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/ansible-job',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/launch-ansible-job',
   },
   {
     title: 'Add ArgoCD to an existing project',
     description: 'Add ArgoCD to an existing project',
     href: 'gpts/argocd',
-    docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/argocd-template',
+    docUrl: 'https://github.com/janus-idp/software-templates/tree/main/templates/github/argocd',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/argocd-template',
-    sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/argocd-template',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/argocd',
+    sourceUrl: 'https://github.com/janus-idp/software-templates/tree/main/templates/github/argocd',
   },
   {
     title: '.NET Frontend application',
     description: 'Create a starter .NET frontend application with a CI pipeline',
     href: 'gpts/dotnet-frontend',
     docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/dotnet-frontend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/azure/dotnet-frontend',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/dotnet-frontend-template',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/azure/dotnet-frontend',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/dotnet-frontend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/azure/dotnet-frontend',
   },
   {
     title: 'Go Backend application',
     description: 'Create a starter Go backend application with a CI pipeline',
     href: 'gpts/go-backend',
-    docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/go-backend-template',
+    docUrl: 'https://github.com/janus-idp/software-templates/tree/main/templates/github/go-backend',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/go-backend-template',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/go-backend',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/go-backend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/go-backend',
   },
   {
     title: 'Node.js Backend application',
     description: 'Create a starter Node.js backend application with a CI pipeline',
     href: 'gpts/nodejs-backend',
     docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/nodejs-backend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/nodejs-backend',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/nodejs-backend-template',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/nodejs-backend',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/nodejs-backend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/nodejs-backend',
   },
   {
     title: 'Python Backend application',
     description: 'Create a starter Python backend application with a CI pipeline',
     href: 'gpts/python-backend',
     docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/python-backend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/gitlab/python-backend',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/python-backend-template',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/gitlab/python-backend',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/python-backend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/gitlab/python-backend',
   },
   {
     title: 'Quarkus Backend application',
@@ -88,20 +85,20 @@ const GPT_LIST = [
     href: `gpts/quarkus-backend`,
     docUrl: '',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/quarkus-backend-template',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/quarkus-backend',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/quarkus-backend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/quarkus-backend',
   },
   {
     title: 'Spring Boot Backend application',
     description: 'Create a starter Spring Boot backend application with a CI pipeline',
     href: 'gpts/spring-boot-backend',
     docUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/quarkus-web-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/quarkus-web',
     rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/software-templates/main/scaffolder-templates/spring-boot-backend-template',
+      'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/spring-boot-backend',
     sourceUrl:
-      'https://github.com/janus-idp/software-templates/tree/main/scaffolder-templates/spring-boot-backend-template',
+      'https://github.com/janus-idp/software-templates/tree/main/templates/github/spring-boot-backend',
   },
 ];
 
