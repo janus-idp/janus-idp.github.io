@@ -53,7 +53,7 @@ const PLUGINS_LIST = [
   {
     title: 'Container Image Registry for JFrog Artifactory',
     icon: '/images/plugins/jfrog-artifactory.svg',
-    description: 'View container image details from Quay in Backstage.',
+    description: 'View container image details from JFrog in Backstage.',
     href: '/plugins/jfrog-artifactory',
     docUrl: 'https://github.com/janus-idp/backstage-plugins/tree/main/plugins/jfrog-artifactory',
     rawDocUrl:
