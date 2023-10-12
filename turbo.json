@@ -27,6 +27,9 @@
       "dependsOn": ["build"],
       "cache": false,
       "persistent": true
+    },
+    "//#prettier:fix": {
+      "cache": false
     }
   }
 }
