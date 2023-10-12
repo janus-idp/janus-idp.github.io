@@ -32,8 +32,8 @@
     "node": ">=14.0.0"
   },
   "lint-staged": {
-    "*": "yarn run prettier:fix",
-    "*.{js,jsx,ts,tsx,mjs,cjs}": "yarn run lint -- -- --fix"
+    "*": "turbo run prettier:fix --",
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "turbo run lint:fix --"
   },
   "packageManager": "pnpm@8.8.0"
 }
