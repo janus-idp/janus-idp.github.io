@@ -45,9 +45,8 @@ const PLUGINS_LIST = [
     description: 'View container image details from ACR in Backstage.',
     href: '/plugins/acr',
     docUrl: 'https://github.com/janus-idp/backstage-plugins/tree/main/plugins/acr',
-    rawDocUrl:
-      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/openshift-image-registry',
-    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-openshift-image-registry',
+    rawDocUrl: 'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/acr',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-acr',
     category: 'Frontend',
   },
   {
