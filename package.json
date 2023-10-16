@@ -33,7 +33,7 @@
   },
   "lint-staged": {
     "*": "turbo run prettier:fix --",
-    "*.{js,jsx,ts,tsx,mjs,cjs}": "turbo run lint:fix --"
+    "*.{js,jsx,ts,tsx,mjs,cjs}": "turbo run lint -- --fix"
   },
   "packageManager": "pnpm@8.9.0"
 }
