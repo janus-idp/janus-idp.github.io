@@ -65,7 +65,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/website/',
+          editUrl: 'https://github.com/janus-idp/janus-idp.github.io/tree/main/apps/website/',
         },
         blog: {
           feedOptions: {
@@ -75,7 +75,7 @@ const config = {
           showReadingTime: true,
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
-          editUrl: 'https://github.com/janus-idp/janus-idp.io/tree/main/apps/website/',
+          editUrl: 'https://github.com/janus-idp/janus-idp.github.io/tree/main/apps/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/tailwind.css'),
