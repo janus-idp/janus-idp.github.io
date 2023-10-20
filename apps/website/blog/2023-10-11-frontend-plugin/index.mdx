@@ -11,7 +11,7 @@ description: Creating and integrating a Backstage Frontend plugin with a backend
 
 This blog will provide information on how we can create a Backstage Frontend plugin as well integrating it with an existing Backstage Backend plugin. The Backend plugin we will use in this article will be the Local System Information plugin mentioned in another [blog](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin).
 
-We will make some [modifications to the backstage backend](#modify-backstage-backend) to wire the backend plugin into the Backstage app and then move on to [create a new frontend plugin](#create-frontend-plugin). Once everything is in place and we have verified the frontend plugin integration with the backend plugin, we will then [analyze the code](#analyze-the-code) that makes it possible.
+We will make some [modifications to the backstage backend](#modifying-the-backstage-backend) to wire the backend plugin into the Backstage app and then move on to [create a new frontend plugin](#creating-the-frontend-plugin). Once everything is in place and we have verified the frontend plugin integration with the backend plugin, we will then [analyze the code](#analyzing-the-code) that makes it possible.
 
 ### Prerequisites
 
@@ -27,7 +27,7 @@ To start, please make sure that the following tasks have already been performed:
 
 The backend plugin exposes the `/system-info` endpoint that is only available using curl, and is not accessible through the Backstage app by any Frontend plugin. To expose and make use of this backend plugin in our app, we will need to wire the plugin's router into the Backstage backend router.
 
-### Export the backend plugin router
+### Exporting the backend plugin router
 
 - Create a new file named `packages/backend/src/plugins/local-system-info.ts` with the following content:
 
@@ -63,7 +63,7 @@ The backend plugin exposes the `/system-info` endpoint that is only available us
       }
     ```
 
-### Modify package.json to run the backend plugin
+### Modifying the `package.json` to run the backend plugin
 
 The command to start the Backstage (`yarn start`) starts both the app and backend as well as any other workspaces found in the `plugins` directory, which also includes our new backend plugin.
 
@@ -71,24 +71,34 @@ Ideally, one would want to publish the backend and frontend plugins and then sim
 
 To resolve this issue, we can either modify the `package.json` in the root directory to add a new script to only run the app and backend, or run two commands to start the app and backend separately.
 
-#### Modifing the `package.json`
+#### Modifying the `package.json`
 
 Modify the `package.json` in the root directory by adding the following content in the `scripts` section (_just after the `start` script entry_):
 
-```json title="package.json"
-"start-dev": "turbo run start --filter=app --filter=backend",
+```json title="package.json" showLineNumbers {7}
+{
+  "name": "root",
+  ...
+  "scripts": {
+    ...
+    "start": "turbo run start --parallel",
+    "start-dev": "turbo run start --filter=app --filter=backend",
+    ...
+  },
+  ...
+}
 ```
 
-#### Alternate way to start Backstage
+#### Alternate method to start Backstage
 
-- In case one does not want to modify the `package.json`, run the following two commands in the root directory of the backstage-showcase repository, in two separate terminals:
+- In case one does not want to modify the `package.json`, an alternative method to start backstage is to run the following two commands in the root directory of the backstage-showcase repository, in two separate terminals:
 
 ```bash
 yarn workspace app start
 yarn workspace backend start
 ```
 
-### Modify backend plugin response
+### Modifying the backend plugin response
 
 In the `plugins/local-system-info-backend/src/service/router.ts` file, move all the elements except `cpus` to the `data` element so that it is easier to parse and display in the frontend plugin:
 
@@ -108,7 +118,7 @@ const systemInfo = {
 };
 ```
 
-### Verify backend plugin is available through Backstage app
+### Verifying that the backend plugin is available through the Backstage app
 
 To verify the changes done to the backend plugin, run the Backstage backend with `yarn start-backend` in the root directory of the backstage-showcase repository.
 
@@ -126,7 +136,7 @@ After verifying the endpoint, you can now stop the backend by killing the `yarn`
 
 ---
 
-## Create Frontend plugin
+## Creating the Frontend plugin
 
 To create a new frontend plugin, please execute the following command in the root directory of the backstage-showcase repository in a terminal:
 
@@ -138,11 +148,11 @@ When prompted to enter the ID of the plugin, please provide `system-info`. Here'
 
 ![Creating a new Plugin](./create_new_plugin.png)
 
-### Verify the new Frontend plugin
+### Verifying the new Frontend plugin
 
-The above command will create a new Backstage frontend plugin and will also add it to the Backstage app. To verify the new plugin, run the app with `yarn start-dev` in the root directory of the backstage-showcase repository, or by following [these steps](#alternate-way-to-start-backstage). Once the app starts up, the new plugin can be verified by navigating to `http://localhost:3000/system-info`
+The above command will create a new Backstage frontend plugin and will also add it to the Backstage app. To verify the new plugin, run the app with `yarn start-dev` in the root directory of the backstage-showcase repository, or by following [these steps](#alternate-method-to-start-backstage). Once the app starts up, the new plugin can be verified by navigating to `http://localhost:3000/system-info`
 
-### Integrate the frontend plugin with backend plugin
+### Integrating the frontend plugin with backend plugin
 
 The newly generated frontend plugin contains some static data that is displayed when navigating to `http://localhost:3000/system-info`. In this section, we will modify the frontend plugin to invoke the backend plugin API and display the data returned by that API.
 
@@ -349,9 +359,9 @@ Please follow the steps given below to achieve this integration:
   - Before the change: `import('./components/ExampleComponent').then(m => m.ExampleComponent),`
   - After the change: `import('./components/SystemInfoPage').then(m => m.SystemInfoPage),`
 
-### Verify the integration between the frontend plugin and backend plugin
+### Verifying the integration between the frontend plugin and backend plugin
 
-Now that the plugin is all set, start the app if it is not already started. In case you see any errors, please restart the app with `yarn start-dev` in the root directory of the backstage-showcase repository, or by following [these steps](#alternate-way-to-start-backstage). Once the app starts up, navigate to `http://localhost:3000/system-info`. This page should provide the **System Info Details** as shown below:
+Now that the plugin is all set, start the app if it is not already started. In case you see any errors, please restart the app with `yarn start-dev` in the root directory of the backstage-showcase repository, or by following [these steps](#alternate-method-to-start-backstage). Once the app starts up, navigate to `http://localhost:3000/system-info`. This page should provide the **System Info Details** as shown below:
 
 ![System Info Details](./system_info_ui.png)
 
