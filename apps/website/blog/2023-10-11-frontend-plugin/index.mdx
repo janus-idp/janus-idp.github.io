@@ -71,9 +71,9 @@ Ideally, one would want to publish the backend and frontend plugins and then sim
 
 To resolve this issue, we can either modify the `package.json` in the root directory to add a new script to only run the app and backend, or run two commands to start the app and backend separately.
 
-#### Modify `package.json`
+#### Modifing the `package.json`
 
-Modify `package.json` in the root directory by adding the following content in the `scripts` section (_just after the `start` script entry_):
+Modify the `package.json` in the root directory by adding the following content in the `scripts` section (_just after the `start` script entry_):
 
 ```json title="package.json"
 "start-dev": "turbo run start --filter=app --filter=backend",
