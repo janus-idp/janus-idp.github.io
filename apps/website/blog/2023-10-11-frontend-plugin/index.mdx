@@ -9,17 +9,17 @@ description: Create a Backstage frontend plugin and integrate it with an existin
 
 ## Introduction
 
-This blog will provide information on how we can create a Backstage Frontend plugin as well integrate it with an existing Backstage Backend plugin. The Backend plugin we will use in this article is mentioned in another [blog](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin).
+This blog will provide information on how we can create a Backstage Frontend plugin as well integrate it with an existing Backstage Backend plugin. The Backend plugin we will use in this article is the Local System Information plugin mentioned in another [blog](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin).
 
-We will make some [modifications to the backend plugin](#modify-backstage-backend) to wire it into the Backstage app and then move on to [create a new frontend plugin](#create-frontend-plugin). Once everything is in place and we have verified the frontend plugin integration with the backend plugin, we will also [analyze the code](#analyze-the-code) that makes it possible.
+We will make some [modifications to the backend plugin](#modify-backstage-backend) to wire it into the Backstage app and then move on to [create a new frontend plugin](#create-frontend-plugin). Once everything is in place and we have verified the frontend plugin integration with the backend plugin, we will then [analyze the code](#analyze-the-code) that makes it possible.
 
 ### Prerequisites
 
 To start, please make sure that the following tasks have already been performed:
 
 - [Run Backstage Showcase locally](https://github.com/janus-idp/backstage-showcase/blob/main/showcase-docs/getting-started.md#running-locally-with-a-basic-configuration)
-- [Created your first Backstage Backend plugin](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin)
-  - We will refer to this plugin as _backend plugin_
+- [Created the Local System Information backend plugin](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin)
+  - We will refer to this plugin as _backend plugin_ for the remainder of this article.
 
 ---
 
@@ -31,7 +31,7 @@ The backend plugin exposes `/system-info` endpoint that is only available using 
 
 - Create a new file named `packages/backend/src/plugins/local-system-info.ts` with the following contents:
 
-  ```ts
+  ```ts title="packages/backend/src/plugins/local-system-info.ts"
   import { createRouter } from '@internal/plugin-local-system-info-backend';
   import { Router } from 'express';
   import { PluginEnvironment } from '../types';
@@ -55,7 +55,7 @@ The backend plugin exposes `/system-info` endpoint that is only available using 
     ```
   - Following code block shows the above two additions to `index.ts`:
 
-    ```ts showLineNumbers {3,10}
+    ```ts title="packages/backend/src/index.ts" showLineNumbers {3,10}
       import ...
       ...
       import sysInfo from './plugins/local-system-info';
@@ -99,7 +99,7 @@ yarn workspace backend start
 
 Modify `plugins/local-system-info-backend/src/service/router.ts` by moving all the elements except `cpus` to `data` element so that it is easier to parse it and display in the frontend plugin:
 
-```ts showLineNumbers {2,11}
+```ts title="plugins/local-system-info-backend/src/service/router.ts" showLineNumbers {2,11}
 const systemInfo = {
   data: {
     hostname: os.hostname(),
@@ -415,15 +415,15 @@ Following files were created (or modified) to achieve this task:
             isLoading={isSysInfoLoading}
             data={sysInfoData?.cpus || []}
       ```
-  - The `SystemInfoPage`, which contains the Grid containing the above two tables, is exported.
+  - Exports the `SystemInfoPage` component, which contains the Grid containing the above two tables components:
     ```tsx
         export const SystemInfoPage = () => {
           ...
         }
     ```
-- **plugins/system-info/src/components/SystemInfoPage/index.ts**: exports the `SystemInfoPage`
-- **plugins/system-info/src/components/SystemInfoPage/plugin.ts**: sets the component to `SystemInfoPage` for `systemInfoPlugin`
-  ```ts showLineNumbers {4}
+- **plugins/system-info/src/components/SystemInfoPage/index.ts**: exports the `SystemInfoPage` component.
+- **plugins/system-info/src/components/SystemInfoPage/plugin.ts**: sets the component used by `systemInfoPlugin` to the `SystemInfoPage` component
+  ```ts title="plugins/system-info/src/components/SystemInfoPage/plugin.ts" showLineNumbers {4}
   export const SystemInfoPage = systemInfoPlugin.provide(
     createRoutableExtension({
       name: 'SystemInfoPage',
@@ -438,7 +438,7 @@ Following files were created (or modified) to achieve this task:
 
 ## Conclusion
 
-You have created a new Backstage frontend plugin and integrated it with the backend plugin as well as displayed data coming from the backend plugin. We used types to manage the JSON response as well as to display Table columns. This just scratches the surface of what can be done in the frontend plugin. As the backend plugin is exposing data through REST API, you can return pretty much whatever you need to process and display in your frontend plugin.
+We have now created a new Backstage frontend plugin and integrated it with the backend plugin to display the data coming from the backend plugin. We used types to manage the JSON response and display the Table columns. This just scratches the surface of what can be done in a frontend plugin. As the backend plugin is exposing data through REST API, you can return pretty much whatever you need to process and display the result in your frontend plugin.
 
 Hope you enjoyed this blog!!!
 
@@ -447,5 +447,5 @@ Hope you enjoyed this blog!!!
 ## Links
 
 - [Run Backstage Showcase locally](https://github.com/janus-idp/backstage-showcase/blob/main/showcase-docs/getting-started.md#running-locally-with-a-basic-configuration)
-- [First Backstage Backend plugin](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin)
-- [Create Frontend Plugin](https://backstage.io/docs/plugins/create-a-plugin/)
+- [Creating your first Backstage Backend plugin](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin)
+- [Creating a Frontend Plugin](https://backstage.io/docs/plugins/create-a-plugin/)
