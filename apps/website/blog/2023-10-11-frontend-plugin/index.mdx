@@ -25,7 +25,7 @@ To start, please make sure that the following tasks have already been performed:
 
 ## Modify Backstage backend
 
-The backend plugin exposes `/system-info` endpoint that is only available using curl, and is not accessible through the Backstage app to any Frontend plugin. To expose and make use of this plugin in our app by wiring it into the Backstage backend, we will need to make some modifications to the Backstage backend.
+The backend plugin exposes the `/system-info` endpoint that is only available using curl, and is not accessible through the Backstage app by any Frontend plugin. To expose and make use of this backend plugin in our app, we will need to wire the plugin's router into the Backstage backend router.
 
 ### Export the backend plugin router
 
@@ -45,15 +45,8 @@ The backend plugin exposes `/system-info` endpoint that is only available using 
 
 - Wire the backend plugin router into the Backstage backend router by modifying `packages/backend/src/index.ts`:
 
-  - Add the following import, for our backend plugin, after all the existing imports:
-    ```ts
-    import sysInfo from './plugins/local-system-info';
-    ```
-  - In the `main` function, add the following code, after all the `addPlugin` calls:
-    ```ts
-    await addPlugin({ plugin: 'sys-info', apiRouter, createEnv, router: sysInfo });
-    ```
-  - Following code block shows the above two additions to `index.ts`:
+  - Import the newly added file for our backend plugin into the `packages/backend/src/index.ts`.
+  - Then add the plugin into the backend by adding the following line in the `main` function after the existing `addPlugin` calls.
 
     ```ts title="packages/backend/src/index.ts" showLineNumbers {3,10}
       import ...
@@ -72,23 +65,23 @@ The backend plugin exposes `/system-info` endpoint that is only available using 
 
 ### Modify package.json to run the backend plugin
 
-The command to start the Backstage (`yarn start`) starts both the app and backend as well as any other workspaces found in `plugins` directory, which also includes our new backend plugin.
+The command to start the Backstage (`yarn start`) starts both the app and backend as well as any other workspaces found in the `plugins` directory, which also includes our new backend plugin.
 
-Ideally, one would want to publish the backend and frontend plugins and then simply add install that plugin to use it. But since we are setting up both the backend and frontend plugins in our local development environment, the `yarn start` command will try to start the app and the backend plugin along with the Backstage backend. Both the backend plugin as well as Backstage backend processes listen on port `7007`. This will cause a port conflict when the Backstage app is started.
+Ideally, one would want to publish the backend and frontend plugins and then simply install that plugin to use it. But since we are setting up both the backend and frontend plugins in our local development environment, the `yarn start` command will try to start the app and the backend plugin along with the Backstage backend. Both the backend plugin as well as Backstage backend processes listen on port `7007`. This will cause a port conflict when the Backstage app is started.
 
 To resolve this issue, we can either modify the `package.json` in the root directory to add a new script to only run the app and backend, or run two commands to start the app and backend separately.
 
 #### Modify `package.json`
 
-Modify `package.json` in the root directory by adding the following content in the `scripts` section (_just after `start` script entry_):
+Modify `package.json` in the root directory by adding the following content in the `scripts` section (_just after the `start` script entry_):
 
-```json
+```json title="package.json"
 "start-dev": "turbo run start --filter=app --filter=backend",
 ```
 
 #### Alternate way to start Backstage
 
-- In case one does not want to modify package.json, run the following two commands in the root directory of backstage-showcase repository, in two separate terminals:
+- In case one does not want to modify the `package.json`, run the following two commands in the root directory of the backstage-showcase repository, in two separate terminals:
 
 ```bash
 yarn workspace app start
@@ -97,7 +90,7 @@ yarn workspace backend start
 
 ### Modify backend plugin response
 
-Modify `plugins/local-system-info-backend/src/service/router.ts` by moving all the elements except `cpus` to `data` element so that it is easier to parse it and display in the frontend plugin:
+In the `plugins/local-system-info-backend/src/service/router.ts` file, move all the elements except `cpus` to the `data` element so that it is easier to parse and display in the frontend plugin:
 
 ```ts title="plugins/local-system-info-backend/src/service/router.ts" showLineNumbers {2,11}
 const systemInfo = {
@@ -117,17 +110,17 @@ const systemInfo = {
 
 ### Verify backend plugin is available through Backstage app
 
-To verify the changes done to the backend plugin, run the Backstage backend with `yarn start-backend` in the root directory of backstage-showcase repository.
+To verify the changes done to the backend plugin, run the Backstage backend with `yarn start-backend` in the root directory of the backstage-showcase repository.
 
-Since we have not yet created a frontend plugin, to invoke the backend plugin, we will still use `curl` command but access it just like it will be accessed in the app. Please run the following command:
+Since we have yet to create a frontend plugin, we will still need to use a `curl` command to invoke the backend plugin. However, we will access the endpoint provided by the backstage backend router similar to how it would be accessed by a frontend plugin:
 
 ```bash
 curl localhost:7007/api/sys-info/system-info | jq
 ```
 
 - When running in the Backstage backend, it is accessed with a prefix of `/api` (from the cli or app)
-- The backend plugin is exposed on `sys-info` main route (that was the plugin name when we registerd the plugin in `index.ts`)
-- The API endpoint for providing system information is `system-info`
+- The backend plugin is exposed on the `/sys-info` main route (which matches the plugin name when we registered the plugin in the `packages/backend/src/index.ts` file)
+- The API endpoint for providing system information is `/system-info`
 
 After verifying the endpoint, you can now stop the backend by killing the `yarn` process.
 
@@ -135,7 +128,7 @@ After verifying the endpoint, you can now stop the backend by killing the `yarn`
 
 ## Create Frontend plugin
 
-To create a new frontend plugin, please execute the following command, in the root directory of backstage-showcase repository, in a terminal:
+To create a new frontend plugin, please execute the following command in the root directory of the backstage-showcase repository in a terminal:
 
 ```bash
 yarn new --select plugin
@@ -147,7 +140,7 @@ When prompted to enter the ID of the plugin, please provide `system-info`. Here'
 
 ### Verify the new Frontend plugin
 
-The above command will create a new Backstage frontend plugin and will also add it to the Backstage app. To verify the new plugin, run the app with `yarn start-dev` in the root directory of backstage-showcase repository, or by following [these steps](#alternate-way-to-start-backstage). Once the app starts up, the new plugin can be verified by navigating to `http://localhost:3000/system-info`
+The above command will create a new Backstage frontend plugin and will also add it to the Backstage app. To verify the new plugin, run the app with `yarn start-dev` in the root directory of the backstage-showcase repository, or by following [these steps](#alternate-way-to-start-backstage). Once the app starts up, the new plugin can be verified by navigating to `http://localhost:3000/system-info`
 
 ### Integrate the frontend plugin with backend plugin
 
@@ -327,7 +320,7 @@ Please follow the steps given below to achieve this integration:
   ```
 
 - Create a new file named `plugins/system-info/src/components/SystemInfoPage/index.ts` with the following contents:
-  ```ts
+  ```ts title="plugins/system-info/src/components/SystemInfoPage/index.ts"
   export { SystemInfoPage } from './SystemInfoPage';
   ```
 - Modify `plugins/system-info/src/plugin.ts` by replacing the occurrences of `ExampleComponent` with `SystemInfoPage` (_modified line is highlighted in the code block given below_):
@@ -358,7 +351,7 @@ Please follow the steps given below to achieve this integration:
 
 ### Verify the integration between the frontend plugin and backend plugin
 
-Now that the plugin is all set, start the app if it is not already started. In case you see any errors, please restart the app with `yarn start-dev` in the root directory of backstage-showcase repository, or by following [these steps](#alternate-way-to-start-backstage). Once the app starts up, navigate to `http://localhost:3000/system-info`. This page should provide the **System Info Details** as shown below:
+Now that the plugin is all set, start the app if it is not already started. In case you see any errors, please restart the app with `yarn start-dev` in the root directory of the backstage-showcase repository, or by following [these steps](#alternate-way-to-start-backstage). Once the app starts up, navigate to `http://localhost:3000/system-info`. This page should provide the **System Info Details** as shown below:
 
 ![System Info Details](./system_info_ui.png)
 
@@ -366,11 +359,11 @@ Now that the plugin is all set, start the app if it is not already started. In c
 
 ## Analyze the code
 
-With the plugin integrated with the backend plugin and able to fetch the System information data from the backend and display it in the UI, let us go over the code that made it all possible.
+With the frontend plugin integrated with the backend plugin and able to fetch the System information data from the backend and display it in the UI, let us go over the code that made it all possible.
 
-Following files were created (or modified) to achieve this task:
+The following files were created (or modified) to achieve this task:
 
-- **plugins/system-info/src/components/SystemInfoPage/types.ts**: This file contains following types to either handle the JSON response coming from the backend plugin or to be used as table columns when displaying data:
+- **plugins/system-info/src/components/SystemInfoPage/types.ts**: This file contains the following types that either handle the JSON response coming from the backend plugin or are used as table columns when displaying data:
   - `CpuTimeData`: Type to contain `times` attribute of CPU data from the backend plugin JSON response
   - `CpuData`: Type to contain CPU data from the backend plugin JSON response
   - `SysInfoMainData`: Type to contain data element from the backend plugin JSON response
@@ -380,22 +373,22 @@ Following files were created (or modified) to achieve this task:
     - _The `field` property for each element in the list maps to the field that is used to display data from the object containing data for the table._
 - **plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx**: Main file to invoke the backend API and parse/display data on the UI with the main lines highlighted in the code block:
   - Gets the backend baseUrl (`backend.baseUrl`) from the config. This property is automatically configured and is available to the frontend plugin with the use of `configApiRef`
-    ```tsx
+    ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx"
         const config = useApi(configApiRef);
         ...
         const backendUrl = config.getString(SYS_INFO_BACKEND_URL);
     ```
-  - Invokes the backend plugin API (`${backendUrl}/api/sys-info/system-info`) and extracts json from the response as `SysInfoData`
-    ```tsx showLineNumbers {2,3}
+  - Invokes the backend plugin API (`${backendUrl}/api/sys-info/system-info`) and extracts the JSON from the response as `SysInfoData`
+    ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx" showLineNumbers {2,3}
     const backendUrl = config.getString(SYS_INFO_BACKEND_URL);
     const backendApiEndPoint = `${backendUrl}/api/sys-info/system-info`;
     const systemInfoData = await fetch(backendApiEndPoint)
       .then((res) => (res.ok ? res : Promise.reject(res)))
       .then((res) => res.json());
     ```
-  - To display the system information data, we are using the following two tables:
-    - First table uses `sysInfoMainDataColumns` for the columns and `sysInfoData?.mainDataAsArray` for the main data (_`mainDataAsArray` is set after fetching the data from backend API_).
-      ```tsx showLineNumbers {8,10}
+  - To display the system information data, we are using the following two table components:
+    - The first table uses `sysInfoMainDataColumns` for the columns and `sysInfoData?.mainDataAsArray` for the main data (_`mainDataAsArray` is set after fetching the data from backend API_).
+      ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx" showLineNumbers {8,10}
           systemInfoData.mainDataAsArray = [];
           systemInfoData.mainDataAsArray[0] = systemInfoData.data;
           systemInfoData.mainDataAsArray[0].cpuModel = systemInfoData.cpus[0].model;
@@ -407,16 +400,16 @@ Following files were created (or modified) to achieve this task:
             isLoading={isSysInfoLoading}
             data={sysInfoData?.mainDataAsArray || []}
       ```
-    - Second table uses `sysInfoCpuColumns` for the columns and `sysInfoData?.cpus` for the CPU data.
-      ```tsx showLineNumbers {3,5}
+    - The second table uses `sysInfoCpuColumns` for the columns and `sysInfoData?.cpus` for the CPU data.
+      ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx" showLineNumbers {3,5}
           <Table
             title="System Info Details - CPUs"
             columns={sysInfoCpuColumns}
             isLoading={isSysInfoLoading}
             data={sysInfoData?.cpus || []}
       ```
-  - Exports the `SystemInfoPage` component, which contains the Grid containing the above two tables components:
-    ```tsx
+  - Exports the `SystemInfoPage` component, which contains the Grid containing the two table components defined above:
+    ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx"
         export const SystemInfoPage = () => {
           ...
         }
