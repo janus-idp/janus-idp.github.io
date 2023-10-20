@@ -46,7 +46,7 @@ The backend plugin exposes the `/system-info` endpoint that is only available us
 - Wire the backend plugin router into the Backstage backend router by modifying `packages/backend/src/index.ts`:
 
   - Import the newly added file for our backend plugin into the `packages/backend/src/index.ts`.
-  - Then add the plugin into the backend by adding the following line in the `main` function after the existing `addPlugin` calls.
+  - Then add the plugin into the backend by adding the following line into the `main` function after the existing `addPlugin` calls.
 
     ```ts title="packages/backend/src/index.ts" showLineNumbers {3,10}
       import ...
@@ -67,7 +67,7 @@ The backend plugin exposes the `/system-info` endpoint that is only available us
 
 The command to start the Backstage (`yarn start`) starts both the app and backend as well as any other workspaces found in the `plugins` directory, which also includes our new backend plugin.
 
-Ideally, one would want to publish the backend and frontend plugins and then simply install that plugin to use it. But since we are setting up both the backend and frontend plugins in our local development environment, the `yarn start` command will try to start the app and the backend plugin along with the Backstage backend. Both the backend plugin as well as Backstage backend processes listen on port `7007`. This will cause a port conflict when the Backstage app is started.
+Ideally, one would want to publish the backend and frontend plugins and then simply install that plugin to use it. But since we are setting up both the backend and frontend plugins in our local development environment, the `yarn start` command will try to start the app and the backend plugin along with the Backstage backend. Both the backend plugin as well as Backstage backend processes listen on port `7007`. This will cause a port conflict when the Backstage app starts.
 
 To resolve this issue, we can either modify the `package.json` in the root directory to add a new script to only run the app and backend, or run two commands to start the app and backend separately.
 
