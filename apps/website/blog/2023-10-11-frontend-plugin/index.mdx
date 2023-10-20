@@ -409,6 +409,7 @@ The following files were created (or modified) to achieve this task:
             columns={sysInfoMainDataColumns}
             isLoading={isSysInfoLoading}
             data={sysInfoData?.mainDataAsArray || []}
+          >
       ```
     - The second table uses `sysInfoCpuColumns` for the columns and `sysInfoData?.cpus` for the CPU data.
       ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx" showLineNumbers {3,5}
@@ -417,6 +418,7 @@ The following files were created (or modified) to achieve this task:
             columns={sysInfoCpuColumns}
             isLoading={isSysInfoLoading}
             data={sysInfoData?.cpus || []}
+          >
       ```
   - Exports the `SystemInfoPage` component, which contains the Grid containing the two table components defined above:
     ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx"
