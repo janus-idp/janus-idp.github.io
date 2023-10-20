@@ -1,17 +1,17 @@
 ---
-title: Create and integrate Backstage Frontend plugin with Backend plugin
+title: Creating and integrating a Backstage Frontend plugin with a Backend plugin
 authors: [sgahlot]
-tags: [Frontend, Plugins, Integrate, UI, Backend]
-description: Create a Backstage frontend plugin and integrate it with an existing backend plugin
+tags: [Frontend, Plugins, Integration, UI, Backend]
+description: Creating and integrating a Backstage Frontend plugin with a backend plugin
 ---
 
-# Creating Backstage Frontend plugin and integrate it with a Backend plugin
+# Creating a Backstage Frontend plugin and integrating it with a Backend plugin
 
 ## Introduction
 
-This blog will provide information on how we can create a Backstage Frontend plugin as well integrate it with an existing Backstage Backend plugin. The Backend plugin we will use in this article is the Local System Information plugin mentioned in another [blog](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin).
+This blog will provide information on how we can create a Backstage Frontend plugin as well integrating it with an existing Backstage Backend plugin. The Backend plugin we will use in this article will be the Local System Information plugin mentioned in another [blog](https://janus-idp.io/blog/2023/08/23/creating-your-first-backstage-backend-plugin).
 
-We will make some [modifications to the backend plugin](#modify-backstage-backend) to wire it into the Backstage app and then move on to [create a new frontend plugin](#create-frontend-plugin). Once everything is in place and we have verified the frontend plugin integration with the backend plugin, we will then [analyze the code](#analyze-the-code) that makes it possible.
+We will make some [modifications to the backstage backend](#modify-backstage-backend) to wire the backend plugin into the Backstage app and then move on to [create a new frontend plugin](#create-frontend-plugin). Once everything is in place and we have verified the frontend plugin integration with the backend plugin, we will then [analyze the code](#analyze-the-code) that makes it possible.
 
 ### Prerequisites
 
@@ -23,13 +23,13 @@ To start, please make sure that the following tasks have already been performed:
 
 ---
 
-## Modify Backstage backend
+## Modifying the Backstage backend
 
 The backend plugin exposes the `/system-info` endpoint that is only available using curl, and is not accessible through the Backstage app by any Frontend plugin. To expose and make use of this backend plugin in our app, we will need to wire the plugin's router into the Backstage backend router.
 
 ### Export the backend plugin router
 
-- Create a new file named `packages/backend/src/plugins/local-system-info.ts` with the following contents:
+- Create a new file named `packages/backend/src/plugins/local-system-info.ts` with the following content:
 
   ```ts title="packages/backend/src/plugins/local-system-info.ts"
   import { createRouter } from '@internal/plugin-local-system-info-backend';
@@ -154,7 +154,7 @@ Please follow the steps given below to achieve this integration:
   plugins/system-info/src/components/ExampleFetchComponent
   ```
 - Create a new directory named `plugins/system-info/src/components/SystemInfoPage`
-- Create a new file named `plugins/system-info/src/components/SystemInfoPage/types.ts` with the following contents:
+- Create a new file named `plugins/system-info/src/components/SystemInfoPage/types.ts` with the following content:
 
   ```ts title="plugins/system-info/src/components/SystemInfoPage/types.ts" showLineNumbers
   import { TableColumn } from '@backstage/core-components';
@@ -236,7 +236,7 @@ Please follow the steps given below to achieve this integration:
   };
   ```
 
-- Create a new file named `plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx` with the following contents:
+- Create a new file named `plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx` with the following content:
 
   ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx" showLineNumbers {12-13,18-20,39,41,59,61}
   import React from 'react';
@@ -346,7 +346,7 @@ Please follow the steps given below to achieve this integration:
   );
   ```
 
-  - Before: `import('./components/ExampleComponent').then(m => m.ExampleComponent),`
+  - Before the change: `import('./components/ExampleComponent').then(m => m.ExampleComponent),`
   - After the change: `import('./components/SystemInfoPage').then(m => m.SystemInfoPage),`
 
 ### Verify the integration between the frontend plugin and backend plugin
@@ -357,7 +357,7 @@ Now that the plugin is all set, start the app if it is not already started. In c
 
 ---
 
-## Analyze the code
+## Analyzing the code
 
 With the frontend plugin integrated with the backend plugin and able to fetch the System information data from the backend and display it in the UI, let us go over the code that made it all possible.
 
@@ -387,7 +387,7 @@ The following files were created (or modified) to achieve this task:
       .then((res) => res.json());
     ```
   - To display the system information data, we are using the following two table components:
-    - The first table uses `sysInfoMainDataColumns` for the columns and `sysInfoData?.mainDataAsArray` for the main data (_`mainDataAsArray` is set after fetching the data from backend API_).
+    - The first table uses `sysInfoMainDataColumns` for the columns and `sysInfoData?.mainDataAsArray` for the main data (_`mainDataAsArray` is set after fetching the data from the backend API_).
       ```tsx title="plugins/system-info/src/components/SystemInfoPage/SystemInfoPage.tsx" showLineNumbers {8,10}
           systemInfoData.mainDataAsArray = [];
           systemInfoData.mainDataAsArray[0] = systemInfoData.data;
