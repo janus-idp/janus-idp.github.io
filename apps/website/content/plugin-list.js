@@ -112,6 +112,19 @@ const PLUGINS_LIST = [
     sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-tekton',
     category: 'Frontend',
   },
+  {
+    title: 'Nexus Repository Manager',
+    icon: '/images/plugins/nexus-repository-manager.svg',
+    description:
+      'View information about the build artifacts in your Nexus Repository Manager in Backstage.',
+    href: '/plugins/nexus-repository-manager',
+    docUrl:
+      'https://github.com/janus-idp/backstage-plugins/tree/main/plugins/nexus-repository-manager',
+    rawDocUrl:
+      'https://raw.githubusercontent.com/janus-idp/backstage-plugins/main/plugins/nexus-repository-manager',
+    sourceUrl: 'https://www.npmjs.com/package/@janus-idp/backstage-plugin-nexus-repository-manager',
+    category: 'Frontend',
+  },
 ];
 
 module.exports = { PLUGINS_LIST };
