@@ -1,0 +1,66 @@
+---
+title: The Digital Experience Platform (DXP) Adoption Journey with Red Hat Developer Hub  - Part 1
+authors: [riginoommen, deshmukhmayur, npatil9]
+tags: [Adoption, RHDH, Janus, DXP, backstage]
+date: 2023/11/03
+description: Adoption Journey of Red Hat Developer Hub in Digital Experience Platform (DXP) Team
+---
+
+The Digital Experience Platform (DXP) team which is part of Red Hat Global Engineering started their journey a year before with a community version of backstage. The Digital Experience portfolio includes more than 200 services and applications, many of which are of high and critical business importance and require a robust catalog that can give us insights into the services. The Backstage Service Catalog was a close match and provided a framework for further customization.
+
+The [Community version of the backstage](https://backstage.io) gave us a good start, however it required dedicated time and effort to discover, configure, customize and maintain the instance. It was a time-consuming process and deviated us from the core goal of continuing building developer experience solutions. We were looking for a more stable version of the backstage to create a bandwidth for developers to focus on catalog, plugin & template development.
+
+[Red Hat Developer Hub](https://developers.redhat.com/rhdh) (RHDH) scales our ecosystem which satisfies the above standards. We are still in the process of adoption based on progress. We want to share our journey with the wider community.
+
+## Migration Goals
+
+1. Default functionalities should behave as expected
+2. Customizations should be preserved.
+3. Internally developed plugins and interfaces should work.
+4. SCM Integrations should work.
+
+## Current Adoption Progress
+
+### 1. Deployment of RHDH
+
+With the certified RHDH Helm Chart, we were able to deploy the bare metal version of RHDH smoothly to Red Hat Openshift with all the resources needed such as Routes, Databases and more. Manual Infrastructure setup complexity was eliminated in the first moment which was really a great relief.
+
+Refined Documentation of the RHDH helped us at every stage with tuning the changes.
+
+### 2. SCM Integration
+
+Our engineering ecosystem is distributed in a wider SCM Platforms GitHub and GitLab. We have successfully integrated the SCM systems with the RHDH very easily and were able to onboard projects to RHDH.
+
+### 3. Authentication with the Enterprise Systems
+
+In our Community Backstage, we have used the SSO based on OIDC. We were able to migrate this successfully but still there are some small challenges especially with the login page. Still we are working on issue resolution.
+
+## Future Plans
+
+### 1. Dynamic Plugins
+
+In our ongoing adoption journey, we are looking forward to implementing dynamic plugins to enhance the customization and extensibility of our developer ecosystem. The adoption of dynamic plugins will further empower our developers and users, offering new features and capabilities to meet evolving needs. We plan to convert some of our plugins into dynamic ones and integrate them into RHDH in the upcoming weeks.
+
+### 2. Customization
+
+We will be working on customizing the RHDH with respect to our team identity, especially Home Page and Plugins page. We will be working to migrate this customizations with support of dynamic plugins with the RHDH.
+
+### 3. Techdocs
+
+Techdocs enablement we have spend some time for the enablement but we are still working on the complete migration of the documents to RHDH. This will be a continued effort for us.
+
+### 4. Contributing to RHDH
+
+[Janus](https://janus-idp.io/) is the upstream community of the Red Hat Developer Hub. There are a lot of contribution opportunities like plugin development, fixes and contributing to the IDP initiative. As a team we have contributed to the Janus Project on plugin development and fixes to the [IDP](https://showcase.janus-idp.io/)
+
+## Benefits and Outcomes
+
+Since our adoption of the Red Hat Developer Hub (RHDH), we have observed several significant benefits and outcomes that have positively impacted our development ecosystem and streamlined our processes. Below are some of the key benefits and anticipated outcomes:
+
+- Great Support
+- Enhanced Stability and Reliability
+- Streamlined Deployment
+- Improved Documentation
+- Seamless SCM Integration
+
+By sharing these benefits and outlining our adoption roadmap, to provide a comprehensive view of the positive changes and future enhancements that the Red Hat Developer Hub (RHDH) is bringing to your organization. We will share more in the Part 2
