@@ -29,7 +29,7 @@
     "clsx": "2.0.0",
     "deepmerge": "4.3.1",
     "framer-motion": "10.16.12",
-    "fuse.js": "6.6.2",
+    "fuse.js": "7.0.0",
     "react-cookie": "6.1.1",
     "react-icons": "4.12.0",
     "use-query-params": "2.2.1"
