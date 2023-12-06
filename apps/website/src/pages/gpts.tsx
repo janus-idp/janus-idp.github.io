@@ -18,7 +18,6 @@ import Link from '@docusaurus/Link';
 import { GPT_LIST } from '@site/content/gpts-list';
 import Layout from '@theme/Layout';
 import Fuse from 'fuse.js';
-import React from 'react';
 import { GPTsGrid } from 'ui/components';
 import { GPT } from 'ui/types';
 
@@ -32,14 +31,14 @@ function GPTsHeader(): JSX.Element {
   return (
     <header className="hero hero--primary relative overflow-hidden px-0 py-16 text-center">
       <div className="container">
-        <h1 className="hero__title">Janus Golden Path Templates</h1>
-        <p className="hero__subtitle">Have a GPT idea?</p>
+        <h1 className="hero__title">Janus Software Template Examples</h1>
+        <p className="hero__subtitle">Have a Software Template Example idea?</p>
         <div className="flex items-center justify-center">
           <Link
             className="button button--secondary button--lg"
             to="https://github.com/janus-idp/software-templates/issues/new?assignees=&labels=template&projects=&template=gpts.yaml&title=GPT%3A+"
           >
-            Submit a proposal for a GPT!
+            Submit a proposal for a Software Template Example!
           </Link>
         </div>
       </div>
@@ -49,7 +48,10 @@ function GPTsHeader(): JSX.Element {
 
 export default function Plugins(): JSX.Element {
   return (
-    <Layout title="GPTs" description="Description will go into a meta tag in <head />">
+    <Layout
+      title="Software Templates"
+      description="Description will go into a meta tag in <head />"
+    >
       <GPTsHeader />
       <main>
         <GPTsGrid GPT_FUSE={GPT_FUSE} GPT_LIST={GPT_LIST as GPT[]} />

@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-const lightCodeTheme = require('prism-react-renderer').themes.github;
-const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
-const dotenv = require('dotenv');
-const { PLUGINS_LIST } = require('./content/plugin-list');
-const { GPT_LIST } = require('./content/gpts-list');
-const { fetchRemoteContent } = require('./src/lib/utils/fetch-remote-content');
+import dotenv from 'dotenv';
+import { themes } from 'prism-react-renderer';
+import { GPT_LIST } from './content/gpts-list';
+import { PLUGINS_LIST } from './content/plugin-list';
+import { fetchRemoteContent } from './src/lib/utils/fetch-remote-content';
 
+const lightCodeTheme = themes.github;
+const darkCodeTheme = themes.vsDark;
 darkCodeTheme.plain.backgroundColor = '#232323';
 
 dotenv.config();
-dotenv.config({ path: `.env.local`, override: true });
+dotenv.config({ path: '.env.local', override: true });
 
 const copyright = `Copyright © ${new Date().getFullYear()} Janus -- All Rights Reserved <br> Apache License 2.0 open source project`;
 
@@ -56,9 +57,9 @@ const config = {
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      {
         gtag: {
-          trackingID: process.env.G_TAG || 'G_TAG',
+          trackingID: process.env.G_TAG ?? 'G_TAG',
           anonymizeIP: true,
         },
         docs: {
@@ -80,13 +81,13 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/tailwind.css'),
         },
-      }),
+      },
     ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    {
       // TODO: add logo
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
@@ -105,7 +106,7 @@ const config = {
           { to: '/blog', label: 'Blog', position: 'left' },
           { to: '/community', label: 'Community', position: 'left' },
           { to: '/plugins', label: 'Plugins', position: 'left' },
-          { to: '/gpts', label: 'GPTs', position: 'left' },
+          { to: '/gpts', label: 'Software Templates', position: 'left' },
           {
             href: 'https://showcase.janus-idp.io/',
             label: 'Showcase',
@@ -175,6 +176,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['bash', 'diff', 'json'],
         magicComments: [
           // Extend the default highlight class name
           {
@@ -197,13 +199,20 @@ const config = {
           },
         ],
       },
-    }),
+    },
 
   plugins: [
     'docusaurus-plugin-tailwind',
     ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader'),
     ...fetchRemoteContent(GPT_LIST, 'GPTHeader'),
   ],
+  markdown: {
+    mdx1Compat: {
+      comments: false,
+      admonitions: false,
+      headingIds: false,
+    },
+  },
 };
 
-module.exports = config;
+export default config;

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-/** @type {import('ui/types').GPT[]} */
-const GPT_LIST = [
+import type { GPT } from 'ui/types';
+
+export const GPT_LIST: GPT[] = [
   {
     title: 'Ansible Job',
     description: 'Launch an Ansible Job within Ansible Automation Platform',
@@ -82,7 +83,7 @@ const GPT_LIST = [
   {
     title: 'Quarkus Backend application',
     description: 'Create a starter Quarkus Backend application with a CI pipeline',
-    href: `gpts/quarkus-backend`,
+    href: 'gpts/quarkus-backend',
     docUrl: '',
     rawDocUrl:
       'https://raw.githubusercontent.com/janus-idp/software-templates/main/templates/github/quarkus-backend',
@@ -101,5 +102,3 @@ const GPT_LIST = [
       'https://github.com/janus-idp/software-templates/tree/main/templates/github/spring-boot-backend',
   },
 ];
-
-module.exports = { GPT_LIST };

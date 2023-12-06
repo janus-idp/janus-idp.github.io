@@ -16,7 +16,6 @@
 
 import { Cog8ToothIcon } from '@heroicons/react/20/solid';
 import type Fuse from 'fuse.js';
-import React from 'react';
 import { FaNodeJs as NodejsIcon, FaReact as ReactIcon } from 'react-icons/fa';
 import { useSearch } from '../../hooks';
 import { Plugin } from '../../types';

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { Homepage } from '../../types';
 
 type HomepageTileProps = Homepage;

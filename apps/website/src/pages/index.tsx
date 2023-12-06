@@ -17,9 +17,8 @@
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import React from 'react';
 import { HomepageGrid } from 'ui/components/homepage-grid/homepage-grid';
-import HOMEPAGE_LIST from '../../content/homepage-list';
+import { HOMEPAGE_LIST } from '../../content/homepage-list';
 
 function HomepageHeader(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
