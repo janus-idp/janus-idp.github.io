@@ -17,7 +17,6 @@
 import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useIsBrowser from '@docusaurus/useIsBrowser';
-import React from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { AnalyticsProvider } from 'ui/providers';
 import { QueryParamProvider } from 'use-query-params';

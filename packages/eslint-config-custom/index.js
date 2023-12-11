@@ -77,6 +77,8 @@ module.exports = {
         'react/no-array-index-key': 'warn',
         // Sometimes its useful to return a useless fragment instead of adding a null as a union type
         'react/jsx-no-useless-fragment': 'warn',
+        // Automatic JSX runtime is enabled
+        'react/react-in-jsx-scope': 'off',
         // Airbnb prefers forEach
         'unicorn/no-array-for-each': 'off',
         // React prefers capitalized file names for components

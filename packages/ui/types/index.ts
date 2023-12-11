@@ -21,18 +21,18 @@ export type Feature = {
   description: string;
 };
 
-export type RemoteContent<T = undefined> = Feature & {
+export type RemoteContent = Feature & {
   href: string;
   docUrl: string;
   rawDocUrl: string;
   sourceUrl: string;
-  category?: T;
 };
 
 export type PluginCategoryKind = 'Frontend' | 'Backend' | 'Custom Actions';
 
-export type Plugin = RemoteContent<PluginCategoryKind> & {
+export type Plugin = RemoteContent & {
   icon: string;
+  category: PluginCategoryKind;
 };
 
 export type GPT = RemoteContent;

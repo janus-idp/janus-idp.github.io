@@ -15,7 +15,6 @@
  */
 
 import Fuse from 'fuse.js';
-import React from 'react';
 import { useSearch } from '../../hooks';
 import { GPT } from '../../types';
 import { Searchbar } from '../searchbar/searchbar';

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import type { DocusaurusRemoteContent, RemoteContent } from 'ui/types';
+
 const linkRegex = /(!?)\[([\w .-]+)]\(\.\/([\w ./-]+)\)/gm;
 
-/**
- * @param {{ entity: import('ui/types').RemoteContent, component: string }} args
- *
- * @returns {import('ui/types').DocusaurusRemoteContent}
- */
-function transformContent(args) {
+function transformContent(args: {
+  entity: RemoteContent;
+  component: string;
+}): DocusaurusRemoteContent {
   const { entity, component } = args;
 
   return [
@@ -31,14 +31,21 @@ function transformContent(args) {
       sourceBaseUrl: entity.rawDocUrl,
       outDir: `src/pages/${entity.href}`,
       documents: ['README.md'],
-      modifyContent: (fname, content) => {
+      modifyContent: (_, content): { filename: string; content: string } => {
         // Replace relative links with absolute links
-        const newContent = content.replaceAll(linkRegex, (...match) => {
-          // images require the rawDocUrl
-          return `${match[1]}[${match[2]}](${match[1] === '!' ? entity.rawDocUrl : entity.docUrl}/${
-            match[3]
-          })`;
-        });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+        const newContent = content.replaceAll(
+          linkRegex,
+          (...match: string[]) =>
+            // images require the rawDocUrl
+            `${match[1]}[${match[2]}](${match[1] === '!' ? entity.rawDocUrl : entity.docUrl}/${
+              match[3]
+            })`,
+        );
+
+        const remoteContent = Object.entries(entity)
+          .map(([key, value]) => `${key}:"${value}"`)
+          .join(',');
 
         return {
           filename: 'index.mdx',
@@ -48,9 +55,7 @@ description: ${entity.description}
 ---
 import { ${component} } from 'ui/components';
 
-<${component} remoteContent={{${Object.entries(entity)
-            .map(([key, value]) => `${key}:"${value}"`)
-            .join(',')}}} />
+<${component} remoteContent={{${remoteContent}}} />
 
 ${newContent}`,
         };
@@ -59,14 +64,9 @@ ${newContent}`,
   ];
 }
 
-/**
- * @param {import('ui/types').RemoteContent[]} remoteContent
- * @param {string} component
- *
- * @returns {import('ui/types').DocusaurusRemoteContent[]}
- */
-function fetchRemoteContent(remoteContent, component) {
+export function fetchRemoteContent(
+  remoteContent: RemoteContent[],
+  component: string,
+): DocusaurusRemoteContent[] {
   return remoteContent.map((entity) => transformContent({ entity, component }));
 }
-
-module.exports = { fetchRemoteContent };

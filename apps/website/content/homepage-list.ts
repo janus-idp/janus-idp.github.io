@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-/** @type {import('ui/types').Homepage[]} */
-const HOMEPAGE_LIST = [
+import type { Homepage } from 'ui/types';
+
+export const HOMEPAGE_LIST: Homepage[] = [
   {
-    title: 'Golden Path Templates',
+    title: 'Software Templates',
     icon: '/images/janus-gpt-image.png',
-    description: 'Provide your developers with Self Service via Golden Path Templates',
+    description: 'Provide your developers with Self Service via Software Templates',
   },
   {
     title: 'Plugins',
@@ -32,5 +33,3 @@ const HOMEPAGE_LIST = [
     description: 'Service catalog',
   },
 ];
-
-module.exports = HOMEPAGE_LIST;

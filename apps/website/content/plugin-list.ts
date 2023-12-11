@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-/** @type {import('ui/types').Plugin[]} */
-const PLUGINS_LIST = [
+import type { Plugin } from 'ui/types';
+
+export const PLUGINS_LIST: Plugin[] = [
   {
     title: '3scale',
     icon: '/images/plugins/3scale.svg',
@@ -126,5 +127,3 @@ const PLUGINS_LIST = [
     category: 'Frontend',
   },
 ];
-
-module.exports = { PLUGINS_LIST };

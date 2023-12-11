@@ -18,7 +18,6 @@ import Link from '@docusaurus/Link';
 import { PLUGINS_LIST } from '@site/content/plugin-list';
 import Layout from '@theme/Layout';
 import Fuse from 'fuse.js';
-import React from 'react';
 import { PluginsGrid } from 'ui/components';
 import { Plugin } from 'ui/types';
 
