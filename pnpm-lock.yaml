@@ -18,11 +18,11 @@ importers:
         specifier: 15.2.0
         version: 15.2.0
       prettier:
-        specifier: 3.1.0
-        version: 3.1.0
+        specifier: 3.1.1
+        version: 3.1.1
       prettier-plugin-tailwindcss:
         specifier: 0.5.8
-        version: 0.5.8(prettier@3.1.0)
+        version: 0.5.8(prettier@3.1.1)
       tsconfig:
         specifier: workspace:*
         version: link:packages/tsconfig
@@ -163,8 +163,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0(eslint@8.55.0)
       eslint-config-turbo:
-        specifier: 1.10.16
-        version: 1.10.16(eslint@8.55.0)
+        specifier: 1.11.1
+        version: 1.11.1(eslint@8.55.0)
       eslint-plugin-eslint-comments:
         specifier: 3.2.0
         version: 3.2.0(eslint@8.55.0)
@@ -6859,13 +6859,13 @@ packages:
       eslint: 8.55.0
     dev: false
 
-  /eslint-config-turbo@1.10.16(eslint@8.55.0):
-    resolution: {integrity: sha512-O3NQI72bQHV7FvSC6lWj66EGx8drJJjuT1kuInn6nbMLOHdMBhSUX/8uhTAlHRQdlxZk2j9HtgFCIzSc93w42g==}
+  /eslint-config-turbo@1.11.1(eslint@8.55.0):
+    resolution: {integrity: sha512-F0w5nusZ3SMSXS+ns/f0GLiRmLyP0+20Nd1xPgRXxJSW3UCsurysuqfCjo4VwSIVK2mfkDSdrn6/+JxV3WZgiw==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 8.55.0
-      eslint-plugin-turbo: 1.10.16(eslint@8.55.0)
+      eslint-plugin-turbo: 1.11.1(eslint@8.55.0)
     dev: false
 
   /eslint-import-resolver-node@0.3.9:
@@ -7083,8 +7083,8 @@ packages:
       string.prototype.matchall: 4.0.10
     dev: false
 
-  /eslint-plugin-turbo@1.10.16(eslint@8.55.0):
-    resolution: {integrity: sha512-ZjrR88MTN64PNGufSEcM0tf+V1xFYVbeiMeuIqr0aiABGomxFLo4DBkQ7WI4WzkZtWQSIA2sP+yxqSboEfL9MQ==}
+  /eslint-plugin-turbo@1.11.1(eslint@8.55.0):
+    resolution: {integrity: sha512-QegEzLp9CIsDVQOSSjvEl6QUUGpb7Hj9IdFdgz7OHBYzhCArY5z+Q3y+LO6jn1MSkzGUteGNjLhrlkjXadePCA==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -11008,7 +11008,7 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  /prettier-plugin-tailwindcss@0.5.8(prettier@3.1.0):
+  /prettier-plugin-tailwindcss@0.5.8(prettier@3.1.1):
     resolution: {integrity: sha512-9XqjDi0zA/6IUYe3cC80+Eb+z0DU4vFF4yARVKddRZaW2ocBVawjpsFU7FtLn/xlBA8Fubp6Pd3HP3415Go4aw==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
@@ -11057,11 +11057,11 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 3.1.0
+      prettier: 3.1.1
     dev: true
 
-  /prettier@3.1.0:
-    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
+  /prettier@3.1.1:
+    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
