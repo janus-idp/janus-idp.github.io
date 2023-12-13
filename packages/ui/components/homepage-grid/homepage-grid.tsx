@@ -18,11 +18,11 @@ import { Homepage } from '../../types';
 
 type HomepageTileProps = Homepage;
 
-function HomepageTile({ icon, title, description }: HomepageTileProps): JSX.Element {
+function HomepageTile({ Icon, title, description }: HomepageTileProps): JSX.Element {
   return (
     <div>
-      <div className="text--center">
-        <img className="h-[200px] w-[200px]" src={icon} alt={`${title} icon`} />
+      <div className="my-8 text-center">
+        <Icon className="dark:text-pf-cyan-300 h-[200px] w-[200px]" />
       </div>
       <div className="text-center">
         <h3>{title}</h3>

@@ -14,22 +14,24 @@
  * limitations under the License.
  */
 
+import { FaBookOpen as CatalogIcon, FaPlug as PlugIcon } from 'react-icons/fa6';
+import { IoIosInfinite as InfiniteIcon } from 'react-icons/io';
 import type { Homepage } from 'ui/types';
 
 export const HOMEPAGE_LIST: Homepage[] = [
   {
     title: 'Software Templates',
-    icon: '/images/janus-gpt-image.png',
+    Icon: InfiniteIcon,
     description: 'Provide your developers with Self Service via Software Templates',
   },
   {
     title: 'Plugins',
-    icon: '/images/janus-plugin.png',
-    description: 'Extend your developer portal with plugins for backstage',
+    Icon: PlugIcon,
+    description: 'Extend your developer portal with plugins for Backstage',
   },
   {
     title: 'Service Catalog',
-    icon: '/images/janus-hero-image.png',
-    description: 'Service catalog',
+    Icon: CatalogIcon,
+    description: 'Locate your services and their owners',
   },
 ];
