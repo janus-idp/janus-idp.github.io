@@ -15,6 +15,7 @@
  */
 
 import type { AxiosRequestConfig } from 'axios';
+import type { IconType } from 'react-icons';
 
 export type Feature = {
   title: string;
@@ -38,7 +39,7 @@ export type Plugin = RemoteContent & {
 export type GPT = RemoteContent;
 
 export type Homepage = Feature & {
-  icon: string;
+  Icon: IconType;
 };
 
 export type DocusaurusRemoteContent = [
