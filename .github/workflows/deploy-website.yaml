@@ -41,6 +41,11 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pages: write
+      id-token: write
     env:
       WRITE_KEY: semVJB1hXAeudvf1VExo0gdJcJQheGBZ
       G_TAG: ${{ vars.G_TAG }}
@@ -79,6 +84,10 @@ jobs:
     needs: build
     permissions:
       actions: read
+      contents: read
+      pages: write
+      id-token: write
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
