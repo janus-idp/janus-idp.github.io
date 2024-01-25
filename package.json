@@ -35,5 +35,5 @@
     "*": "turbo run prettier:fix --",
     "*.{js,jsx,ts,tsx,mjs,cjs}": "turbo run lint -- --fix"
   },
-  "packageManager": "pnpm@8.14.1"
+  "packageManager": "pnpm@8.14.3"
 }
