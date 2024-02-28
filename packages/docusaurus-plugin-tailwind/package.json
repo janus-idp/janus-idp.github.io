@@ -9,8 +9,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "devDependencies": {
-    "@docusaurus/types": "3.1.0",
-    "@types/node": "20.11.6",
+    "@docusaurus/types": "3.1.1",
+    "@types/node": "20.11.20",
     "autoprefixer": "10.4.17",
     "eslint": "8.56.0",
     "eslint-config-custom": "workspace:*",
