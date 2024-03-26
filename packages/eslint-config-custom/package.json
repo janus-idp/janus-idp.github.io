@@ -4,11 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "6.19.1",
-    "@typescript-eslint/parser": "6.19.1",
+    "@typescript-eslint/eslint-plugin": "7.4.0",
+    "@typescript-eslint/parser": "7.4.0",
     "eslint": "8.56.0",
     "eslint-config-airbnb": "19.0.4",
-    "eslint-config-airbnb-typescript": "17.1.0",
+    "eslint-config-airbnb-typescript": "18.0.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-turbo": "1.11.3",
     "eslint-plugin-eslint-comments": "3.2.0",
@@ -20,7 +20,7 @@
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-typescript-enum": "2.1.0",
-    "eslint-plugin-unicorn": "50.0.1",
+    "eslint-plugin-unicorn": "51.0.1",
     "tsconfig": "workspace:*"
   },
   "devDependencies": {
