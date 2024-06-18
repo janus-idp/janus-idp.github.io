@@ -62,12 +62,7 @@ const config = {
           trackingID: process.env.G_TAG ?? 'G_TAG',
           anonymizeIP: true,
         },
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/janus-idp/janus-idp.github.io/tree/main/apps/website/',
-        },
+        docs: false,
         blog: {
           feedOptions: {
             type: 'all',
@@ -97,12 +92,6 @@ const config = {
           src: '/images/icon.svg',
         },
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Documentation',
-          },
           { to: '/blog', label: 'Blog', position: 'left' },
           { to: '/community', label: 'Community', position: 'left' },
           { to: '/plugins', label: 'Plugins', position: 'left' },
@@ -122,15 +111,6 @@ const config = {
       footer: {
         style: 'dark',
         links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Introduction',
-                to: '/docs/intro',
-              },
-            ],
-          },
           {
             title: 'Community',
             items: [
