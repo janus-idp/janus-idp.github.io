@@ -21,5 +21,3 @@ yarn-error.log*
 
 /src/pages/plugins
 !/src/pages/plugins.tsx
-/src/pages/gpts
-!/src/pages/gpts.tsx
