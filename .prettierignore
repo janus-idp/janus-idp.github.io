@@ -4,4 +4,3 @@
 pnpm-lock.yaml
 
 /apps/website/src/pages/plugins/**/index.mdx
-/apps/website/src/pages/gpts/**/index.mdx
