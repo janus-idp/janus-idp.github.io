@@ -184,10 +184,7 @@ const config = {
       },
     },
 
-  plugins: [
-    'docusaurus-plugin-tailwind',
-    ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader'),
-  ],
+  plugins: ['docusaurus-plugin-tailwind', ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader')],
   markdown: {
     mdx1Compat: {
       comments: false,
