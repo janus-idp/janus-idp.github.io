@@ -45,6 +45,12 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
+      - name: Ensure pnpm-lock.yaml
+        run: |
+          if [ ! -f pnpm-lock.yaml ]; then
+            pnpm install
+          fi
+
       - name: Install dependencies
         run: pnpm install --prefer-offline --frozen-lockfile
 
