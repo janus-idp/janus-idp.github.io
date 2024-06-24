@@ -35,10 +35,7 @@ export type UseSearch<
   ) => void;
 };
 
-type UseSearchArgs<
-  ContentType extends Plugin,
-  CategoryType extends CategoryOptions | undefined,
-> = {
+type UseSearchArgs<ContentType extends Plugin, CategoryType extends CategoryOptions | undefined> = {
   CATEGORIES?: CategoryType[];
   CONTENT_FUSE: Fuse<ContentType>;
   CONTENT_LIST: ContentType[];
