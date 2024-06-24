@@ -16,7 +16,6 @@
 
 import dotenv from 'dotenv';
 import { themes } from 'prism-react-renderer';
-import { GPT_LIST } from './content/gpts-list';
 import { PLUGINS_LIST } from './content/plugin-list';
 import { fetchRemoteContent } from './src/lib/utils/fetch-remote-content';
 
@@ -95,7 +94,11 @@ const config = {
           { to: '/blog', label: 'Blog', position: 'left' },
           { to: '/community', label: 'Community', position: 'left' },
           { to: '/plugins', label: 'Plugins', position: 'left' },
-          { to: '/gpts', label: 'Software Templates', position: 'left' },
+          {
+            href: 'https://github.com/janus-idp/software-templates',
+            label: 'Software Templates',
+            position: 'left',
+          },
           {
             href: 'https://showcase.janus-idp.io/',
             label: 'Showcase',
@@ -181,11 +184,7 @@ const config = {
       },
     },
 
-  plugins: [
-    'docusaurus-plugin-tailwind',
-    ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader'),
-    ...fetchRemoteContent(GPT_LIST, 'GPTHeader'),
-  ],
+  plugins: ['docusaurus-plugin-tailwind', ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader')],
   markdown: {
     mdx1Compat: {
       comments: false,

@@ -18,10 +18,10 @@ import type Fuse from 'fuse.js';
 import { useMemo, useState } from 'react';
 import { StringParam, useQueryParams } from 'use-query-params';
 import { type CategoryOptions } from '../../components';
-import { GPT, Plugin } from '../../types';
+import { Plugin } from '../../types';
 
 export type UseSearch<
-  ContentType extends GPT | Plugin,
+  ContentType extends Plugin,
   CategoryType extends CategoryOptions | undefined,
 > = {
   content: ContentType[];
@@ -35,17 +35,14 @@ export type UseSearch<
   ) => void;
 };
 
-type UseSearchArgs<
-  ContentType extends GPT | Plugin,
-  CategoryType extends CategoryOptions | undefined,
-> = {
+type UseSearchArgs<ContentType extends Plugin, CategoryType extends CategoryOptions | undefined> = {
   CATEGORIES?: CategoryType[];
   CONTENT_FUSE: Fuse<ContentType>;
   CONTENT_LIST: ContentType[];
 };
 
 export function useSearch<
-  ContentType extends GPT | Plugin,
+  ContentType extends Plugin,
   CategoryType extends CategoryOptions | undefined,
 >(args: UseSearchArgs<ContentType, CategoryType>): UseSearch<ContentType, CategoryType> {
   const { CATEGORIES, CONTENT_FUSE, CONTENT_LIST } = args;
