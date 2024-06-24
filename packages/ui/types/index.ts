@@ -36,8 +36,6 @@ export type Plugin = RemoteContent & {
   category: PluginCategoryKind;
 };
 
-export type GPT = RemoteContent;
-
 export type Homepage = Feature & {
   Icon: IconType;
 };

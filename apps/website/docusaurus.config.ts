@@ -16,7 +16,6 @@
 
 import dotenv from 'dotenv';
 import { themes } from 'prism-react-renderer';
-import { GPT_LIST } from './content/gpts-list';
 import { PLUGINS_LIST } from './content/plugin-list';
 import { fetchRemoteContent } from './src/lib/utils/fetch-remote-content';
 
@@ -188,7 +187,6 @@ const config = {
   plugins: [
     'docusaurus-plugin-tailwind',
     ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader'),
-    ...fetchRemoteContent(GPT_LIST, 'GPTHeader'),
   ],
   markdown: {
     mdx1Compat: {
