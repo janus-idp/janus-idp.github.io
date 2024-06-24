@@ -95,8 +95,11 @@ const config = {
           { to: '/blog', label: 'Blog', position: 'left' },
           { to: '/community', label: 'Community', position: 'left' },
           { to: '/plugins', label: 'Plugins', position: 'left' },
-          // add url here:
-          { to: '/gpts', label: 'Software Templates', position: 'left' },
+          {
+            href: 'https://github.com/janus-idp/software-templates',
+            label: 'Software Templates',
+            position: 'left',
+          },
           {
             href: 'https://showcase.janus-idp.io/',
             label: 'Showcase',
