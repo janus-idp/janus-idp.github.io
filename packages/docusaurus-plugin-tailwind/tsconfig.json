@@ -5,8 +5,8 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/.tsbuildinfo",
     "rootDir": "src",
-    "outDir": "dist",
+    "outDir": "dist"
   },
   "include": ["."],
-  "exclude": ["dist", "build", "node_modules"],
+  "exclude": ["dist", "build", "node_modules"]
 }

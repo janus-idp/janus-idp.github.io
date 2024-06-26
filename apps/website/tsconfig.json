@@ -4,6 +4,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "checkJs": true,
-    "lib": ["DOM", "ESNext"],
-  },
+    "lib": ["DOM", "ESNext"]
+  }
 }
