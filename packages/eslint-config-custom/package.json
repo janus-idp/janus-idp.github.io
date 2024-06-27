@@ -24,7 +24,7 @@
     "tsconfig": "workspace:*"
   },
   "devDependencies": {
-    "eslint-plugin-turbo": "^2.0.5",
+    "eslint-plugin-turbo": "2.0.5",
     "typescript": "5.5.2"
   },
   "publishConfig": {
