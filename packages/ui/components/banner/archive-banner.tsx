@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-export default function ArchiveBanner() : JSX.Element{
-    return <div className='p-4 text-center text-red-900 bg-red-200 m-2'>
-       As of July 1, 2024, all Janus IDP blogs have been archived and will no longer be updated. Some information in these posts may be outdated and may not work as described.
+export default function ArchiveBanner(): JSX.Element {
+  return (
+    <div className="m-2 bg-red-200 p-4 text-center text-red-900">
+      As of July 1, 2024, all Janus IDP blogs have been archived and will no longer be updated. Some
+      information in these posts may be outdated and may not work as described.
     </div>
+  );
 }
