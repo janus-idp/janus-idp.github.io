@@ -7,7 +7,9 @@ description: Using OpenShift Authentication to Secure Access to Backstage
 
 import ArchiveBanner from 'ui/components/banner/archive-banner';
 
-<ArchiveBanner /># Using OpenShift Authentication to Secure Access to Backstage
+<ArchiveBanner />
+
+# Using OpenShift Authentication to Secure Access to Backstage
 
 Backstage is a tool for building Internal Developer Platforms and includes the flexibility to be deployed within a variety of operating environments, including containers. In prior articles, it was introduced how the deployment of Backstage within Kubernetes environments can be streamlined through the use of the [Backstage Helm chart](https://github.com/backstage/charts/tree/main/charts/backstage) as well as integrating the platform into identity stores, such as Keycloak. OpenShift is a common deployment target for running Backstage as it provides enterprise grade container orchestration and one of its capabilities is the ability to integrate with a variety of Identity Providers. Since many users of Backstage also use OpenShift to build and deploy containerized workloads, there is a desire to more closely tie into existing workflows and access models. This article introduces how Backstage can be integrated with OpenShift’s existing authentication capabilities to provide a seamless path for users to access the Backstage portal.
 
