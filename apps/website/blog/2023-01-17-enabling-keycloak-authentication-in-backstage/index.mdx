@@ -5,6 +5,10 @@ tags: [keycloak, authentication]
 description: Enabling Keycloak Authentication in Backstage
 ---
 
+import ArchiveBanner from 'ui/components/banner/archive-banner';
+
+<ArchiveBanner />
+
 # Enabling Keycloak Authentication in Backstage
 
 The software catalog is the heart of Backstage as it provides a centralized mechanism for organizing all of the assets within a particular domain. This content can include everything from services, websites, pipelines and everything in between and the catalog provides a facility for managing these assets in a declarative fashion along with assigning ownership against them. Identity records within Backstage are represented as Users (individual entities) and Groups (a collection of users) and they enable the association of ownership and policies to resources within the software catalog. The determination of who the user is and their association to a User entity within the software catalog is the core functionality of the authentication system within Backstage. Every installation of Backstage includes a number of [built-in](https://backstage.io/docs/auth/#built-in-authentication-providers) authentication providers, and while GitHub is the most common, several alternatives are available to choose from including GitLab, Google and Azure.

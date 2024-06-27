@@ -5,6 +5,10 @@ tags: [techdocs]
 description: Recommended Approach to Configuring Tech Docs for Backstage on OpenShift with GitHub Actions and OpenShift Data Foundation
 ---
 
+import ArchiveBanner from 'ui/components/banner/archive-banner';
+
+<ArchiveBanner />
+
 # Recommended Approach to Configuring Tech Docs for Backstage on OpenShift
 
 Backstage includes a built-in techdocs builder that can be used to generate static HTML documentation from your codebase. However, the default basic setup of the "local" builder is not intended for production. This is because the local builder requires that you have a running instance of Backstage and the techdocs plugin installed on your local machine, as well as the use of local storage.
