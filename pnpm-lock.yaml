@@ -205,6 +205,9 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
     devDependencies:
+      eslint-plugin-turbo:
+        specifier: ^2.0.5
+        version: 2.0.5(eslint@8.57.0)
       typescript:
         specifier: 5.5.2
         version: 5.5.2
@@ -3813,6 +3816,11 @@ packages:
 
   eslint-plugin-turbo@1.13.4:
     resolution: {integrity: sha512-82GfMzrewI/DJB92Bbch239GWbGx4j1zvjk1lqb06lxIlMPnVwUHVwPbAnLfyLG3JuhLv9whxGkO/q1CL18JTg==}
+    peerDependencies:
+      eslint: '>6.6.0'
+
+  eslint-plugin-turbo@2.0.5:
+    resolution: {integrity: sha512-nCTXZdaKmdRybBdjnMrDFG+ppLc9toUqB01Hf0pfhkQw8OoC29oJIVPsCSvuL/W58RKD02CNEUrwnVt57t36IQ==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -12111,6 +12119,11 @@ snapshots:
       string.prototype.matchall: 4.0.11
 
   eslint-plugin-turbo@1.13.4(eslint@8.57.0):
+    dependencies:
+      dotenv: 16.0.3
+      eslint: 8.57.0
+
+  eslint-plugin-turbo@2.0.5(eslint@8.57.0):
     dependencies:
       dotenv: 16.0.3
       eslint: 8.57.0
