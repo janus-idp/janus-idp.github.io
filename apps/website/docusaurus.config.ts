@@ -118,10 +118,6 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Slack',
-                href: 'https://join.slack.com/t/janus-idp/shared_invite/zt-1pxtehxom-fCFtF9rRe3vFqUiFFeAkmg',
-              },
-              {
                 label: 'YouTube',
                 href: 'https://www.youtube.com/@januscommunity',
               },
@@ -133,10 +129,6 @@ const config = {
               {
                 label: 'Mailing List',
                 href: 'https://groups.google.com/g/janus-idp-community',
-              },
-              {
-                label: 'Calendar',
-                href: 'https://calendar.google.com/calendar/u/0?cid=amFudXMuaWRwLmNvbW11bml0eUBnbWFpbC5jb20',
               },
             ],
           },
