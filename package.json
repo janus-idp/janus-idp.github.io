@@ -43,5 +43,5 @@
       "eslint --ext .js,.jsx,.ts,.tsx --fix ."
     ]
   },
-  "packageManager": "pnpm@9.4.0"
+  "packageManager": "pnpm@9.5.0"
 }
