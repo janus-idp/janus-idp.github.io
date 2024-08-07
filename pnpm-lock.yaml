@@ -187,8 +187,8 @@ importers:
         specifier: 3.1.5
         version: 3.1.5(eslint@8.57.0)
       eslint-plugin-promise:
-        specifier: 6.5.1
-        version: 6.5.1(eslint@8.57.0)
+        specifier: 6.6.0
+        version: 6.6.0(eslint@8.57.0)
       eslint-plugin-react:
         specifier: 7.35.0
         version: 7.35.0(eslint@8.57.0)
@@ -206,8 +206,8 @@ importers:
         version: link:../tsconfig
     devDependencies:
       eslint-plugin-turbo:
-        specifier: 2.0.9
-        version: 2.0.9(eslint@8.57.0)
+        specifier: 2.0.12
+        version: 2.0.12(eslint@8.57.0)
       typescript:
         specifier: 5.5.3
         version: 5.5.3
@@ -3274,8 +3274,8 @@ packages:
     peerDependencies:
       eslint: '>=8.0.0'
 
-  eslint-plugin-promise@6.5.1:
-    resolution: {integrity: sha512-KEYBjj9nCynXAquwKrYEnIJ1zK+e+O5jqwn/9Aln/FhdOXm6WwsmCVatDM6OAxkEzbigsyD79Fi3DUWWqulTEA==}
+  eslint-plugin-promise@6.6.0:
+    resolution: {integrity: sha512-57Zzfw8G6+Gq7axm2Pdo3gW/Rx3h9Yywgn61uE/3elTCOePEHVrn2i5CdfBwA1BLK0Q0WqctICIUSqXZW/VprQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -3297,8 +3297,8 @@ packages:
     peerDependencies:
       eslint: '>6.6.0'
 
-  eslint-plugin-turbo@2.0.9:
-    resolution: {integrity: sha512-q4s4mg6JcXzz5zK4LC3c6FcWehGAWjGj7kIM76ZvG0KiR9Ks0znzjnAKW0NoiDP4s/gt3r4YPOpI357qWt167Q==}
+  eslint-plugin-turbo@2.0.12:
+    resolution: {integrity: sha512-vXWKer7F0RPTcVy1B+hFTEK4mlEOpouB8MCAFD3WW4C6t98wvuDCsIPjxIldpxg7CnwmRxALpNWgNVkU2LVVEQ==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -10891,7 +10891,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-promise@6.5.1(eslint@8.57.0):
+  eslint-plugin-promise@6.6.0(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
 
@@ -10926,7 +10926,7 @@ snapshots:
       dotenv: 16.0.3
       eslint: 8.57.0
 
-  eslint-plugin-turbo@2.0.9(eslint@8.57.0):
+  eslint-plugin-turbo@2.0.12(eslint@8.57.0):
     dependencies:
       dotenv: 16.0.3
       eslint: 8.57.0
