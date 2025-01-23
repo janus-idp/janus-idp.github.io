@@ -14,7 +14,7 @@
     "autoprefixer": "10.4.19",
     "eslint": "8.57.0",
     "eslint-config-custom": "workspace:*",
-    "tailwindcss": "3.4.6",
+    "tailwindcss": "4.0.0",
     "tsconfig": "workspace:*",
     "typescript": "5.5.3"
   }
