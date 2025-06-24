@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import type { AxiosRequestConfig } from 'axios';
 import type { IconType } from 'react-icons';
 
 export type Feature = {
@@ -22,34 +21,6 @@ export type Feature = {
   description: string;
 };
 
-export type RemoteContent = Feature & {
-  href: string;
-  docUrl: string;
-  rawDocUrl: string;
-  sourceUrl: string;
-};
-
-export type PluginCategoryKind = 'Frontend' | 'Backend' | 'Custom Actions';
-
-export type Plugin = RemoteContent & {
-  icon: string;
-  category: PluginCategoryKind;
-};
-
 export type Homepage = Feature & {
   Icon: IconType;
 };
-
-export type DocusaurusRemoteContent = [
-  string,
-  {
-    name: string;
-    sourceBaseUrl: string;
-    outDir: string;
-    documents: string[] | Promise<string[]>;
-    performCleanup?: boolean;
-    noRuntimeDownloads?: boolean;
-    requestConfig?: AxiosRequestConfig;
-    modifyContent?: (filename: string, content: string) => { filename?: string; content?: string };
-  },
-];

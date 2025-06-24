@@ -24,17 +24,17 @@ import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
 import { EnvironmentProvider } from '../lib/providers/environment-provider';
 import { CustomFields } from '../lib/types';
 
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any */
 export default function Root({ children }: { children: React.ReactNode }): JSX.Element {
-  const location = useLocation();
-  const {
-    siteConfig: { customFields },
-  } = useDocusaurusContext();
+  const location = useLocation() as { pathname: string };
+  const context = useDocusaurusContext() as any;
+  const customFields = context.siteConfig.customFields as CustomFields;
   const isBrowser = useIsBrowser();
 
   return (
     <EnvironmentProvider>
       <AnalyticsProvider
-        writeKey={(customFields as CustomFields).writeKey}
+        writeKey={customFields.writeKey}
         pathname={location.pathname}
         isSSR={!isBrowser}
       >

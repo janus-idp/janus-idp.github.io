@@ -14,45 +14,24 @@
  * limitations under the License.
  */
 
-import Link from '@docusaurus/Link';
-import { PLUGINS_LIST } from '@site/content/plugin-list';
-import Layout from '@theme/Layout';
-import Fuse from 'fuse.js';
-import { PluginsGrid } from 'ui/components';
-import { Plugin } from 'ui/types';
-
-const PLUGIN_FUSE = new Fuse(PLUGINS_LIST as Plugin[], {
-  threshold: 0.25,
-  ignoreLocation: true,
-  keys: [{ name: 'title', weight: 2 }, 'description'],
-});
-
-function PluginsHeader(): JSX.Element {
-  return (
-    <header className="hero hero--primary relative overflow-hidden px-0 py-16 text-center">
-      <div className="container">
-        <h1 className="hero__title">Janus Plugins</h1>
-        <p className="hero__subtitle">Have a plugin idea?</p>
-        <div className="flex items-center justify-center">
-          <Link
-            className="button button--secondary button--lg"
-            to="https://github.com/janus-idp/backstage-plugins/issues/new?assignees=&labels=plugin&projects=&template=plugin.yaml&title=%F0%9F%94%8C+Plugin%3A+ins"
-          >
-            Submit a proposal for a plugin!
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
+import { useEffect } from 'react';
 
 export default function Plugins(): JSX.Element {
+  useEffect(() => {
+    // Redirect to the janus sunset update blog post with plugin migrations section
+    window.location.href = '/blog/2025/06/24/janus-sunset-update#plugin-migrations';
+  }, []);
+
   return (
-    <Layout title="Plugins" description="Description will go into a meta tag in <head />">
-      <PluginsHeader />
-      <main>
-        <PluginsGrid PLUGIN_FUSE={PLUGIN_FUSE} PLUGIN_LIST={PLUGINS_LIST as Plugin[]} />
-      </main>
-    </Layout>
+    <div style={{ textAlign: 'center', padding: '2rem' }}>
+      <h1>Redirecting...</h1>
+      <p>
+        Plugin information has moved. You will be redirected to the{' '}
+        <a href="/blog/2025/06/24/janus-sunset-update#plugin-migrations">
+          Janus Sunset Update - Plugin Migrations
+        </a>{' '}
+        page.
+      </p>
+    </div>
   );
 }

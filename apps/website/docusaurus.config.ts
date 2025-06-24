@@ -16,8 +16,6 @@
 
 import dotenv from 'dotenv';
 import { themes } from 'prism-react-renderer';
-import { PLUGINS_LIST } from './content/plugin-list';
-import { fetchRemoteContent } from './src/lib/utils/fetch-remote-content';
 
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.vsDark;
@@ -92,18 +90,6 @@ const config = {
         },
         items: [
           { to: '/blog', label: 'Blog', position: 'left' },
-          { to: '/community', label: 'Community', position: 'left' },
-          { to: '/plugins', label: 'Plugins', position: 'left' },
-          {
-            href: 'https://github.com/janus-idp/software-templates',
-            label: 'Software Templates',
-            position: 'left',
-          },
-          {
-            href: 'https://showcase.janus-idp.io/',
-            label: 'Showcase',
-            position: 'right',
-          },
           {
             href: 'https://github.com/orgs/janus-idp/repositories',
             label: 'GitHub',
@@ -113,39 +99,6 @@ const config = {
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'YouTube',
-                href: 'https://www.youtube.com/@januscommunity',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/JanusIDP',
-              },
-
-              {
-                label: 'Mailing List',
-                href: 'https://groups.google.com/g/janus-idp-community',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/orgs/janus-idp/repositories',
-              },
-            ],
-          },
-        ],
         copyright,
       },
       prism: {
@@ -176,7 +129,7 @@ const config = {
       },
     },
 
-  plugins: ['docusaurus-plugin-tailwind', ...fetchRemoteContent(PLUGINS_LIST, 'PluginHeader')],
+  plugins: ['docusaurus-plugin-tailwind'],
   markdown: {
     mdx1Compat: {
       comments: false,

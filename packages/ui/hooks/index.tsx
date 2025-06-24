@@ -15,4 +15,3 @@
  */
 
 export * from './use-analytics/use-analytics';
-export * from './use-search/use-search';
