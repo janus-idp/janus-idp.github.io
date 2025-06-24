@@ -129,7 +129,20 @@ const config = {
       },
     },
 
-  plugins: ['docusaurus-plugin-tailwind'],
+  plugins: [
+    'docusaurus-plugin-tailwind',
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: '/plugins',
+            to: '/blog/2025/06/24/janus-sunset-update#plugin-migrations',
+          },
+        ],
+      },
+    ],
+  ],
   markdown: {
     mdx1Compat: {
       comments: false,
