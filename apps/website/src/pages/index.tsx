@@ -21,7 +21,10 @@ import { HomepageGrid } from 'ui/components/homepage-grid/homepage-grid';
 import { HOMEPAGE_LIST } from '../../content/homepage-list';
 
 function HomepageHeader(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
+  const { siteConfig } = useDocusaurusContext() as {
+    siteConfig: { title: string; tagline: string };
+  };
 
   return (
     <header className="hero hero--primary relative overflow-hidden px-0 py-16 text-center">
@@ -29,8 +32,13 @@ function HomepageHeader(): JSX.Element {
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className="flex items-center justify-center">
-          <Link className="button button--secondary button--lg" to="/plugins">
-            <span className="wrapped-link mb-4 mt-8">Checkout our plugins for Backstage! 🔌</span>
+          <Link
+            className="button button--warning button--lg"
+            to="/blog/2025/06/24/janus-sunset-update"
+          >
+            <span className="wrapped-link mb-4 mt-8">
+              ⚠️ View Migration Status & Sunset Information
+            </span>
           </Link>
         </div>
       </div>
