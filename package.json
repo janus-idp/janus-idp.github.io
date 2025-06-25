@@ -21,12 +21,12 @@
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
-    "husky": "9.1.1",
-    "lint-staged": "15.2.7",
+    "husky": "9.1.7",
+    "lint-staged": "15.5.2",
     "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "0.6.5",
+    "prettier-plugin-tailwindcss": "0.6.13",
     "tsconfig": "workspace:*",
-    "turbo": "2.0.9"
+    "turbo": "2.5.4"
   },
   "engines": {
     "node": ">=18.0"
@@ -43,5 +43,5 @@
       "eslint --ext .js,.jsx,.ts,.tsx --fix ."
     ]
   },
-  "packageManager": "pnpm@9.5.0"
+  "packageManager": "pnpm@9.15.9"
 }
