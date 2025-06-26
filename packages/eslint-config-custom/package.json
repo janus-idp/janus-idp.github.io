@@ -6,25 +6,25 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.1.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-turbo": "1.13.4",
     "eslint-plugin-eslint-comments": "3.2.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jsx-a11y": "6.9.0",
-    "eslint-plugin-license-header": "0.6.1",
-    "eslint-plugin-mdx": "3.1.5",
-    "eslint-plugin-promise": "6.5.1",
-    "eslint-plugin-react": "7.35.0",
+    "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-license-header": "0.8.0",
+    "eslint-plugin-mdx": "3.5.0",
+    "eslint-plugin-promise": "6.6.0",
+    "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-typescript-enum": "2.1.0",
     "eslint-plugin-unicorn": "50.0.1",
     "tsconfig": "workspace:*"
   },
   "devDependencies": {
-    "eslint-plugin-turbo": "2.0.9",
+    "eslint-plugin-turbo": "2.5.4",
     "typescript": "5.8.3"
   },
   "publishConfig": {
